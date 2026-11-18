@@ -49,18 +49,20 @@ jobs:
       - name: Signing key
         env:
           KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "KEYSTORE_PASS=$KEYSTORE_PASS" >> "$GITHUB_ENV"
           else
             echo "::warning::KEYSTORE_B64 secret is not set: signing with a temporary key. This APK cannot update an app signed with the release key."
-            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -storepass temporarykey -keypass temporarykey -alias hcc \
+            TMP_PASS=$(openssl rand -hex 16); echo "::add-mask::$TMP_PASS"
+            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -storepass "$TMP_PASS" -keypass "$TMP_PASS" -alias hcc \
               -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Church History (temporary key)"
+            echo "KEYSTORE_PASS=$TMP_PASS" >> "$GITHUB_ENV"
           fi
 
       - name: Build APK
-        env:
-          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS || 'temporarykey' }}
         run: KEYSTORE="$RUNNER_TEMP/release.jks" bash scripts/build_apk.sh "${{ steps.v.outputs.code }}" "${{ steps.v.outputs.name }}"
 
       - name: Attach to the release
