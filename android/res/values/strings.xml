@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><string name="app_name">Church History</string><string name="widget_name">Quote of the day</string><string name="widget_desc">A daily quotation from the Church Fathers</string>
+<string name="w_verse">Verse of the day</string><string name="w_verse_desc">A Bible verse each day; tap to read the chapter</string>
+<string name="w_otd">On this day</string><string name="w_otd_desc">What happened on today’s date in church history</string>
+<string name="w_continue">Continue</string><string name="w_continue_desc">Pick up the episode or Bible chapter you were reading</string>
+<string name="w_vbig">Verse of the day (large)</string><string name="w_vbig_desc">Today\u2019s verse in English with the original Greek or Hebrew</string>
+<string name="w_plan">Today’s reading</string><string name="w_plan_desc">The next step in your reading plan</string></resources>

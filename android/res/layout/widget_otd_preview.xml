@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp" android:background="@drawable/widget_bg">
+    <TextView android:id="@+id/w_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="ON THIS DAY" android:textColor="#E2B85B" android:textSize="10sp" android:letterSpacing="0.18" android:textStyle="bold"/>
+    <TextView android:id="@+id/w_text" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="8dp" android:text="325: The Council of Nicaea opens." android:textColor="#F3EEE4"
+        android:textSize="16sp" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end" android:maxLines="7"/>
+    <TextView android:id="@+id/w_by" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:textColor="#B9B4AA" android:textSize="12sp" android:maxLines="2" android:ellipsize="end"/>
+</LinearLayout>
