@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wv_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="18dp" android:background="@drawable/widget_bg">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="VERSE OF THE DAY" android:textColor="#8FB4E0" android:textSize="10sp" android:letterSpacing="0.18" android:textStyle="bold"/>
+    <TextView android:id="@+id/wv_text" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="10dp" android:text="The Lord is my shepherd; I shall not want." android:textColor="#F3EEE4"
+        android:textSize="18sp" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end" android:maxLines="7"/>
+    <TextView android:id="@+id/wv_orig" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="יְהוָה רֹעִי לֹא אֶחְסָר" android:textColor="#D9C9A3"
+        android:textSize="16sp" android:fontFamily="serif" android:lineSpacingMultiplier="1.2" android:ellipsize="end" android:maxLines="3" android:textDirection="anyRtl"/>
+    <TextView android:id="@+id/wv_ref" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="Psalm 23:1" android:textColor="#B9B4AA" android:textSize="12sp" android:maxLines="1" android:ellipsize="end"/>
+</LinearLayout>
