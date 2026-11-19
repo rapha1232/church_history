@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+: the system launch screen shows the new mark on the app's night background, and the page's own
+     splash (site/index.html) picks up from it in the same place, so the launch reads as one continuous motion. -->
+<resources>
+  <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+    <item name="android:windowBackground">@color/bg</item>
+    <item name="android:statusBarColor">@color/bar</item>
+    <item name="android:navigationBarColor">@color/bar</item>
+    <item name="android:windowSplashScreenBackground">@color/bg</item>
+    <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_fg</item>
+  </style>
+</resources>

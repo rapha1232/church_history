@@ -121,7 +121,7 @@ object Updater {
     }
 
     private fun offer(a: Activity, r: Release, auto: Boolean) {
-        if (a.isFinishing) return
+        if (a.isFinishing || a.isDestroyed) return
         val notes = r.notes.lines().filter { it.isNotBlank() }.take(8).joinToString("\n").take(600)
         val d = AlertDialog.Builder(a)
             .setTitle(a.getString(R.string.upd_title, r.name))
