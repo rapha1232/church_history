@@ -98,3 +98,18 @@ ordinary users, the developer registers in the Android Developer Console:
 
 Registration ties your package name (`org.hcc.history`) and your signing key to you, which is one more reason to keep
 `release.jks` safe. Outside those four countries, nothing changes before the 2027 rollout.
+
+### Registering with the free account (enough for up to 20 devices)
+
+1. Create the signing key and the two GitHub secrets first (section 1). Registration links the app to this key.
+2. Print the key's fingerprint and copy the `SHA256:` line:
+
+   ```bash
+   keytool -list -v -keystore release.jks -alias hcc
+   ```
+
+3. Sign up in the Android Developer Console and choose the free limited-distribution account (email only, no ID).
+4. Register the app with the package name `org.hcc.history` and that SHA-256 fingerprint.
+5. Release as usual. If you need more than 20 devices later, upgrade to the standard account. The package name and
+   key stay the same, so nobody has to reinstall.
+
