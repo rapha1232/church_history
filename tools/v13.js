@@ -24,6 +24,7 @@ window.__BIB = function(src, b, data){ var k = src+"/"+b; CACHE[k] = data; (WAIT
 function load(src, b, cb){
   var k = src+"/"+b; if(CACHE[k]) return cb(CACHE[k]);
   if(WAIT[k]){ WAIT[k].push(cb); return; } WAIT[k] = [cb];
+  if(window.HCCUserEd && HCCUserEd.owns(src)){ HCCUserEd.load(src, b, function(d){ if(d) CACHE[k] = d; var w = WAIT[k] || []; delete WAIT[k]; w.forEach(function(f){ f(d); }); }); return; }
   function sg(bk){ var g = (M.grp||{})[bk] || "dc"; return M.sgrp ? M.sgrp[g] : g; }
   var file = "bible/"+src+"/"+sg(b)+".js";
   if(LOADING[file]) return; LOADING[file] = 1;
@@ -546,11 +547,14 @@ view.addEventListener("click", function(e){
 });
 
 /* @@V14@@ */
+/* open a verse straight on one tab of its sheet (the widgets' "What the Fathers said" uses ~comm) */
+function openVerseTab(v, t){ if(["orig","eds","links","comm"].indexOf(t) < 0) return; var n = 0;
+  (function find(){ var el = view && view.querySelector('.bv[data-v="'+v+'"]'); if(el){ tab = t; openSheet(el); return; } if(++n < 50) setTimeout(find, 150); })(); }
 /* ---------- route ---------- */
 var rendered = false;
 function onRoute(){
   var h = location.hash.slice(1);
-  if(h.indexOf("bible~") === 0){ var p = h.split("~"); history.replaceState(null, "", "#home"); go(p[1], p[2], +p[3], +p[4]); return; }
+  if(h.indexOf("bible~") === 0){ var p = h.split("~"); history.replaceState(null, "", "#home"); go(p[1], p[2], +p[3], +p[4]); if(p[5] && +p[4]) openVerseTab(+p[4], p[5]); return; }
   if(h === "bible"){ if(!rendered || pendingV){ rendered = true; render({v: pendingV}); pendingV = 0; } }
   else { if(menu) menu.hidden = true; closeSheet(); hideAct(); fab.hidden = true; pickHide(); if(PICK[mode] != null) mode = "read"; }
   if(h === "bible" && mode === "read" && $(".bib-text, .bib-par", view)) fab.hidden = false;

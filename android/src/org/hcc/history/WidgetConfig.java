@@ -133,8 +133,8 @@ public class WidgetConfig extends Activity {
     /* ---------------- one widget ---------------- */
 
     void renderEditor(LinearLayout col) {
-        col.addView(text("Widget style", 26, TEXT, true));
-        TextView sub = text(Widgets.NAMES[kind], 14, SUB, false);
+        col.addView(text(getString(R.string.cfg_1), 26, TEXT, true));
+        TextView sub = text(getString(Widgets.NAMES[kind]), 14, SUB, false);
         sub.setPadding(0, dp(4), 0, dp(16));
         col.addView(sub);
 
@@ -161,40 +161,40 @@ public class WidgetConfig extends Activity {
             v.setClickable(false);
             host.addView(v, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } catch (Exception e) {
-            host.addView(text("Preview unavailable", 14, SUB, false));
+            host.addView(text(getString(R.string.cfg_2), 14, SUB, false));
         }
         col.addView(stage);
 
-        col.addView(heading("Preview"));
-        col.addView(row(chip("Home screen", !lockPreview, v -> { lockPreview = false; render(); }),
-                        chip("Lock screen", lockPreview, v -> { lockPreview = true; render(); })));
+        col.addView(heading(getString(R.string.cfg_3)));
+        col.addView(row(chip(getString(R.string.cfg_4), !lockPreview, v -> { lockPreview = false; render(); }),
+                        chip(getString(R.string.cfg_5), lockPreview, v -> { lockPreview = true; render(); })));
 
-        col.addView(heading("Theme"));
+        col.addView(heading(getString(R.string.cfg_6)));
         View[] themes = new View[Widgets.THEMES.length];
         for (int i = 0; i < themes.length; i++) {
             final int t = i;
-            themes[i] = chip(Widgets.THEMES[i], opt.theme == i, v -> { opt.theme = t; render(); });
+            themes[i] = chip(getString(Widgets.THEMES[i]), opt.theme == i, v -> { opt.theme = t; render(); });
         }
         col.addView(row(themes));
         TextView th = text(themeHint(opt.theme), 13, SUB, false);
         th.setPadding(0, dp(8), 0, 0);
         col.addView(th);
 
-        col.addView(heading("Text size"));
+        col.addView(heading(getString(R.string.cfg_7)));
         View[] sizes = new View[3];
         for (int i = 0; i < 3; i++) {
             final int s = i;
-            sizes[i] = chip(Widgets.SIZES[i], opt.size == i, v -> { opt.size = s; render(); });
+            sizes[i] = chip(getString(Widgets.SIZES[i]), opt.size == i, v -> { opt.size = s; render(); });
         }
         col.addView(row(sizes));
 
-        col.addView(heading("Show"));
+        col.addView(heading(getString(R.string.cfg_8)));
         if (Widgets.hasOrig(kind))
-            col.addView(toggle("Greek or Hebrew", "The verse in the original language", opt.orig, (b, on) -> { opt.orig = on; render(); }));
+            col.addView(toggle(getString(R.string.cfg_9), getString(R.string.cfg_10), opt.orig, (b, on) -> { opt.orig = on; render(); }));
         if (Widgets.hasButtons(kind))
-            col.addView(toggle("Buttons", "Arrow for the next one, and share (home screen)", opt.buttons, (b, on) -> { opt.buttons = on; render(); }));
+            col.addView(toggle(getString(R.string.cfg_11), getString(R.string.cfg_12), opt.buttons, (b, on) -> { opt.buttons = on; render(); }));
         if (Widgets.isPersonal(kind))
-            col.addView(toggle("Private on the lock screen", "Hide what you are reading until the phone is unlocked", opt.priv, (b, on) -> { opt.priv = on; render(); }));
+            col.addView(toggle(getString(R.string.cfg_13), getString(R.string.cfg_14), opt.priv, (b, on) -> { opt.priv = on; render(); }));
 
         TextView tip = text(tip(), 13, SUB, false);
         tip.setPadding(0, dp(18), 0, dp(8));
@@ -205,8 +205,8 @@ public class WidgetConfig extends Activity {
         bar.setOrientation(LinearLayout.HORIZONTAL);
         bar.setGravity(Gravity.END);
         bar.setPadding(0, dp(16), 0, 0);
-        TextView cancel = chip("Cancel", false, v -> finish());
-        TextView save = chip("Save style", true, v -> {
+        TextView cancel = chip(getString(R.string.cfg_15), false, v -> finish());
+        TextView save = chip(getString(R.string.cfg_16), true, v -> {
             Widgets.save(this, id, opt);
             Widgets.update(this, id);
             setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id));
@@ -218,59 +218,56 @@ public class WidgetConfig extends Activity {
 
     String themeHint(int t) {
         switch (t) {
-            case 1: return android.os.Build.VERSION.SDK_INT >= 31 ? "Takes its colours from your wallpaper and follows dark mode." : "Light by day, dark when dark mode is on.";
-            case 2: return "Paper white with the app’s red.";
-            case 3: return "Warm parchment, like an old book.";
-            case 4: return "See-through, for photos and the lock screen.";
-            default: return "The app’s own dark look with gold.";
+            case 1: return getString(android.os.Build.VERSION.SDK_INT >= 31 ? R.string.cfg_th_auto31 : R.string.cfg_th_auto);
+            case 2: return getString(R.string.cfg_17);
+            case 3: return getString(R.string.cfg_18);
+            case 4: return getString(R.string.cfg_19);
+            default: return getString(R.string.cfg_20);
         }
     }
 
     String tip() {
         StringBuilder s = new StringBuilder();
-        if (Widgets.hasButtons(kind)) s.append("The arrow shows another one; the widget returns to today’s at midnight, or tap “↺ Today”.\n");
-        s.append("On the lock screen, tapping the widget asks you to unlock first. ");
-        s.append(android.os.Build.VERSION.SDK_INT >= 31 ? "To come back here, touch and hold the widget and choose Customize (or the pencil)."
-                : "To come back here, open the app and choose Customize widgets.");
+        if (Widgets.hasButtons(kind)) s.append(getString(R.string.cfg_tip_arrow)).append("\n");
+        s.append(getString(R.string.cfg_tip_lock)).append(" ");
+        s.append(getString(android.os.Build.VERSION.SDK_INT >= 31 ? R.string.cfg_tip_back31 : R.string.cfg_tip_back));
         return s.toString();
     }
 
     /* ---------------- list of placed widgets, and adding new ones ---------------- */
 
     void renderList(LinearLayout col) {
-        col.addView(text("Widgets", 26, TEXT, true));
-        TextView sub = text("Home screen and lock screen", 14, SUB, false);
+        col.addView(text(getString(R.string.cfg_21), 26, TEXT, true));
+        TextView sub = text(getString(R.string.cfg_22), 14, SUB, false);
         sub.setPadding(0, dp(4), 0, dp(4));
         col.addView(sub);
 
         List<int[]> placed = Widgets.placed(this);
-        col.addView(heading("Your widgets"));
-        if (placed.isEmpty()) col.addView(text("None yet. Add one below, or from your launcher’s widget list.", 15, SUB, false));
+        col.addView(heading(getString(R.string.cfg_23)));
+        if (placed.isEmpty()) col.addView(text(getString(R.string.cfg_24), 15, SUB, false));
         for (int[] p : placed) {
             Widgets.Opt o = Widgets.opt(this, p[1], p[0]);
             Bundle b = AppWidgetManager.getInstance(this).getAppWidgetOptions(p[1]);
             boolean lock = b != null && b.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, 0) == android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
-            col.addView(card(Widgets.NAMES[p[0]], (lock ? "Lock screen" : "Home screen") + " · " + Widgets.THEMES[o.theme] + " · " + Widgets.SIZES[o.size] + " text", "Edit",
+            col.addView(card(getString(Widgets.NAMES[p[0]]), getString(lock ? R.string.cfg_lock : R.string.cfg_home) + " · " + getString(Widgets.THEMES[o.theme]) + " · " + getString(R.string.cfg_size_text, getString(Widgets.SIZES[o.size])), getString(R.string.cfg_edit),
                     v -> startActivity(new Intent(this, WidgetConfig.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, p[1]))));
         }
 
-        col.addView(heading("Add a widget"));
+        col.addView(heading(getString(R.string.cfg_25)));
         boolean pin = Widgets.canPin(this);
         if (!pin) {
-            TextView how = text("Touch and hold an empty spot on your home screen, choose Widgets, then find Church History.", 15, SUB, false);
+            TextView how = text(getString(R.string.cfg_26), 15, SUB, false);
             how.setPadding(0, 0, 0, dp(14));
             col.addView(how);
         }
-        String[] what = {"A saying of the Church Fathers, with an arrow for more", "A verse each day; tap to read the chapter",
-                "Today in church history, or the next anniversary", "The episode or chapter you were reading",
-                "The next step in your reading plan", "The verse with the original Greek or Hebrew", "Date, verse, the Fathers and the calendar in one card"};
+        int[] what = {R.string.cfg_what_quote, R.string.cfg_what_verse, R.string.cfg_what_otd, R.string.cfg_what_continue,
+                R.string.cfg_what_plan, R.string.cfg_what_vbig, R.string.cfg_what_today};
         int[] order = {Widgets.TODAY, Widgets.VERSE, Widgets.VBIG, Widgets.QUOTE, Widgets.OTD, Widgets.CONT, Widgets.PLAN};
         for (int k : order) {
             final int kk = k;
-            col.addView(card(Widgets.NAMES[k], what[k], pin ? "Add" : null, v -> Widgets.pin(this, kk)));
+            col.addView(card(getString(Widgets.NAMES[k]), getString(what[k]), pin ? getString(R.string.cfg_add) : null, v -> Widgets.pin(this, kk)));
         }
-        TextView lock = text("Lock screen: on phones and tablets that support lock-screen widgets (Android 16 QPR2 and later, Pixel Tablet hub), "
-                + "open the lock screen’s widget area and add any Church History widget. Turn on “Private on the lock screen” for the reading widgets if others can see your phone.", 13, SUB, false);
+        TextView lock = text(getString(R.string.cfg_27), 13, SUB, false);
         lock.setPadding(0, dp(18), 0, 0);
         lock.setLineSpacing(0, 1.3f);
         col.addView(lock);

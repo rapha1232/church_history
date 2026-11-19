@@ -16,5 +16,6 @@ public class DailyReceiver extends BroadcastReceiver {
         /* time, time-zone and language changes move "today", so redraw */
         Daily.updateWidgets(c);
         Daily.schedule(c);
+        if (ACT_WIDGET.equals(a)) Updater.checkInBackground(c, goAsync());
     }
 }

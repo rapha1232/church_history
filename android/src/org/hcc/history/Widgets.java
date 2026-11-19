@@ -29,13 +29,13 @@ import org.json.JSONObject;
 class Widgets {
     static final int QUOTE = 0, VERSE = 1, OTD = 2, CONT = 3, PLAN = 4, VBIG = 5, TODAY = 6;
     static final String[] KEYS = {"quote", "verse", "otd", "continue", "plan", "verse_large", "today"};
-    static final String[] NAMES = {"Quote of the day", "Verse of the day", "On this day", "Continue reading",
-            "Today’s reading", "Verse of the day (large)", "Today"};
+    static final int[] NAMES = {R.string.widget_name, R.string.w_verse, R.string.w_otd, R.string.w_continue,
+            R.string.w_plan, R.string.w_vbig, R.string.w_today};
     static final Class<?>[] PROVIDERS = {QuoteWidget.class, VerseWidget.class, OtdWidget.class, ContinueWidget.class,
             PlanWidget.class, VerseLargeWidget.class, TodayWidget.class};
 
     /* themes: 0 Night (the app), 1 Auto (Material You / follows dark mode), 2 Light, 3 Parchment, 4 Glass */
-    static final String[] THEMES = {"Night", "Auto", "Light", "Parchment", "Glass"};
+    static final int[] THEMES = {R.string.th_night, R.string.th_auto, R.string.th_light, R.string.th_parch, R.string.th_glass};
     static final int[] BG = {R.drawable.wbg_n, R.drawable.wbg_a, R.drawable.wbg_l, R.drawable.wbg_p, R.drawable.wbg_g};
     static final int[] BTN = {R.drawable.wbtn_n, R.drawable.wbtn_a, R.drawable.wbtn_l, R.drawable.wbtn_p, R.drawable.wbtn_g};
     static final int[] LINE = {R.drawable.wline_n, R.drawable.wline_a, R.drawable.wline_l, R.drawable.wline_p, R.drawable.wline_g};
@@ -46,7 +46,14 @@ class Widgets {
     static final int[] C_SUB = {R.color.wn_sub, R.color.wa_sub, R.color.wl_sub, R.color.wp_sub, R.color.wg_sub};
     static final int[] C_ACC = {R.color.wn_acc, R.color.wa_acc, R.color.wl_acc, R.color.wp_acc, R.color.wg_acc};
     static final int[] C_ACC2 = {R.color.wn_acc2, R.color.wa_acc2, R.color.wl_acc2, R.color.wp_acc2, R.color.wg_acc2};
-    static final String[] SIZES = {"Small", "Medium", "Large"};
+    static final int[] SIZES = {R.string.sz_small, R.string.sz_medium, R.string.sz_large};
+    static final int[] IC_FATHERS = {R.drawable.wic_fathers_n, R.drawable.wic_fathers_a, R.drawable.wic_fathers_l, R.drawable.wic_fathers_p, R.drawable.wic_fathers_g};
+
+    /* strings in the app's language (Lang.wrap applies the in-app choice on Android 12 and older) */
+    static Context L(Context c) { return Lang.wrap(c); }
+    static String s(Context c, int id) { return L(c).getString(id); }
+    static Locale loc(Context c) { return L(c).getResources().getConfiguration().getLocales().get(0); }
+    static String up(Context c, int id) { return s(c, id).toUpperCase(loc(c)); }
     static final String WP = "widgets";
 
     static JSONArray verses, otd;
@@ -87,10 +94,16 @@ class Widgets {
             if (otd == null) otd = new JSONArray(asset(c, "onthisday.json"));
             int n = otd.length(); if (n == 0) return null;
             Calendar now = Calendar.getInstance();
-            int key = (now.get(Calendar.MONTH) + 1) * 100 + now.get(Calendar.DAY_OF_MONTH), start = 0;
-            while (start < n && otd.getJSONArray(start).getInt(0) * 100 + otd.getJSONArray(start).getInt(1) < key) start++;
+            int start = otdStart(otd, now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH));
             return otd.getJSONArray(((start + off) % n + n) % n);
         } catch (Exception e) { return null; }
+    }
+
+    /** Index of the first calendar entry on or after month/day (wrapping to January after the last one). */
+    static int otdStart(JSONArray a, int month, int day) {
+        int key = month * 100 + day, n = a.length(), i = 0;
+        try { while (i < n && a.getJSONArray(i).getInt(0) * 100 + a.getJSONArray(i).getInt(1) < key) i++; } catch (Exception e) { return 0; }
+        return i == n ? 0 : i;
     }
 
     static boolean isToday(JSONArray r) {
@@ -98,15 +111,16 @@ class Widgets {
         return r != null && r.optInt(0) == now.get(Calendar.MONTH) + 1 && r.optInt(1) == now.get(Calendar.DAY_OF_MONTH);
     }
 
-    static String dayMonth(JSONArray r) {
+    static String dayMonth(Context c, JSONArray r) {
         Calendar k = Calendar.getInstance(); k.set(Calendar.DAY_OF_MONTH, 1); k.set(Calendar.MONTH, r.optInt(0) - 1); k.set(Calendar.DAY_OF_MONTH, r.optInt(1));
-        return new SimpleDateFormat("d MMMM", Locale.ENGLISH).format(k.getTime());
+        return new SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(loc(c), "dMMMM"), loc(c)).format(k.getTime());
     }
 
-    static String otdBy(JSONArray r) {
-        if (r == null || r.isNull(2)) return "Church history calendar";
+    static String otdBy(Context c, JSONArray r) {
+        if (r == null || r.isNull(2)) return s(c, R.string.c_calendar);
         int y = r.optInt(2), ago = Calendar.getInstance().get(Calendar.YEAR) - y;
-        return "AD " + y + (ago > 0 ? " · " + String.format(Locale.ENGLISH, "%,d", ago) + " years ago" : "");
+        String ad = String.format(L(c).getString(R.string.c_ad), y);
+        return ago > 0 ? ad + " · " + L(c).getResources().getQuantityString(R.plurals.c_years_ago, ago, String.format(loc(c), "%,d", ago)) : ad;
     }
 
     static String otdHash(JSONArray r) {
@@ -171,7 +185,7 @@ class Widgets {
     /* ---------------- content ---------------- */
 
     static final class Content {
-        String label = "", meta = "", text = "", orig = "", by = "", hash = "home", share = "";
+        String label = "", meta = "", text = "", orig = "", by = "", hash = "home", share = "", fathers = "";
         boolean nextable;
     }
 
@@ -180,37 +194,37 @@ class Widgets {
         SharedPreferences p = c.getSharedPreferences(Daily.PREFS, Context.MODE_PRIVATE);
         if (kind == QUOTE) {
             JSONObject q = quoteAt(c, off);
-            k.label = off == 0 ? "QUOTE OF THE DAY" : "FROM THE FATHERS"; k.nextable = true;
-            if (q == null) { k.text = "Open the app to load today’s quote."; return k; }
+            k.label = up(c, off == 0 ? R.string.c_quote : R.string.c_fathers); k.nextable = true;
+            if (q == null) { k.text = s(c, R.string.c_load_quote); return k; }
             k.meta = q.optString("d"); k.text = "“" + q.optString("q") + "”"; k.by = "— " + Daily.cite(q);
             k.share = k.text + "\n— " + Daily.cite(q);
         } else if (kind == VERSE || kind == VBIG) {
             JSONObject v = verseAt(c, off);
-            k.label = off == 0 ? "VERSE OF THE DAY" : "FROM SCRIPTURE"; k.nextable = true;
-            if (v == null) { k.text = "Open the app to load today’s verse."; k.hash = "bible"; return k; }
-            k.text = v.optString("t"); k.by = v.optString("r") + " · WEB"; k.hash = verseHash(v);
-            if (o.orig) { k.orig = v.optString("o"); k.meta = "hbo".equals(v.optString("ol")) ? "Hebrew" : "Greek"; }
+            k.label = up(c, off == 0 ? R.string.c_verse : R.string.c_scripture); k.nextable = true;
+            if (v == null) { k.text = s(c, R.string.c_load_verse); k.hash = "bible"; return k; }
+            k.text = v.optString("t"); k.by = v.optString("r") + " · WEB"; k.hash = verseHash(v); k.fathers = k.hash + "~comm";
+            if (o.orig) { k.orig = v.optString("o"); k.meta = s(c, "hbo".equals(v.optString("ol")) ? R.string.c_hebrew : R.string.c_greek); }
             k.share = k.text + "\n— " + v.optString("r") + " (World English Bible)";
         } else if (kind == OTD) {
             JSONArray r = otdAt(c, off); k.nextable = true; k.hash = "ref-otd";
-            if (r == null) { k.label = "ON THIS DAY"; k.text = "Tap to browse the church year."; return k; }
+            if (r == null) { k.label = up(c, R.string.c_otd); k.text = s(c, R.string.c_browse_year); return k; }
             boolean now = isToday(r);
-            k.label = now ? "ON THIS DAY" : "COMING UP"; k.meta = dayMonth(r).toUpperCase(Locale.ENGLISH);
-            k.text = r.optString(3); k.by = otdBy(r); k.hash = otdHash(r);
-            k.share = dayMonth(r) + (r.isNull(2) ? "" : ", " + r.optInt(2)) + ": " + r.optString(3);
+            k.label = up(c, now ? R.string.c_otd : R.string.c_coming); k.meta = dayMonth(c, r).toUpperCase(loc(c));
+            k.text = r.optString(3); k.by = otdBy(c, r); k.hash = otdHash(r);
+            k.share = dayMonth(c, r) + (r.isNull(2) ? "" : ", " + r.optInt(2)) + ": " + r.optString(3);
         } else if (kind == CONT) {
             String t = p.getString("pt", ""), sub = p.getString("ps", "");
-            k.label = "CONTINUE READING"; k.hash = p.getString("ph", "home");
-            if (locked && o.priv && t.length() > 0) { k.text = "Your place is saved"; k.by = "Unlock to continue"; }
+            k.label = up(c, R.string.w_continue); k.hash = p.getString("ph", "home");
+            if (locked && o.priv && t.length() > 0) { k.text = s(c, R.string.c_place_saved); k.by = s(c, R.string.c_unlock_continue); }
             else if (t.length() > 0) { k.text = t; k.by = sub; }
-            else { k.text = "Start the series"; k.by = "Season 1 begins before Christ"; k.hash = "home"; }
+            else { k.text = s(c, R.string.c_start); k.by = s(c, R.string.c_start_sub); k.hash = "home"; }
         } else if (kind == PLAN) {
             String plan = p.getString("plan", ""), bplan = p.getString("bplan", "");
             String text = bplan.length() > 0 ? bplan + (plan.length() > 0 ? "\n" + plan : "") : plan;
-            k.label = "TODAY’S READING"; k.hash = bplan.length() > 0 ? "bible" : "ref-plans";
-            if (text.length() == 0) { k.text = "No plan started"; k.by = "Tap to choose a reading plan"; }
-            else if (locked && o.priv) { k.text = "Today’s reading is ready"; k.by = "Unlock to read"; }
-            else { k.text = text; k.by = bplan.length() > 0 ? "Bible reading plan" : "Reading plan"; }
+            k.label = up(c, R.string.w_plan); k.hash = bplan.length() > 0 ? "bible" : "ref-plans";
+            if (text.length() == 0) { k.text = s(c, R.string.c_no_plan); k.by = s(c, R.string.c_choose_plan); }
+            else if (locked && o.priv) { k.text = s(c, R.string.c_plan_ready); k.by = s(c, R.string.c_unlock_read); }
+            else { k.text = text; k.by = s(c, bplan.length() > 0 ? R.string.c_bible_plan : R.string.c_plan); }
         }
         return k;
     }
@@ -233,7 +247,7 @@ class Widgets {
 
     static PendingIntent share(Context c, String text, int id) {
         Intent s = new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text);
-        Intent ch = Intent.createChooser(s, "Share").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent ch = Intent.createChooser(s, s(c, R.string.share)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(c, id * 8 + 3, ch, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
@@ -269,7 +283,7 @@ class Widgets {
         }
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.w_main);
         boolean back = k.nextable && off != 0;
-        chrome(c, v, o, k.label, back ? "↺ Today" : k.meta);
+        chrome(c, v, o, k.label, back ? "↺ " + s(c, R.string.c_back_today) : k.meta);
         if (back) v.setOnClickPendingIntent(R.id.w_meta, action(c, WidgetAction.RESET, id, kind));
         v.setTextViewText(R.id.w_text, k.text); color(c, v, R.id.w_text, C_TEXT[t]);
         float sz = base(o) + (kind == VBIG ? 2f : 0f) + (isPersonal(kind) ? 1f : 0f);
@@ -288,6 +302,10 @@ class Widgets {
         boolean sh = btn && !locked && k.share.length() > 0;
         v.setViewVisibility(R.id.w_share, sh ? View.VISIBLE : View.GONE);
         if (sh) { v.setInt(R.id.w_share, "setBackgroundResource", BTN[t]); v.setImageViewResource(R.id.w_share, IC_SHARE[t]); v.setOnClickPendingIntent(R.id.w_share, share(c, k.share, id)); }
+        /* what the Fathers said about this verse: opens the verse with its commentary */
+        boolean fa = btn && k.fathers.length() > 0;
+        v.setViewVisibility(R.id.w_fathers, fa ? View.VISIBLE : View.GONE);
+        if (fa) { v.setInt(R.id.w_fathers, "setBackgroundResource", BTN[t]); v.setImageViewResource(R.id.w_fathers, IC_FATHERS[t]); v.setOnClickPendingIntent(R.id.w_fathers, open(c, k.fathers, req + 7)); }
         v.setOnClickPendingIntent(android.R.id.background, open(c, k.hash, req));
         if (Build.VERSION.SDK_INT >= 31) v.setContentDescription(android.R.id.background, k.label + ". " + k.text + ". " + k.by);
         return v;
@@ -296,7 +314,7 @@ class Widgets {
     static RemoteViews buildSmallToday(Context c, int id, Opt o) {
         Opt q = o.copy(); q.orig = false;
         RemoteViews v = build(c, VERSE, id, q, true, true);
-        v.setTextViewText(R.id.w_label, new SimpleDateFormat("EEEE d MMMM", Locale.ENGLISH).format(new Date()).toUpperCase(Locale.ENGLISH));
+        v.setTextViewText(R.id.w_label, longDate(c, new Date()).toUpperCase(loc(c)));
         return v;
     }
 
@@ -304,8 +322,10 @@ class Widgets {
         int t = o.theme; float b = base(o) - 1f;
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.w_today);
         Calendar now = Calendar.getInstance(); int hr = now.get(Calendar.HOUR_OF_DAY);
-        chrome(c, v, o, hr < 5 ? "GOOD NIGHT" : hr < 12 ? "GOOD MORNING" : hr < 18 ? "GOOD AFTERNOON" : "GOOD EVENING", "");
-        v.setTextViewText(R.id.t_date, new SimpleDateFormat("EEEE d MMMM", Locale.ENGLISH).format(now.getTime()));
+        chrome(c, v, o, up(c, hr < 5 ? R.string.c_night : hr < 12 ? R.string.c_morning : hr < 18 ? R.string.c_afternoon : R.string.c_evening), "");
+        v.setTextViewText(R.id.t_date, longDate(c, now.getTime()));
+        v.setTextViewText(R.id.t_v_lbl, up(c, R.string.c_verse_short));
+        v.setTextViewText(R.id.t_q_lbl, up(c, R.string.c_fathers));
         color(c, v, R.id.t_date, C_TEXT[t]);
         v.setTextViewTextSize(R.id.t_date, TypedValue.COMPLEX_UNIT_SP, b + 7f);
         int[][] secs = {{R.id.t_v_lbl, R.id.t_v_text, R.id.t_v_by}, {R.id.t_q_lbl, R.id.t_q_text, R.id.t_q_by}, {R.id.t_o_lbl, R.id.t_o_text, R.id.t_o_by}};
@@ -315,7 +335,7 @@ class Widgets {
         }
         for (int l : new int[]{R.id.t_q_line, R.id.t_o_line}) v.setInt(l, "setBackgroundResource", LINE[t]);
         JSONObject vs = verse(c);
-        v.setTextViewText(R.id.t_v_text, vs == null ? "Open the app to load today’s verse." : vs.optString("t"));
+        v.setTextViewText(R.id.t_v_text, vs == null ? s(c, R.string.c_load_verse) : vs.optString("t"));
         v.setTextViewText(R.id.t_v_by, vs == null ? "" : vs.optString("r") + " · WEB");
         boolean orig = o.orig && vs != null && vs.optString("o").length() > 0;
         v.setViewVisibility(R.id.t_v_orig, orig ? View.VISIBLE : View.GONE);
@@ -332,13 +352,17 @@ class Widgets {
         JSONArray r = otdAt(c, 0);
         if (r != null) {
             boolean today = isToday(r);
-            v.setTextViewText(R.id.t_o_lbl, today ? "ON THIS DAY" : "COMING UP · " + dayMonth(r).toUpperCase(Locale.ENGLISH));
+            v.setTextViewText(R.id.t_o_lbl, today ? up(c, R.string.c_otd) : up(c, R.string.c_coming) + " · " + dayMonth(c, r).toUpperCase(loc(c)));
             v.setTextViewText(R.id.t_o_text, r.optString(3));
-            v.setTextViewText(R.id.t_o_by, otdBy(r));
+            v.setTextViewText(R.id.t_o_by, otdBy(c, r));
             v.setOnClickPendingIntent(R.id.t_o, open(c, otdHash(r), id * 8 + 6));
         }
         v.setOnClickPendingIntent(android.R.id.background, open(c, "home", id * 8));
         return v;
+    }
+
+    static String longDate(Context c, Date d) {
+        return new SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(loc(c), "EEEEdMMMM"), loc(c)).format(d);
     }
 
     /** The views for one placed widget: a small and a full layout that the launcher picks between as it is resized. */

@@ -34,7 +34,7 @@ jobs:
       - name: Android SDK packages
         run: |
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0" > /dev/null
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;35.0.0" > /dev/null
 
       - name: Version from tag
         id: v
@@ -62,7 +62,12 @@ jobs:
             echo "KEYSTORE_PASS=$TMP_PASS" >> "$GITHUB_ENV"
           fi
 
-      - name: Build APK
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests
+        run: cd android && ./gradlew --no-daemon -q testReleaseUnitTest
+
+      - name: Build APK and app bundle
         run: KEYSTORE="$RUNNER_TEMP/release.jks" bash scripts/build_apk.sh "${{ steps.v.outputs.code }}" "${{ steps.v.outputs.name }}"
 
       - name: Attach to the release
@@ -71,8 +76,8 @@ jobs:
         run: |
           TAG="${{ steps.v.outputs.tag }}"
           if gh release view "$TAG" > /dev/null 2>&1; then
-            gh release upload "$TAG" dist/*.apk --clobber
+            gh release upload "$TAG" dist/*.apk dist/*.aab --clobber
           else
-            gh release create "$TAG" dist/*.apk --title "Church History $TAG" \
-              --notes "Android app ${{ steps.v.outputs.name }}. Download the APK below and open it on your phone to install or update (allow installs from your browser or files app if asked). iPhone and iPad: open the web app at https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ in Safari and choose Share → Add to Home Screen."
+            gh release create "$TAG" dist/*.apk dist/*.aab --title "Church History $TAG" \
+              --notes "Android app ${{ steps.v.outputs.name }}. Already installed? The app offers this update itself. New install: download the APK below and open it on your phone (allow installs from your browser or files app if asked). The .aab file is for app stores. iPhone and iPad: open the web app at https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/ in Safari and choose Share → Add to Home Screen."
           fi
