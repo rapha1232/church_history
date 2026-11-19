@@ -112,8 +112,8 @@ class Daily {
         JSONObject o = today(c); if (o == null) return;
         NotificationManager nm = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(CH) == null) {
-            NotificationChannel ch = new NotificationChannel(CH, "Quote of the day", NotificationManager.IMPORTANCE_DEFAULT);
-            ch.setDescription("A daily quotation from the Church Fathers");
+            NotificationChannel ch = new NotificationChannel(CH, Widgets.s(c, R.string.widget_name), NotificationManager.IMPORTANCE_DEFAULT);
+            ch.setDescription(Widgets.s(c, R.string.widget_desc_short));
             nm.createNotificationChannel(ch);
         }
         Intent open = new Intent(c, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -122,8 +122,8 @@ class Daily {
         SharedPreferences pr = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         String extra = "";
         String plan = pr.getString("plan", "");
-        if (plan.length() > 0) extra += "\n\nToday\u2019s reading: " + plan;
-        if (pr.getBoolean("otd", true)) { String ot = onThisDay(c); if (ot.length() > 0) extra += "\n\nOn this day: " + ot; }
+        if (plan.length() > 0) extra += "\n\n" + Widgets.s(c, R.string.w_plan) + ": " + plan;
+        if (pr.getBoolean("otd", true)) { String ot = onThisDay(c); if (ot.length() > 0) extra += "\n\n" + Widgets.s(c, R.string.w_otd) + ": " + ot; }
         android.app.Notification.Builder b = Build.VERSION.SDK_INT >= 26 ? new android.app.Notification.Builder(c, CH) : new android.app.Notification.Builder(c);
         b.setSmallIcon(R.drawable.ic_stat).setContentTitle(o.optString("a")).setContentText(q)
          .setStyle(new android.app.Notification.BigTextStyle().bigText("“" + q + "”\n— " + cite(o)))
@@ -135,8 +135,8 @@ class Daily {
         JSONObject o = Widgets.verse(c); if (o == null) return;
         NotificationManager nm = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel("verse") == null) {
-            NotificationChannel ch = new NotificationChannel("verse", "Verse of the day", NotificationManager.IMPORTANCE_DEFAULT);
-            ch.setDescription("A Bible verse each day");
+            NotificationChannel ch = new NotificationChannel("verse", Widgets.s(c, R.string.w_verse), NotificationManager.IMPORTANCE_DEFAULT);
+            ch.setDescription(Widgets.s(c, R.string.w_verse_desc));
             ch.setLockscreenVisibility(android.app.Notification.VISIBILITY_PUBLIC);
             nm.createNotificationChannel(ch);
         }
@@ -146,6 +146,8 @@ class Daily {
          .setStyle(new android.app.Notification.BigTextStyle().bigText(t + (og.length() > 0 ? "\n\n" + og : "") + "\n\n" + r + " (World English Bible)"))
          .setContentIntent(Widgets.open(c, "bible~web~" + o.optString("b") + "~" + o.optInt("c") + "~" + o.optInt("v"), 21))
          .setVisibility(android.app.Notification.VISIBILITY_PUBLIC)
+         .addAction(new android.app.Notification.Action.Builder((android.graphics.drawable.Icon) null, Widgets.s(c, R.string.c_fathers_btn),
+                 Widgets.open(c, Widgets.verseHash(o) + "~comm", 22)).build())
          .setAutoCancel(true).setColor(0xFF2C5B8C);
         try { nm.notify(8, b.build()); } catch (SecurityException e) { }
     }

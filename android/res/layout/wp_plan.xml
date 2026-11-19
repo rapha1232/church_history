@@ -18,10 +18,12 @@
             android:orientation="horizontal" android:gravity="center_vertical">
             <TextView android:id="@+id/w_by" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                 android:text="Reading plan" android:textSize="12sp" android:maxLines="2" android:ellipsize="end" android:textColor="@color/wn_sub"/>
+            <ImageView android:id="@+id/w_fathers" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_fathers_n" android:contentDescription="@string/c_fathers_btn" android:visibility="gone"/>
             <ImageView android:id="@+id/w_share" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
-                android:background="@drawable/wbtn_n" android:src="@drawable/wic_share_n" android:contentDescription="Share" android:visibility="gone"/>
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_share_n" android:contentDescription="@string/share" android:visibility="gone"/>
             <ImageView android:id="@+id/w_next" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
-                android:background="@drawable/wbtn_n" android:src="@drawable/wic_next_n" android:contentDescription="Next" android:visibility="gone"/>
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_next_n" android:contentDescription="@string/next" android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

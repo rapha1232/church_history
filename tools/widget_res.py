@@ -41,6 +41,7 @@ w('values/widget_dimens.xml', '<resources>\n    <dimen name="w_radius">22dp</dim
 w('values-v31/widget_dimens.xml', '<resources>\n    <dimen name="w_radius">@android:dimen/system_app_widget_background_radius</dimen>\n</resources>')
 
 ICONS = {
+    'fathers': 'M6,17h3l2,-4V7H5v6h3zM14,17h3l2,-4V7h-6v6h3z',
     'next': 'M12,4l-1.41,1.41L16.17,11H4v2h12.17l-5.58,5.59L12,20l8,-8z',
     'share': 'M18,16.08c-0.76,0 -1.44,0.3 -1.96,0.77L8.91,12.7c0.05,-0.23 0.09,-0.46 0.09,-0.7s-0.04,-0.47 -0.09,-0.7l7.05,-4.11'
              'c0.54,0.5 1.25,0.81 2.04,0.81 1.66,0 3,-1.34 3,-3s-1.34,-3 -3,-3 -3,1.34 -3,3c0,0.24 0.04,0.47 0.09,0.7L8.04,9.81'
@@ -102,14 +103,16 @@ def main(label='CHURCH HISTORY', meta='', text='Tap to open.', orig='', by='', b
             android:orientation="horizontal" android:gravity="center_vertical">
             <TextView android:id="@+id/w_by" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                 android:text="%s" android:textSize="12sp" android:maxLines="2" android:ellipsize="end" %s/>
+            <ImageView android:id="@+id/w_fathers" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_fathers_n" android:contentDescription="@string/c_fathers_btn" android:visibility="%s"/>
             <ImageView android:id="@+id/w_share" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
-                android:background="@drawable/wbtn_n" android:src="@drawable/wic_share_n" android:contentDescription="Share" android:visibility="%s"/>
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_share_n" android:contentDescription="@string/share" android:visibility="%s"/>
             <ImageView android:id="@+id/w_next" android:layout_width="34dp" android:layout_height="34dp" android:layout_marginStart="8dp" android:padding="8dp"
-                android:background="@drawable/wbtn_n" android:src="@drawable/wic_next_n" android:contentDescription="Next" android:visibility="%s"/>
+                android:background="@drawable/wbtn_n" android:src="@drawable/wic_next_n" android:contentDescription="@string/next" android:visibility="%s"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>''' % (A, header(label, meta), text, size, lines, SERIF, orig, 'visible' if orig else 'gone', by, SUB,
-                     'visible' if buttons else 'gone', 'visible' if buttons else 'gone')
+                     'visible' if buttons and 'VERSE' in label else 'gone', 'visible' if buttons else 'gone', 'visible' if buttons else 'gone')
 
 
 def compact(label='CHURCH HISTORY', text='Tap to open.'):

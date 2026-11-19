@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and older: back up the reading-progress copy and the settings, not the WebView's own files
+     (large, and unsafe to copy while open) nor downloaded study packs (they download again). -->
+<full-backup-content>
+    <include domain="file" path="backup.json"/>
+    <include domain="sharedpref" path="."/>
+</full-backup-content>

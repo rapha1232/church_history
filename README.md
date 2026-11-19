@@ -8,7 +8,8 @@ an Android app and an installable iPhone/iPad web app, and works fully offline.
 ## Get the app
 
 - **Android:** open the [latest release](../../releases/latest) and download `ChurchHistory-<version>.apk`.
-  Open it on your phone to install or update (allow installs from your browser or files app if asked).
+  Open it on your phone to install it (allow installs from your browser or files app if asked). After that the app
+  **updates itself**: it offers each new release when you open it. See [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md).
 - **iPhone and iPad:** open the web app (GitHub Pages, see below) in Safari, tap **Share → Add to Home Screen**.
   On the home page, **Save everything for offline** stores all texts and images on the device.
 
@@ -17,10 +18,11 @@ an Android app and an installable iPhone/iPad web app, and works fully offline.
 | Folder | Contents |
 |---|---|
 | `site/` | The built app: `index.html`, all images (`img/`, 344 pictures) and the Bible library (`bible/`: nine editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers’ commentary, topics, people and places, lectionaries). This is exactly what ships in the APK and the web app. |
-| `android/` | The Android project: manifest, Java sources (WebView shell, bridge, widgets, notifications), resources, bundled fonts. |
+| `android/` | The Android project (Gradle, Kotlin and Java): WebView shell, bridge, widgets, notifications, study packs, backup, updater, resources in five languages, bundled fonts, unit tests in `android/test/`. |
+| `docs/` | `DISTRIBUTION.md`: signing key, releases, self-updates and free ways to distribute the app. |
 | `tools/` | The generators used to build `site/`: content layers (`extras*.py`), design and behaviour layers (`v1*.css`, `v1*.js`), Bible data builders (`bible.py`, `orig.py`, `fathers.py`, `tipnr.py`, …) and the browser test suites (`shot*.js`). |
 | `content/` | Inputs the generators read: the base page, document texts, map geometry and image metadata. |
-| `scripts/` | `build_apk.sh` (Android build) and `build_pwa.py` (iPhone/iPad web app). |
+| `scripts/` | `build_apk.sh` (Android build, APK and AAB), `prepare_assets.py` (copies the site into the app, leaving out the study packs) and `build_pwa.py` (iPhone/iPad web app). |
 | `.github/workflows/` | Automatic releases and the web app (below). |
 
 The generators in `tools/` were written for a working tree that also holds the downloaded source
@@ -29,7 +31,7 @@ the HistoricalChristianFaith commentaries, original image files). Those download
 are not stored here; everything they produce is already in `site/`. To change the app, edit
 `site/` (or rebuild it with the tools) and push.
 
-## Releases: a downloadable APK for every release
+## Releases: a downloadable APK for every release (and self-updates)
 
 The **Release APK** workflow builds the Android app from `site/` and `android/` and attaches the APK
 to a GitHub release. Start it in any of these ways:
@@ -64,10 +66,28 @@ It is then served at `https://<owner>.github.io/church_history/`.
 
 ```bash
 python3 scripts/build_pwa.py pwa                     # web app into pwa/
-KEYSTORE=release.jks KEYSTORE_PASS=... bash scripts/build_apk.sh 1800 18.0   # APK into dist/
+KEYSTORE=release.jks KEYSTORE_PASS=... bash scripts/build_apk.sh 1900 19.0   # APK and AAB into dist/
+(cd android && ./gradlew testReleaseUnitTest)                                   # unit tests
 ```
 
-`build_apk.sh` needs the Android SDK (build-tools 34.0.0, platform android-34), JDK 17, Python 3 and `zip`.
+`build_apk.sh` needs JDK 17 or later, the Android SDK (platform android-36; set `ANDROID_HOME`) and Python 3.
+Gradle downloads everything else. Widget resources and the interface strings come from `tools/widget_res.py` and
+`tools/strings_res.py` (English, Spanish, Portuguese, French and Arabic).
+
+### Study packs
+
+The word-by-word Greek and Hebrew, the lexicons and concordance, the Greek Bible and the Vulgate are left out of the
+APK. That brings it down from 63 MB to about 50 MB. The app downloads each file from the GitHub Pages web app the
+first time it is needed and keeps it. **Settings → Offline study packs** downloads a whole pack ahead of time.
+The web app must stay published for this.
+
+### Bible editions from a file
+
+**Settings → Bible editions from a file** adds a translation from a JSON file to the device it is used on
+(formats: `[{book, chapters:[{chapter, verses:[{verse, text}]}]}]`, `{books:[…]}` or `{"Genesis":{"1":{"1":"…"}}}`).
+It is stored only on that device and never added to this repository. Use it only for translations you have the right
+to use: copyrighted translations such as the NABRE (© Confraternity of Christian Doctrine) cannot be redistributed
+in this public app without the publisher's licence.
 
 ## Sources and licences
 
