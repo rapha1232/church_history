@@ -314,7 +314,7 @@ function mountQuote(){
 }
 function appSettings(){
   return '<div class="setrow"><label for="qdOn">Daily quote notification</label><input type="checkbox" class="switch" id="qdOn"></div><div class="setrow"><label for="qdAt">Time</label><input type="time" id="qdAt" value="08:00"></div>'+
-         '<p style="font:12.5px/1.5 var(--font-ui);color:var(--muted);margin:6px 0 0">Home-screen widgets: Quote of the day, Verse of the day, On this day, Continue, and Today’s reading. Add them from your launcher’s widget list.</p>';
+         '<p style="font:12.5px/1.5 var(--font-ui);color:var(--muted);margin:6px 0 0">Widgets for the home screen and lock screen: Today, Quote of the day, Verse of the day, On this day, Continue reading and Today’s reading, each with its own theme and text size.</p>';
 }
 function wireSettings(box){
   var on = $("#qdOn", box), at = $("#qdAt", box);

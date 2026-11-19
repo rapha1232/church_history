@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@android:id/background" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/wbg_n" android:clipToOutline="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <ImageView android:id="@+id/w_mark" android:layout_width="14dp" android:layout_height="14dp" android:src="@drawable/wic_mark_n" android:importantForAccessibility="no"/>
+            <TextView android:id="@+id/w_label" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="6dp" android:text="TODAY" android:textColor="@color/wn_acc" android:textSize="10sp" android:letterSpacing="0.16" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"/>
+            <TextView android:id="@+id/w_meta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+                android:text="" android:textSize="11sp" android:maxLines="1" android:textColor="@color/wn_sub"/>
+        </LinearLayout>
+        <TextView android:id="@+id/t_date" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="" android:textSize="22sp" android:maxLines="1" android:textColor="@color/wn_text" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end"/>
+        <FrameLayout android:id="@+id/t_v_line" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" android:background="@drawable/wline_n"/>
+        <LinearLayout android:id="@+id/t_v" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:id="@+id/t_v_lbl" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="VERSE" android:textColor="@color/wn_acc" android:textSize="10sp" android:letterSpacing="0.16" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"/>
+            <TextView android:id="@+id/t_v_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+                android:text="" android:textSize="15sp" android:maxLines="4" android:textColor="@color/wn_text" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end"/>
+            <TextView android:id="@+id/t_v_orig" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                android:textColor="@color/wn_acc2" android:textSize="14sp" android:fontFamily="serif" android:maxLines="2" android:ellipsize="end"
+                android:textDirection="anyRtl" android:visibility="gone"/>
+            <TextView android:id="@+id/t_v_by" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                android:text="" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" android:textColor="@color/wn_sub"/>
+        </LinearLayout>
+        <FrameLayout android:id="@+id/t_q_line" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" android:background="@drawable/wline_n"/>
+        <LinearLayout android:id="@+id/t_q" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:id="@+id/t_q_lbl" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="FROM THE FATHERS" android:textColor="@color/wn_acc" android:textSize="10sp" android:letterSpacing="0.16" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"/>
+            <TextView android:id="@+id/t_q_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+                android:text="" android:textSize="15sp" android:maxLines="3" android:textColor="@color/wn_text" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end"/>
+            <TextView android:id="@+id/t_q_by" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                android:text="" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" android:textColor="@color/wn_sub"/>
+        </LinearLayout>
+        <FrameLayout android:id="@+id/t_o_line" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp" android:background="@drawable/wline_n"/>
+        <LinearLayout android:id="@+id/t_o" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:id="@+id/t_o_lbl" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ON THIS DAY" android:textColor="@color/wn_acc" android:textSize="10sp" android:letterSpacing="0.16" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"/>
+            <TextView android:id="@+id/t_o_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+                android:text="" android:textSize="15sp" android:maxLines="2" android:textColor="@color/wn_text" android:fontFamily="serif" android:lineSpacingMultiplier="1.15" android:ellipsize="end"/>
+            <TextView android:id="@+id/t_o_by" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                android:text="" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" android:textColor="@color/wn_sub"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

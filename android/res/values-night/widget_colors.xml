@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wa_text">#F3EEE4</color>
+    <color name="wa_sub">#B9B4AA</color>
+    <color name="wa_acc">#E2B85B</color>
+    <color name="wa_acc2">#D9C9A3</color>
+    <color name="wa_bg">#F214161D</color>
+    <color name="wa_line">#22FFFFFF</color>
+</resources>

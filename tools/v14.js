@@ -552,7 +552,7 @@ function verseSettings(){
   if(!APP || !APP.setVerseDaily) return; var v = $(".votd"); if(!v || $(".vset", v)) return;
   var s = {}; try{ s = JSON.parse(APP.getVerseDaily() || "{}"); }catch(e){}
   var box = document.createElement("div"); box.className = "vset";
-  box.innerHTML = '<div class="setrow"><label for="vdOn">Daily verse notification (also on the lock screen)</label><input type="checkbox" class="switch" id="vdOn"'+(s.on ? " checked" : "")+'></div><div class="setrow"><label for="vdAt">Time</label><input type="time" id="vdAt" value="'+("0"+(s.h==null?7:s.h)).slice(-2)+':'+("0"+(s.m||0)).slice(-2)+'"></div><p class="cmp-note">Widgets: “Verse of the day” and “Verse of the day (large)”, with the Greek or Hebrew.</p>';
+  box.innerHTML = '<div class="setrow"><label for="vdOn">Daily verse notification (also on the lock screen)</label><input type="checkbox" class="switch" id="vdOn"'+(s.on ? " checked" : "")+'></div><div class="setrow"><label for="vdAt">Time</label><input type="time" id="vdAt" value="'+("0"+(s.h==null?7:s.h)).slice(-2)+':'+("0"+(s.m||0)).slice(-2)+'"></div><p class="cmp-note">Widgets: “Verse of the day”, “Verse of the day (large)” and “Today”, optionally with the Greek or Hebrew, on the home screen or lock screen.</p>';
   v.appendChild(box);
   function push(){ var p = $("#vdAt", box).value.split(":"); try{ APP.setVerseDaily($("#vdOn", box).checked, +p[0]||7, +p[1]||0); }catch(e){} haptic("tick"); }
   $("#vdOn", box).addEventListener("change", push); $("#vdAt", box).addEventListener("change", push);

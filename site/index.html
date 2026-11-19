@@ -5770,7 +5770,7 @@ function mountQuote(){
 }
 function appSettings(){
   return '<div class="setrow"><label for="qdOn">Daily quote notification</label><input type="checkbox" class="switch" id="qdOn"></div><div class="setrow"><label for="qdAt">Time</label><input type="time" id="qdAt" value="08:00"></div>'+
-         '<p style="font:12.5px/1.5 var(--font-ui);color:var(--muted);margin:6px 0 0">Home-screen widgets: Quote of the day, Verse of the day, On this day, Continue, and Today’s reading. Add them from your launcher’s widget list.</p>';
+         '<p style="font:12.5px/1.5 var(--font-ui);color:var(--muted);margin:6px 0 0">Widgets for the home screen and lock screen: Today, Quote of the day, Verse of the day, On this day, Continue reading and Today’s reading, each with its own theme and text size.</p>';
 }
 function wireSettings(box){
   var on = $("#qdOn", box), at = $("#qdAt", box);
@@ -7420,7 +7420,7 @@ function verseSettings(){
   if(!APP || !APP.setVerseDaily) return; var v = $(".votd"); if(!v || $(".vset", v)) return;
   var s = {}; try{ s = JSON.parse(APP.getVerseDaily() || "{}"); }catch(e){}
   var box = document.createElement("div"); box.className = "vset";
-  box.innerHTML = '<div class="setrow"><label for="vdOn">Daily verse notification (also on the lock screen)</label><input type="checkbox" class="switch" id="vdOn"'+(s.on ? " checked" : "")+'></div><div class="setrow"><label for="vdAt">Time</label><input type="time" id="vdAt" value="'+("0"+(s.h==null?7:s.h)).slice(-2)+':'+("0"+(s.m||0)).slice(-2)+'"></div><p class="cmp-note">Widgets: “Verse of the day” and “Verse of the day (large)”, with the Greek or Hebrew.</p>';
+  box.innerHTML = '<div class="setrow"><label for="vdOn">Daily verse notification (also on the lock screen)</label><input type="checkbox" class="switch" id="vdOn"'+(s.on ? " checked" : "")+'></div><div class="setrow"><label for="vdAt">Time</label><input type="time" id="vdAt" value="'+("0"+(s.h==null?7:s.h)).slice(-2)+':'+("0"+(s.m||0)).slice(-2)+'"></div><p class="cmp-note">Widgets: “Verse of the day”, “Verse of the day (large)” and “Today”, optionally with the Greek or Hebrew, on the home screen or lock screen.</p>';
   v.appendChild(box);
   function push(){ var p = $("#vdAt", box).value.split(":"); try{ APP.setVerseDaily($("#vdOn", box).checked, +p[0]||7, +p[1]||0); }catch(e){} haptic("tick"); }
   $("#vdOn", box).addEventListener("change", push); $("#vdAt", box).addEventListener("change", push);
@@ -8081,6 +8081,39 @@ if(tl){
   function tlRoute(){ if(location.hash === "#ref-zoom") setTimeout(build, 60); }
   addEventListener("hashchange", tlRoute); setTimeout(tlRoute, 200);
 }
+})();
+</script>
+<script>(function(){
+"use strict";
+/* Edition 18: widgets on the home screen and the lock screen. Adds "Customize" and "Add" to the
+   Notifications and widgets panels of the quote and verse cards (Android app only). */
+var $ = function(s,r){return (r||document).querySelector(s)};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var APP = window.HCCApp && window.HCCApp.isApp && window.HCCApp.openWidgets ? window.HCCApp : null;
+if(!APP) return;
+function haptic(){ try{ APP.haptic("tick"); }catch(e){} }
+function can(){ try{ return !!APP.canPinWidgets(); }catch(e){ return false; } }
+function mount(){
+  [[".qotd", "quote", "Quote"], [".votd", "verse", "Verse"]].forEach(function(c){
+    var card = $(c[0]); if(!card) return;
+    var host = $(".card-set", card) || card; if($(".wset", host)) return;
+    var box = document.createElement("div"); box.className = "wset";
+    box.innerHTML = '<div class="setrow"><span>Widgets<small>Home screen and lock screen: themes, text size, Greek or Hebrew</small></span>'+
+      '<span class="wset-b">'+(can() ? '<button type="button" class="btn-sm" data-w="'+c[1]+'">Add '+c[2]+'</button><button type="button" class="btn-sm" data-w="today">Add Today</button>' : '')+
+      '<button type="button" class="btn-sm pri" data-w="edit">Customize</button></span></div>';
+    host.appendChild(box);
+    box.addEventListener("click", function(e){
+      var b = e.target.closest("[data-w]"); if(!b) return; haptic();
+      try{ if(b.dataset.w === "edit") APP.openWidgets(); else APP.pinWidget(b.dataset.w); }catch(err){}
+    });
+  });
+}
+var css = document.createElement("style");
+css.textContent = ".wset .setrow{flex-wrap:wrap}.wset .setrow>span:first-child{display:flex;flex-direction:column;gap:2px;flex:1 1 180px}"+
+  ".wset small{font:12.5px/1.45 var(--font-ui);color:var(--muted)}.wset-b{display:flex;flex-wrap:wrap;gap:8px}.wset-b .btn-sm{min-height:40px}";
+document.head.appendChild(css);
+[400, 1400, 2600].forEach(function(t){ setTimeout(mount, t); });
+addEventListener("hashchange", function(){ setTimeout(mount, 450); });
 })();
 </script>
 </body>
