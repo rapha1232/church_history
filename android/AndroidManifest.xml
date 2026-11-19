@@ -18,6 +18,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
             </intent-filter>
         </receiver>
         <receiver android:name=".QuoteWidget" android:exported="true" android:label="@string/widget_name">
@@ -56,5 +59,19 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/verse_large_widget_info"/>
         </receiver>
+        <receiver android:name=".TodayWidget" android:exported="true" android:label="@string/w_today">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/today_widget_info"/>
+        </receiver>
+        <receiver android:name=".WidgetAction" android:exported="false"/>
+        <activity android:name=".WidgetConfig" android:exported="true" android:label="@string/w_config"
+            android:theme="@style/ConfigTheme" android:excludeFromRecents="true" android:taskAffinity="org.hcc.history.widgets"
+            android:configChanges="orientation|screenSize|screenLayout|uiMode|smallestScreenSize">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

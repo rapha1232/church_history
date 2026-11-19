@@ -13,6 +13,7 @@ public class DailyReceiver extends BroadcastReceiver {
         String a = i.getAction();
         if (ACT_QUOTE.equals(a)) Daily.notifyQuote(c);
         if (ACT_VERSE.equals(a)) Daily.notifyVerse(c);
+        /* time, time-zone and language changes move "today", so redraw */
         Daily.updateWidgets(c);
         Daily.schedule(c);
     }

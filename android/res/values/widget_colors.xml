@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wn_text">#F3EEE4</color>
+    <color name="wn_sub">#B9B4AA</color>
+    <color name="wn_acc">#E2B85B</color>
+    <color name="wn_acc2">#D9C9A3</color>
+    <color name="wn_bg">#F214161D</color>
+    <color name="wn_line">#22FFFFFF</color>
+    <color name="wl_text">#1D1B18</color>
+    <color name="wl_sub">#6A635A</color>
+    <color name="wl_acc">#A3341D</color>
+    <color name="wl_acc2">#7A5A1E</color>
+    <color name="wl_bg">#FAFBF8F2</color>
+    <color name="wl_line">#16000000</color>
+    <color name="wp_text">#2E2216</color>
+    <color name="wp_sub">#6F5C46</color>
+    <color name="wp_acc">#8A2B12</color>
+    <color name="wp_acc2">#6B4E1F</color>
+    <color name="wp_bg">#F7EADBBE</color>
+    <color name="wp_line">#26704F2A</color>
+    <color name="wg_text">#FFFFFF</color>
+    <color name="wg_sub">#E0FFFFFF</color>
+    <color name="wg_acc">#F2D27E</color>
+    <color name="wg_acc2">#EADFC4</color>
+    <color name="wg_bg">#66000000</color>
+    <color name="wg_line">#30FFFFFF</color>
+    <color name="wa_text">#1D1B18</color>
+    <color name="wa_sub">#6A635A</color>
+    <color name="wa_acc">#A3341D</color>
+    <color name="wa_acc2">#7A5A1E</color>
+    <color name="wa_bg">#FAFBF8F2</color>
+    <color name="wa_line">#16000000</color>
+</resources>

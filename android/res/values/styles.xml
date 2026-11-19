@@ -5,6 +5,10 @@
     <item name="android:statusBarColor">@color/bar</item>
     <item name="android:navigationBarColor">@color/bar</item>
   </style>
+  <style name="ConfigTheme" parent="AppTheme">
+    <item name="android:colorAccent">#E2B85B</item>
+    <item name="android:colorControlActivated">#E2B85B</item>
+  </style>
   <color name="bg">#0b0c10</color>
   <color name="bar">#0b0c10</color>
 </resources>

@@ -91,4 +91,20 @@ class Bridge {
 
     @JavascriptInterface
     public boolean isApp() { return true; }
+
+    /* ---------- widgets ---------- */
+
+    @JavascriptInterface
+    public void openWidgets() {
+        act.startActivity(new Intent(act, WidgetConfig.class));
+    }
+
+    @JavascriptInterface
+    public boolean canPinWidgets() { return Widgets.canPin(act); }
+
+    @JavascriptInterface
+    public boolean pinWidget(String key) { return Widgets.pin(act, Widgets.kindByKey(key)); }
+
+    @JavascriptInterface
+    public int widgetCount() { return Widgets.placed(act).size(); }
 }
