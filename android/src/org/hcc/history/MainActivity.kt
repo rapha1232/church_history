@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
@@ -29,6 +30,8 @@ class MainActivity : Activity() {
     var pendingText: String? = null
     var pendingBytes: ByteArray? = null
     private var fileCallback: ValueCallback<Array<Uri>>? = null
+    /** Android 12+: the system launch screen stays up until the page has put its own splash in the same place. */
+    @Volatile private var holdLaunch = Build.VERSION.SDK_INT >= 31
 
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
@@ -46,6 +49,7 @@ class MainActivity : Activity() {
         }
         val root = FrameLayout(this).apply { setBackgroundColor(0xFF0B0C10.toInt()); addView(web) }
         setContentView(root)
+        holdLaunchScreen(root)
         edgeToEdge(root)
         backHandling()
         val h = hashOf(intent)
@@ -54,6 +58,21 @@ class MainActivity : Activity() {
         Daily.schedule(this)
         Updater.checkOnStart(this)
     }
+
+    private fun holdLaunchScreen(root: FrameLayout) {
+        if (!holdLaunch) return
+        root.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                if (holdLaunch) return false
+                root.viewTreeObserver.removeOnPreDrawListener(this)
+                return true
+            }
+        })
+        root.postDelayed({ holdLaunch = false }, 1500)   // never longer than this, even if the page does not answer
+    }
+
+    /** Called by the page (Bridge.splashReady) once its splash is in place. */
+    fun releaseLaunchScreen() { holdLaunch = false }
 
     /** From Android 15 the app draws behind the status and navigation bars: keep the page clear of them and of the keyboard. */
     private fun edgeToEdge(root: FrameLayout) {
@@ -80,6 +99,24 @@ class MainActivity : Activity() {
             if (v != null && v.contains("h")) return@evaluateJavascript
             if (web.canGoBack()) web.goBack() else finish()
         }
+    }
+
+    /* Without these the page never learns it went to the background: it could not save reading progress there,
+       and its timers (carousels, backups) kept running while the app was hidden. */
+    override fun onPause() {
+        web.onPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        web.onResume()
+    }
+
+    override fun onDestroy() {
+        (web.parent as? android.view.ViewGroup)?.removeView(web)
+        web.destroy()
+        super.onDestroy()
     }
 
     override fun onNewIntent(i: Intent) {
@@ -144,13 +181,17 @@ class MainActivity : Activity() {
 }
 
 private const val BACK_JS = "(function(){function c(s){var e=document.querySelector(s);if(e){e.click();return true}return false}" +
+    "if(window.HCCCardOpen&&HCCCardOpen()){HCCCardClose();return 'h';}" +
     "if(window.HCCSourcesOpen&&HCCSourcesOpen()){HCCSourcesClose();return 'h';}" +
     "var ob=document.querySelector('.onb');if(ob){var sk=ob.querySelector('[data-ob]');if(sk)sk.click();return 'h';}" +
     "if(window.HCCBiblePickOpen&&HCCBiblePickOpen()){HCCBiblePickClose();return 'h';}" +
     "if(window.HCCBibleSheetOpen&&HCCBibleSheetOpen()){HCCBibleSheetClose();return 'h';}" +
+    "if(window.HCCVerseBarOpen&&HCCVerseBarOpen()){HCCVerseBarClose();return 'h';}" +
+    "if(window.HCCReadSetOpen&&HCCReadSetOpen()){HCCReadSetClose();return 'h';}" +
     "var lb=document.getElementById('lb');if(lb&&!lb.hidden){c('#lbClose');return 'h';}" +
     "var b=document.querySelector('.bio');if(b&&!b.hidden){c('.bio-x');return 'h';}" +
     "var np=document.querySelector('.notepop');if(np&&!np.hidden){np.hidden=true;return 'h';}" +
     "var r=document.getElementById('reader');if(r&&!r.hidden){c('#rclose');return 'h';}" +
     "if(document.body.classList.contains('navopen')){document.body.classList.remove('navopen');return 'h';}" +
+    "var rs=document.getElementById('results');if(rs&&!rs.hidden){rs.hidden=true;var q=document.getElementById('q');if(q)q.blur();document.body.classList.remove('search-on');return 'h';}" +
     "if(location.hash&&location.hash!=='#home'&&history.length<2){location.hash='home';return 'h';}return '';})()"

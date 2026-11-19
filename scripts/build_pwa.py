@@ -17,8 +17,9 @@ src = Image.open(R + 'android/icon512.png').convert('RGBA')
 os.makedirs(OUT + 'icons')
 for n in (180, 192, 512):
     src.resize((n, n), Image.LANCZOS).save(OUT + 'icons/icon-%d.png' % n)
-bg = Image.new('RGBA', (512, 512), (11, 12, 16, 255)); inner = src.resize((410, 410), Image.LANCZOS); bg.alpha_composite(inner, (51, 51)); bg.save(OUT + 'icons/maskable-512.png')
-apple = Image.new('RGB', (180, 180), (11, 12, 16)); apple.paste(src.resize((180, 180), Image.LANCZOS), (0, 0), src.resize((180, 180), Image.LANCZOS)); apple.save(OUT + 'icons/apple-touch-icon.png')
+# maskable: full-bleed, glyph inside the 80% safe circle; apple-touch: full-bleed square (iOS rounds the corners itself)
+Image.open(R + 'android/icon-maskable512.png').convert('RGBA').save(OUT + 'icons/maskable-512.png')
+Image.open(R + 'android/icon-full512.png').convert('RGB').resize((180, 180), Image.LANCZOS).save(OUT + 'icons/apple-touch-icon.png')
 manifest = {'name': 'History of the Christian Church', 'short_name': 'Church History', 'id': './', 'start_url': './#home', 'scope': './', 'display': 'standalone',
             'background_color': '#0b0c10', 'theme_color': '#0b0c10', 'description': 'The story of the Church in seasons and episodes, with the whole Bible in nine editions.',
             'icons': [{'src': 'icons/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': 'icons/icon-512.png', 'sizes': '512x512', 'type': 'image/png'},

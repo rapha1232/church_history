@@ -12,6 +12,7 @@ class Bridge(private val act: MainActivity) {
     private fun prefs() = act.getSharedPreferences(Daily.PREFS, Context.MODE_PRIVATE)
 
     @JavascriptInterface fun isApp() = true
+    @JavascriptInterface fun splashReady() = act.releaseLaunchScreen()
     @JavascriptInterface fun haptic(kind: String?) = act.haptic(kind == "strong")
     @JavascriptInterface fun appVersion(): String = BuildConfig.VERSION_NAME
 
