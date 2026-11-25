@@ -6437,7 +6437,7 @@ var POETRY = {PSA:1, PRO:1, JOB:1, SOL:1, LAM:1, ECC:1, PSX:1, PRM:1};
 var GREEKPS = {dra:1, lxx:1, lxxg:1, vul:1};
 var SEC = {ot:"Old Testament", dc:"Deuterocanonical books", app:"Appendix", nt:"New Testament"};
 var SECDC = {kjva:"Apocrypha", dra:"Deuterocanonical books", webc:"Deuterocanonical books", lxx:"Anagignoskomena (“readable” books)", webo:"Anagignoskomena (“readable” books)"};
-var st = get("hcc.bible", {ed:"kjv", b:"JOH", c:1, cmp:"", v:0});
+var st = get("hcc.bible", {ed:get("hcc.bible.def", "") || "kjv", b:"JOH", c:1, cmp:"", v:0});
 if(!ED[st.ed]) st.ed = "kjv";
 var readSet = get("hcc.bible.read", {});
 
@@ -6654,6 +6654,7 @@ function parseRef(s){
 /* ---------- open (also used by the verse of the day and widgets) ---------- */
 function go(ed, b, c, v){
   if(ed && ED[ed]) st.ed = ed;
+  else if(!ed && defEd() && ED[defEd()].idx[b] != null) st.ed = defEd();
   var b2 = equiv(st.ed, b);
   if(!b2){ var alt = M.eds.filter(function(e){ return e.idx[b] != null; })[0]; if(alt){ st.ed = alt.id; b2 = b; } else return false; }
   st.b = b2; st.c = c || 1; mode = "read";
@@ -6664,8 +6665,8 @@ var pendingV = 0;
 window.HCCBible = {go: go,
   /* Edition 21: for Studies */
   parse: function(q){ var x = String(q || "").replace(/[\u2013\u2014]/g, "-").match(/^(.*?\d+(?:\s*[:.,]\s*\d+)?)\s*(?:-\s*(\d+))?\s*$/), r = x ? parseRef(x[1]) : null; if(!r || !r.v) return null; var v2 = x[2] ? Math.max(+x[2], r.v) : r.v; return {b: r.b, c: r.c, v: r.v, v2: v2}; },
-  label: function(b, c, v, v2){ try{ return shortName(edFor(b), b) + " " + c + ":" + v + (v2 && v2 !== v ? "\u2013" + v2 : ""); }catch(e){ return b + " " + c + ":" + v; } },
-  text: function(r, cb){ try{ var ed = ED[st.ed].idx[r.b] != null ? st.ed : edFor(r.b), ch = xchap(ed, r.b, r.c), src = srcOf(ed, r.b); if(!src) return cb(null);
+  label: function(b, c, v, v2){ try{ return shortName(qEd(b), b) + " " + c + ":" + v + (v2 && v2 !== v ? "\u2013" + v2 : ""); }catch(e){ return b + " " + c + ":" + v; } },
+  text: function(r, cb){ try{ var ed = qEd(r.b), ch = xchap(ed, r.b, r.c), src = srcOf(ed, r.b); if(!src) return cb(null);
     load(src, r.b, function(d){ var t = (chapter(d, ch) || []).filter(function(x){ return x[0] >= r.v && x[0] <= (r.v2 || r.v); }).map(function(x){ return x[1]; }).join(" ").replace(/\s+/g, " ").trim();
       cb(t ? {text: t, ed: ED[ed].short, label: shortName(ed, r.b) + " " + r.c + ":" + r.v + (r.v2 && r.v2 !== r.v ? "\u2013" + r.v2 : "")} : null); }); }catch(e){ cb(null); } },
   fathers: function(r, cb){ try{ var ob = origBook(r.b) || r.b, ch = engCh(edFor(r.b), r.b, r.c), g = grpOf(ob);
@@ -6929,7 +6930,10 @@ function xrefsFor(c, cb){
   });
 }
 function xlabel(x){ return shortName(edFor(x.b), x.b) + " " + x.c + ":" + x.v + (x.v2 ? "–" + x.v2 : "") + (x.c2 ? "–" + x.c2 + ":" + x.ve : ""); }
-function edFor(b){ if(ED[st.ed].idx[b] != null) return st.ed; return ED.web.idx[b] != null ? "web" : M.eds.filter(function(e){ return e.idx[b] != null; })[0].id; }
+/* Edition 22: the default edition for quotes and references (Settings > Default Bible) */
+function defEd(){ var d = get("hcc.bible.def", ""); return d && ED[d] ? d : ""; }
+function qEd(b){ var d = defEd(); if(d && ED[d].idx[b] != null) return d; return ED[st.ed].idx[b] != null ? st.ed : edFor(b); }
+function edFor(b){ if(ED[st.ed].idx[b] != null) return st.ed; var d = defEd(); if(d && ED[d].idx[b] != null) return d; return ED.web.idx[b] != null ? "web" : M.eds.filter(function(e){ return e.idx[b] != null; })[0].id; }
 function xchap(ed, b, c){ var src = ED[ed].books[ED[ed].idx[b]][1]; return b === "PSA" && GREEKPS[src] ? hebToGreek(c) : c; }
 function linksView(c, cb){
   xrefsFor(c, function(list){
@@ -7898,14 +7902,18 @@ function mountVotd(){
   var sh = $(".shelves"); if(!sh || $(".votd", sh) || !VOTD.length) return;
   var k = vIndex(), box = document.createElement("section"); box.className = "votd"; box.setAttribute("aria-label", "Verse of the day");
   function body(){ var v = VOTD[k]; return '<blockquote>'+esc(v.t)+'</blockquote><p class="qa"><b>'+esc(v.r)+'</b> · World English Bible</p>'; }
+  function inDef(){ var v = VOTD[k], d = defEd(), kk = k; if(!d || d === "web" || ED[d].idx[v.b] == null) return;
+    var ch = xchap(d, v.b, v.c); load(ED[d].books[ED[d].idx[v.b]][1], v.b, function(dt){ if(kk !== k) return;
+      var tx = (chapter(dt, ch) || []).filter(function(x){ return x[0] === v.v; }).map(function(x){ return x[1]; }).join(" ").replace(/\s+/g, " ").trim(); if(!tx) return;
+      var vb = $(".vbody", box); if(vb) vb.innerHTML = '<blockquote>'+esc(tx)+'</blockquote><p class="qa"><b>'+esc(shortName(d, v.b)+" "+ch+":"+v.v)+'</b> · '+esc(ED[d].name)+'</p>'; }); }
   box.innerHTML = '<p class="shelf-h">Verse of the day</p><div class="vbody">'+body()+'</div><div class="qbtns"><button type="button" class="btn-sm" data-vv="read">Read the chapter</button><button type="button" class="btn-sm" data-vv="next">Another</button></div>';
   var last = get("hcc.bible.last", null);
   if(last) box.innerHTML += '<a class="more" href="#bible">Continue reading: '+esc(last.l)+' ('+esc(last.ed)+') →</a>';
-  var q = $(".qotd", sh); sh.insertBefore(box, q ? q.nextSibling : sh.firstChild);
+  var q = $(".qotd", sh); sh.insertBefore(box, q ? q.nextSibling : sh.firstChild); inDef();
   box.addEventListener("click", function(e){
     var b = e.target.closest("[data-vv]"); if(!b) return;
-    if(b.dataset.vv === "next"){ k = (k + 1 + Math.floor(Math.random()*(VOTD.length-1))) % VOTD.length; $(".vbody", box).innerHTML = body(); haptic("tick"); }
-    if(b.dataset.vv === "read"){ var v = VOTD[k]; go(ED[st.ed].idx[v.b] != null ? st.ed : "web", v.b, v.c, v.v); }
+    if(b.dataset.vv === "next"){ k = (k + 1 + Math.floor(Math.random()*(VOTD.length-1))) % VOTD.length; $(".vbody", box).innerHTML = body(); inDef(); haptic("tick"); }
+    if(b.dataset.vv === "read"){ var v = VOTD[k], e2 = defEd() && ED[defEd()].idx[v.b] != null ? defEd() : ED[st.ed].idx[v.b] != null ? st.ed : "web"; go(e2, v.b, xchap(e2, v.b, v.c), v.v); }
   });
 }
 mountVotd(); setTimeout(mountVotd, 400);
@@ -8252,6 +8260,7 @@ function haptic(){ try{ if(APP) APP.haptic("tick"); }catch(e){} }
 /* ====================== language ====================== */
 var LANGS = [["en","English"],["es","Español"],["pt","Português"],["fr","Français"],["ar","العربية"]];
 var T = {
+"Default Bible":["Biblia predeterminada", "Bíblia padrão", "Bible par défaut", "الكتاب المقدس الافتراضي"], "The edition I am reading":["La edición que estoy leyendo", "A edição que estou lendo", "L’édition que je lis", "الطبعة التي أقرأها"], "Default Bible saved":["Biblia predeterminada guardada", "Bíblia padrão salva", "Bible par défaut enregistrée", "حُفظ الكتاب المقدس الافتراضي"], "Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.":["Se usa para los versículos citados en Estudios, las referencias bíblicas, el versículo del día y los enlaces que abren la Biblia. Los libros que no tiene se toman de otra edición.", "Usada nos versículos citados em Estudos, nas referências bíblicas, no versículo do dia e nos links que abrem a Bíblia. Os livros que ela não tem vêm de outra edição.", "Utilisée pour les versets cités dans les Études, les références bibliques, le verset du jour et les liens qui ouvrent la Bible. Les livres qu’elle n’a pas viennent d’une autre édition.", "تُستخدم للآيات المقتبسة في الدراسات والمراجع الكتابية وآية اليوم والروابط التي تفتح الكتاب المقدس. الأسفار غير الموجودة فيها تؤخذ من طبعة أخرى."],
 "Series":["Serie", "Série", "Série", "السلسلة"], "Studies":["Estudios", "Estudos", "Études", "الدراسات"], "Bookmark":["Marcar", "Marcar", "Marquer", "إشارة"], "Bookmarks":["Marcadores", "Marcadores", "Signets", "الإشارات"], "Add to study":["Añadir a un estudio", "Adicionar a um estudo", "Ajouter à une étude", "أضف إلى دراسة"], "Added to":["Añadido a", "Adicionado a", "Ajouté à", "أضيف إلى"], "New study":["Nuevo estudio", "Novo estudo", "Nouvelle étude", "دراسة جديدة"], "Import a study file":["Importar un estudio", "Importar um estudo", "Importer une étude", "استيراد دراسة"], "Export as Markdown":["Exportar en Markdown", "Exportar em Markdown", "Exporter en Markdown", "تصدير بصيغة Markdown"], "Share as a file":["Compartir como archivo", "Compartilhar como arquivo", "Partager en fichier", "مشاركة كملف"], "Delete study":["Eliminar estudio", "Excluir estudo", "Supprimer l’étude", "حذف الدراسة"], "Add evidence":["Añadir prueba", "Adicionar evidência", "Ajouter un élément", "أضف دليلًا"], "Edit evidence":["Editar prueba", "Editar evidência", "Modifier l’élément", "تعديل الدليل"], "Edit":["Editar", "Editar", "Modifier", "تعديل"], "Delete":["Eliminar", "Excluir", "Supprimer", "حذف"], "Cancel":["Cancelar", "Cancelar", "Annuler", "إلغاء"], "Save changes":["Guardar cambios", "Salvar alterações", "Enregistrer", "حفظ التغييرات"], "Keep it":["Conservarlo", "Manter", "Garder", "احتفظ بها"], "Scripture":["Escritura", "Escritura", "Écriture", "الكتاب المقدس"], "Church Father":["Padre de la Iglesia", "Padre da Igreja", "Père de l’Église", "أب الكنيسة"], "Document":["Documento", "Documento", "Document", "وثيقة"], "Episode":["Episodio", "Episódio", "Épisode", "حلقة"], "Note":["Nota", "Nota", "Note", "ملاحظة"], "Link":["Enlace", "Link", "Lien", "رابط"], "Position":["Postura", "Posição", "Position", "الموقف"], "Bible reference":["Referencia bíblica", "Referência bíblica", "Référence biblique", "المرجع الكتابي"], "Author":["Autor", "Autor", "Auteur", "المؤلف"], "Quotation":["Cita", "Citação", "Citation", "الاقتباس"], "Your note (optional)":["Tu nota (opcional)", "Sua nota (opcional)", "Votre note (facultatif)", "ملاحظتك (اختياري)"], "← All studies":["← Todos los estudios", "← Todos os estudos", "← Toutes les études", "→ كل الدراسات"], "Your research":["Tu investigación", "Sua pesquisa", "Vos recherches", "بحثك"], "The Series":["La serie", "A série", "La série", "السلسلة"], "Fifteen seasons":["Quince temporadas", "Quinze temporadas", "Quinze saisons", "خمسة عشر موسمًا"], "All chapters":["Todos los capítulos", "Todos os capítulos", "Tous les chapitres", "كل الفصول"], "Method and sources":["Método y fuentes", "Método e fontes", "Méthode et sources", "المنهج والمصادر"], "Read everything on one page":["Leer todo en una página", "Ler tudo numa página", "Tout lire sur une page", "اقرأ كل شيء في صفحة واحدة"], "Start from the beginning":["Empezar desde el principio", "Começar do início", "Commencer au début", "ابدأ من البداية"], "Study companions":["Complementos de estudio", "Complementos de estudo", "Compléments d’étude", "مرافقات الدراسة"], "Yours":["Lo tuyo", "Seus itens", "Vos éléments", "الخاص بك"], "People and places":["Personas y lugares", "Pessoas e lugares", "Personnes et lieux", "أشخاص وأماكن"], "Councils and doctrine":["Concilios y doctrina", "Concílios e doutrina", "Conciles et doctrine", "المجامع والعقيدة"], "Texts and sources":["Textos y fuentes", "Textos e fontes", "Textes et sources", "النصوص والمصادر"], "Pictures":["Imágenes", "Imagens", "Images", "الصور"], "Bible companions":["Complementos bíblicos", "Complementos bíblicos", "Compléments bibliques", "مرافقات الكتاب المقدس"], "More":["Más", "Mais", "Plus", "المزيد"], "Evidence deleted":["Prueba eliminada", "Evidência excluída", "Élément supprimé", "حُذف الدليل"], "Study deleted":["Estudio eliminado", "Estudo excluído", "Étude supprimée", "حُذفت الدراسة"], "Study imported":["Estudio importado", "Estudo importado", "Étude importée", "استُوردت الدراسة"], "Name of the new study":["Nombre del nuevo estudio", "Nome do novo estudo", "Nom de la nouvelle étude", "اسم الدراسة الجديدة"],
 "Contents":["Índice","Sumário","Sommaire","المحتويات"], "Search":["Buscar","Pesquisar","Rechercher","بحث"], "Texts":["Textos","Textos","Textes","النصوص"],
 "Saved":["Guardado","Salvos","Enregistré","المحفوظات"], "Bible":["Biblia","Bíblia","Bible","الكتاب المقدس"], "Eras":["Épocas","Épocas","Époques","العصور"],
@@ -8491,6 +8500,12 @@ function render(){
   h += section("Language", '<div class="set-row"><span><small>' + esc(t("The menus and buttons change; episodes and Bible texts stay in English.")) + '</small></span><span class="set-b"><select id="setLang" aria-label="' + esc(t("Language")) + '">' +
     LANGS.map(function(l){ return '<option value="' + l[0] + '"' + (l[0] === LANG ? " selected" : "") + '>' + l[1] + '</option>'; }).join("") + '</select></span></div>');
   var when = has("backupTime") ? (function(){ try{ var ms = APP.backupTime(); return ms > 0 ? new Date(ms).toLocaleString() : ""; }catch(e){ return ""; } })() : "";
+  var DE = (window.__BIBMAN__ || {eds: []}).eds, de = get("hcc.bible.def", "");
+  h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" style="width:100%;max-width:100%;min-width:0" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
+    DE.map(function(e){ return '<option value="' + esc(e.id) + '"' + (e.id === de ? " selected" : "") + '>' + esc(e.short + " · " + e.name) + '</option>'; }).join("") + '</select></span></div>');
+  var DE = (window.__BIBMAN__ || {eds: []}).eds, de = get("hcc.bible.def", "");
+  h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
+    DE.map(function(e){ return '<option value="' + esc(e.id) + '"' + (e.id === de ? " selected" : "") + '>' + esc(e.short + " · " + e.name) + '</option>'; }).join("") + '</select></span></div>');
   h += section("Your reading and notes", '<p class="set-p">' + esc(t("Bookmarks, notes, highlights, reading plans, chapters read and settings. Save them to a file to move them to another phone or browser.")) + '</p>' +
     (APP ? '<p class="set-p">' + esc(t("Also kept by your phone’s backup, so a new phone or a reinstall gets it back.")) + (when ? ' ' + esc(t("Last copy")) + ': ' + esc(when) + '.' : '') + '</p>' : '') +
     '<div class="set-b"><button type="button" class="btn-sm pri" data-do="bk-save">' + esc(t("Save to a file")) + '</button><label class="btn-sm">' + esc(t("Restore from a file")) + '<input type="file" accept="application/json,.json" hidden id="setBk"></label></div>');
@@ -8515,6 +8530,7 @@ function render(){
 document.addEventListener("change", function(e){
   var el = e.target;
   if(el.id === "setLang"){ haptic(); setLang(el.value); }
+  else if(el.id === "setDefEd"){ put("hcc.bible.def", el.value); try{ var b0 = get("hcc.bible", null); if(!b0 && el.value){ put("hcc.bible", {ed: el.value, b: "JOH", c: 1, cmp: "", v: 0}); } }catch(err){} if(window.HCCToast) HCCToast(t("Default Bible saved")); }
   else if(el.id === "setAuto"){ try{ APP.setAutoUpdate(el.checked); }catch(err){} }
   else if(el.id === "setBk" && el.files && el.files[0]){ loadBackup(el.files[0]); el.value = ""; }
   else if(el.id === "edFile" && el.files && el.files[0]){ importEdition(el.files[0]); el.value = ""; }

@@ -14,7 +14,7 @@ var POETRY = {PSA:1, PRO:1, JOB:1, SOL:1, LAM:1, ECC:1, PSX:1, PRM:1};
 var GREEKPS = {dra:1, lxx:1, lxxg:1, vul:1};
 var SEC = {ot:"Old Testament", dc:"Deuterocanonical books", app:"Appendix", nt:"New Testament"};
 var SECDC = {kjva:"Apocrypha", dra:"Deuterocanonical books", webc:"Deuterocanonical books", lxx:"Anagignoskomena (“readable” books)", webo:"Anagignoskomena (“readable” books)"};
-var st = get("hcc.bible", {ed:"kjv", b:"JOH", c:1, cmp:"", v:0});
+var st = get("hcc.bible", {ed:get("hcc.bible.def", "") || "kjv", b:"JOH", c:1, cmp:"", v:0});
 if(!ED[st.ed]) st.ed = "kjv";
 var readSet = get("hcc.bible.read", {});
 
@@ -229,6 +229,7 @@ function parseRef(s){
 /* ---------- open (also used by the verse of the day and widgets) ---------- */
 function go(ed, b, c, v){
   if(ed && ED[ed]) st.ed = ed;
+  else if(!ed && defEd() && ED[defEd()].idx[b] != null) st.ed = defEd();
   var b2 = equiv(st.ed, b);
   if(!b2){ var alt = M.eds.filter(function(e){ return e.idx[b] != null; })[0]; if(alt){ st.ed = alt.id; b2 = b; } else return false; }
   st.b = b2; st.c = c || 1; mode = "read";
@@ -492,7 +493,10 @@ function xrefsFor(c, cb){
   });
 }
 function xlabel(x){ return shortName(edFor(x.b), x.b) + " " + x.c + ":" + x.v + (x.v2 ? "–" + x.v2 : "") + (x.c2 ? "–" + x.c2 + ":" + x.ve : ""); }
-function edFor(b){ if(ED[st.ed].idx[b] != null) return st.ed; return ED.web.idx[b] != null ? "web" : M.eds.filter(function(e){ return e.idx[b] != null; })[0].id; }
+/* Edition 22: the default edition for quotes and references (Settings > Default Bible) */
+function defEd(){ var d = get("hcc.bible.def", ""); return d && ED[d] ? d : ""; }
+function qEd(b){ var d = defEd(); if(d && ED[d].idx[b] != null) return d; return ED[st.ed].idx[b] != null ? st.ed : edFor(b); }
+function edFor(b){ if(ED[st.ed].idx[b] != null) return st.ed; var d = defEd(); if(d && ED[d].idx[b] != null) return d; return ED.web.idx[b] != null ? "web" : M.eds.filter(function(e){ return e.idx[b] != null; })[0].id; }
 function xchap(ed, b, c){ var src = ED[ed].books[ED[ed].idx[b]][1]; return b === "PSA" && GREEKPS[src] ? hebToGreek(c) : c; }
 function linksView(c, cb){
   xrefsFor(c, function(list){
@@ -568,14 +572,18 @@ function mountVotd(){
   var sh = $(".shelves"); if(!sh || $(".votd", sh) || !VOTD.length) return;
   var k = vIndex(), box = document.createElement("section"); box.className = "votd"; box.setAttribute("aria-label", "Verse of the day");
   function body(){ var v = VOTD[k]; return '<blockquote>'+esc(v.t)+'</blockquote><p class="qa"><b>'+esc(v.r)+'</b> · World English Bible</p>'; }
+  function inDef(){ var v = VOTD[k], d = defEd(), kk = k; if(!d || d === "web" || ED[d].idx[v.b] == null) return;
+    var ch = xchap(d, v.b, v.c); load(ED[d].books[ED[d].idx[v.b]][1], v.b, function(dt){ if(kk !== k) return;
+      var tx = (chapter(dt, ch) || []).filter(function(x){ return x[0] === v.v; }).map(function(x){ return x[1]; }).join(" ").replace(/\s+/g, " ").trim(); if(!tx) return;
+      var vb = $(".vbody", box); if(vb) vb.innerHTML = '<blockquote>'+esc(tx)+'</blockquote><p class="qa"><b>'+esc(shortName(d, v.b)+" "+ch+":"+v.v)+'</b> · '+esc(ED[d].name)+'</p>'; }); }
   box.innerHTML = '<p class="shelf-h">Verse of the day</p><div class="vbody">'+body()+'</div><div class="qbtns"><button type="button" class="btn-sm" data-vv="read">Read the chapter</button><button type="button" class="btn-sm" data-vv="next">Another</button></div>';
   var last = get("hcc.bible.last", null);
   if(last) box.innerHTML += '<a class="more" href="#bible">Continue reading: '+esc(last.l)+' ('+esc(last.ed)+') →</a>';
-  var q = $(".qotd", sh); sh.insertBefore(box, q ? q.nextSibling : sh.firstChild);
+  var q = $(".qotd", sh); sh.insertBefore(box, q ? q.nextSibling : sh.firstChild); inDef();
   box.addEventListener("click", function(e){
     var b = e.target.closest("[data-vv]"); if(!b) return;
-    if(b.dataset.vv === "next"){ k = (k + 1 + Math.floor(Math.random()*(VOTD.length-1))) % VOTD.length; $(".vbody", box).innerHTML = body(); haptic("tick"); }
-    if(b.dataset.vv === "read"){ var v = VOTD[k]; go(ED[st.ed].idx[v.b] != null ? st.ed : "web", v.b, v.c, v.v); }
+    if(b.dataset.vv === "next"){ k = (k + 1 + Math.floor(Math.random()*(VOTD.length-1))) % VOTD.length; $(".vbody", box).innerHTML = body(); inDef(); haptic("tick"); }
+    if(b.dataset.vv === "read"){ var v = VOTD[k], e2 = defEd() && ED[defEd()].idx[v.b] != null ? defEd() : ED[st.ed].idx[v.b] != null ? st.ed : "web"; go(e2, v.b, xchap(e2, v.b, v.c), v.v); }
   });
 }
 mountVotd(); setTimeout(mountVotd, 400);
