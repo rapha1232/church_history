@@ -67,13 +67,9 @@ PATCHES = [
  ('Settings section',
   '  h += section("Your reading and notes",',
   '''  var DE = (window.__BIBMAN__ || {eds: []}).eds, de = get("hcc.bible.def", "");
-  h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
+  h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" style="width:100%;max-width:100%;min-width:0" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
     DE.map(function(e){ return '<option value="' + esc(e.id) + '"' + (e.id === de ? " selected" : "") + '>' + esc(e.short + " · " + e.name) + '</option>'; }).join("") + '</select></span></div>');
   h += section("Your reading and notes",''',
-  ['site/index.html', 'tools/v18.js']),
- ('Settings select width',
-  '<select id="setDefEd" aria-label=',
-  '<select id="setDefEd" style="width:100%;max-width:100%;min-width:0" aria-label=',
   ['site/index.html', 'tools/v18.js']),
  ('Settings change',
   '  else if(el.id === "setAuto"){',
