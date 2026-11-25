@@ -143,6 +143,17 @@ async function finish(browser) {
     await p.close();
   }
 
+  // Fathers on this verse: Matthew 16:18 has 7 excerpts in the bundled commentary
+  {
+    const p = await page(browser, 'fathers-count', PHONE);
+    await p.goto(URL + '#bible~kjv~MAT~16~18');
+    await p.waitForTimeout(2500);
+    const n = await p.$eval('#bibView .bv[data-v="18"] .fv', x => x.textContent).catch(() => '');
+    if (n !== '7') fail('fathers-count', 'expected 7 on Matthew 16:18, found "' + n + '"');
+    else console.log('  ok   fathers-count');
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);

@@ -6674,6 +6674,13 @@ window.HCCBible = {go: go,
     script("bible/fath/"+g+".js", function(){ return !!FATH[ob] || FATH["__"+g]; }, function(){ FATH["__"+g] = 1; var L = [];
       (pick(FATH[ob], ch) || []).forEach(function(e){ if(r.v >= e[0] && r.v <= e[1]) L.push({author: e[2], work: String(e[3]).replace(/^Catena Aurea by Aquinas$/, "quoted in Aquinas, Catena Aurea"), text: e[4], date: e[5] || ""}); });
       cb(L); }); }catch(e){ cb([]); } },
+  /* Edition 26: how many excerpts in the Fathers' commentary cover each verse of a chapter */
+  fcount: function(ed, b, c, cb){ try{ var ob = origBook(b) || b, ch = engCh(ed, b, c), g = grpOf(ob);
+    script("bible/fath/"+g+".js", function(){ return !!FATH[ob] || FATH["__"+g]; }, function(){ FATH["__"+g] = 1; var n = {}, who = {};
+      (pick(FATH[ob], ch) || []).forEach(function(e){ for(var v = e[0]; v <= e[1] && v - e[0] < 200; v++){ n[v] = (n[v] || 0) + 1; (who[v] = who[v] || {})[e[2]] = 1; } });
+      var out = {}; Object.keys(n).forEach(function(v){ out[v] = [n[v], Object.keys(who[v]).length]; }); cb(out); }); }catch(e){ cb({}); } },
+  state: function(){ return {ed: st.ed, b: st.b, c: st.c, mode: mode}; },
+  openTab: function(v, t){ try{ openVerseTab(v, t); }catch(e){} },
   cur: function(){ return cur; }
 };
 
@@ -8261,6 +8268,7 @@ function haptic(){ try{ if(APP) APP.haptic("tick"); }catch(e){} }
 /* ====================== language ====================== */
 var LANGS = [["en","English"],["es","Español"],["pt","Português"],["fr","Français"],["ar","العربية"]];
 var T = {
+"Church Fathers in the Bible":["Padres de la Iglesia en la Biblia", "Padres da Igreja na Bíblia", "Pères de l’Église dans la Bible", "آباء الكنيسة في الكتاب المقدس"], "Show how many excerpts from the Church Fathers comment on each verse. Tap the number to read them.":["Muestra cuántos extractos de los Padres de la Iglesia comentan cada versículo. Toca el número para leerlos.", "Mostra quantos trechos dos Padres da Igreja comentam cada versículo. Toque no número para lê-los.", "Indique combien d’extraits des Pères de l’Église commentent chaque verset. Touchez le nombre pour les lire.", "يعرض عدد المقتطفات من آباء الكنيسة التي تعلق على كل آية. المس الرقم لقراءتها."],
 "Both sides":["Ambas posturas", "Ambos os lados", "Les deux positions", "الجانبان"], "Unanswered":["Sin respuesta", "Sem resposta", "Sans réponse", "بلا رد"], "Threads":["Hilos", "Discussões", "Fils", "السلاسل"], "Answer this":["Responder", "Responder", "Répondre", "الرد على هذا"], "This answers (optional)":["Responde a (opcional)", "Responde a (opcional)", "Répond à (facultatif)", "يرد على (اختياري)"], "Nothing (a new point)":["Nada (un punto nuevo)", "Nada (um ponto novo)", "Rien (un nouveau point)", "لا شيء (نقطة جديدة)"],
 "Default Bible":["Biblia predeterminada", "Bíblia padrão", "Bible par défaut", "الكتاب المقدس الافتراضي"], "The edition I am reading":["La edición que estoy leyendo", "A edição que estou lendo", "L’édition que je lis", "الطبعة التي أقرأها"], "Default Bible saved":["Biblia predeterminada guardada", "Bíblia padrão salva", "Bible par défaut enregistrée", "حُفظ الكتاب المقدس الافتراضي"], "Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.":["Se usa para los versículos citados en Estudios, las referencias bíblicas, el versículo del día y los enlaces que abren la Biblia. Los libros que no tiene se toman de otra edición.", "Usada nos versículos citados em Estudos, nas referências bíblicas, no versículo do dia e nos links que abrem a Bíblia. Os livros que ela não tem vêm de outra edição.", "Utilisée pour les versets cités dans les Études, les références bibliques, le verset du jour et les liens qui ouvrent la Bible. Les livres qu’elle n’a pas viennent d’une autre édition.", "تُستخدم للآيات المقتبسة في الدراسات والمراجع الكتابية وآية اليوم والروابط التي تفتح الكتاب المقدس. الأسفار غير الموجودة فيها تؤخذ من طبعة أخرى."],
 "Series":["Serie", "Série", "Série", "السلسلة"], "Studies":["Estudios", "Estudos", "Études", "الدراسات"], "Bookmark":["Marcar", "Marcar", "Marquer", "إشارة"], "Bookmarks":["Marcadores", "Marcadores", "Signets", "الإشارات"], "Add to study":["Añadir a un estudio", "Adicionar a um estudo", "Ajouter à une étude", "أضف إلى دراسة"], "Added to":["Añadido a", "Adicionado a", "Ajouté à", "أضيف إلى"], "New study":["Nuevo estudio", "Novo estudo", "Nouvelle étude", "دراسة جديدة"], "Import a study file":["Importar un estudio", "Importar um estudo", "Importer une étude", "استيراد دراسة"], "Export as Markdown":["Exportar en Markdown", "Exportar em Markdown", "Exporter en Markdown", "تصدير بصيغة Markdown"], "Share as a file":["Compartir como archivo", "Compartilhar como arquivo", "Partager en fichier", "مشاركة كملف"], "Delete study":["Eliminar estudio", "Excluir estudo", "Supprimer l’étude", "حذف الدراسة"], "Add evidence":["Añadir prueba", "Adicionar evidência", "Ajouter un élément", "أضف دليلًا"], "Edit evidence":["Editar prueba", "Editar evidência", "Modifier l’élément", "تعديل الدليل"], "Edit":["Editar", "Editar", "Modifier", "تعديل"], "Delete":["Eliminar", "Excluir", "Supprimer", "حذف"], "Cancel":["Cancelar", "Cancelar", "Annuler", "إلغاء"], "Save changes":["Guardar cambios", "Salvar alterações", "Enregistrer", "حفظ التغييرات"], "Keep it":["Conservarlo", "Manter", "Garder", "احتفظ بها"], "Scripture":["Escritura", "Escritura", "Écriture", "الكتاب المقدس"], "Church Father":["Padre de la Iglesia", "Padre da Igreja", "Père de l’Église", "أب الكنيسة"], "Document":["Documento", "Documento", "Document", "وثيقة"], "Episode":["Episodio", "Episódio", "Épisode", "حلقة"], "Note":["Nota", "Nota", "Note", "ملاحظة"], "Link":["Enlace", "Link", "Lien", "رابط"], "Position":["Postura", "Posição", "Position", "الموقف"], "Bible reference":["Referencia bíblica", "Referência bíblica", "Référence biblique", "المرجع الكتابي"], "Author":["Autor", "Autor", "Auteur", "المؤلف"], "Quotation":["Cita", "Citação", "Citation", "الاقتباس"], "Your note (optional)":["Tu nota (opcional)", "Sua nota (opcional)", "Votre note (facultatif)", "ملاحظتك (اختياري)"], "← All studies":["← Todos los estudios", "← Todos os estudos", "← Toutes les études", "→ كل الدراسات"], "Your research":["Tu investigación", "Sua pesquisa", "Vos recherches", "بحثك"], "The Series":["La serie", "A série", "La série", "السلسلة"], "Fifteen seasons":["Quince temporadas", "Quinze temporadas", "Quinze saisons", "خمسة عشر موسمًا"], "All chapters":["Todos los capítulos", "Todos os capítulos", "Tous les chapitres", "كل الفصول"], "Method and sources":["Método y fuentes", "Método e fontes", "Méthode et sources", "المنهج والمصادر"], "Read everything on one page":["Leer todo en una página", "Ler tudo numa página", "Tout lire sur une page", "اقرأ كل شيء في صفحة واحدة"], "Start from the beginning":["Empezar desde el principio", "Começar do início", "Commencer au début", "ابدأ من البداية"], "Study companions":["Complementos de estudio", "Complementos de estudo", "Compléments d’étude", "مرافقات الدراسة"], "Yours":["Lo tuyo", "Seus itens", "Vos éléments", "الخاص بك"], "People and places":["Personas y lugares", "Pessoas e lugares", "Personnes et lieux", "أشخاص وأماكن"], "Councils and doctrine":["Concilios y doctrina", "Concílios e doutrina", "Conciles et doctrine", "المجامع والعقيدة"], "Texts and sources":["Textos y fuentes", "Textos e fontes", "Textes et sources", "النصوص والمصادر"], "Pictures":["Imágenes", "Imagens", "Images", "الصور"], "Bible companions":["Complementos bíblicos", "Complementos bíblicos", "Compléments bibliques", "مرافقات الكتاب المقدس"], "More":["Más", "Mais", "Plus", "المزيد"], "Evidence deleted":["Prueba eliminada", "Evidência excluída", "Élément supprimé", "حُذف الدليل"], "Study deleted":["Estudio eliminado", "Estudo excluído", "Étude supprimée", "حُذفت الدراسة"], "Study imported":["Estudio importado", "Estudo importado", "Étude importée", "استُوردت الدراسة"], "Name of the new study":["Nombre del nuevo estudio", "Nome do novo estudo", "Nom de la nouvelle étude", "اسم الدراسة الجديدة"],
@@ -8502,6 +8510,7 @@ function render(){
   h += section("Language", '<div class="set-row"><span><small>' + esc(t("The menus and buttons change; episodes and Bible texts stay in English.")) + '</small></span><span class="set-b"><select id="setLang" aria-label="' + esc(t("Language")) + '">' +
     LANGS.map(function(l){ return '<option value="' + l[0] + '"' + (l[0] === LANG ? " selected" : "") + '>' + l[1] + '</option>'; }).join("") + '</select></span></div>');
   var when = has("backupTime") ? (function(){ try{ var ms = APP.backupTime(); return ms > 0 ? new Date(ms).toLocaleString() : ""; }catch(e){ return ""; } })() : "";
+  h += section("Church Fathers in the Bible", '<label class="set-row"><span><small>' + esc(t("Show how many excerpts from the Church Fathers comment on each verse. Tap the number to read them.")) + '</small></span><input type="checkbox" class="switch" id="setFcount"' + (get("hcc.bible.fcount", "1") !== "0" ? " checked" : "") + '></label>');
   var DE = (window.__BIBMAN__ || {eds: []}).eds, de = get("hcc.bible.def", "");
   h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" style="width:100%;max-width:100%;min-width:0" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
     DE.map(function(e){ return '<option value="' + esc(e.id) + '"' + (e.id === de ? " selected" : "") + '>' + esc(e.short + " · " + e.name) + '</option>'; }).join("") + '</select></span></div>');
@@ -8529,6 +8538,7 @@ function render(){
 document.addEventListener("change", function(e){
   var el = e.target;
   if(el.id === "setLang"){ haptic(); setLang(el.value); }
+  else if(el.id === "setFcount"){ put("hcc.bible.fcount", el.checked ? "1" : "0"); if(window.HCCFathersCount) HCCFathersCount.refresh(); }
   else if(el.id === "setDefEd"){ put("hcc.bible.def", el.value); try{ var b0 = get("hcc.bible", null); if(!b0 && el.value){ put("hcc.bible", {ed: el.value, b: "JOH", c: 1, cmp: "", v: 0}); } }catch(err){} if(window.HCCToast) HCCToast(t("Default Bible saved")); }
   else if(el.id === "setAuto"){ try{ APP.setAutoUpdate(el.checked); }catch(err){} }
   else if(el.id === "setBk" && el.files && el.files[0]){ loadBackup(el.files[0]); el.value = ""; }
@@ -10286,6 +10296,52 @@ document.addEventListener("click", function(e){
   var date = (qa.textContent.match(/^\s*[^(]*\(([^)]+)\)/) || [])[1];
   open({q: $("blockquote", box).textContent, by: who + (date ? " (" + date + ")" : ""), sub: where, src: src});
 }, true);
+})();
+</script>
+<style id="ed26">
+/* Edition 26: Fathers on this verse */
+#bibView .fv{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:18px;margin:0 4px 0 1px;padding:0 4px;border:1px solid var(--rule-strong);border-radius:9px;background:none;font:600 10.5px/1 var(--font-ui);color:var(--gold);vertical-align:.35em;cursor:pointer}
+#bibView .fv:hover,#bibView .fv:focus-visible{border-color:var(--gold);background:var(--wash)}
+@media (pointer:coarse){#bibView .fv{min-width:26px;height:22px;font-size:11.5px}}
+</style>
+<script id="ed26js">
+/* Edition 26: "Fathers on this verse". In the Bible, a small number after a verse number says how many excerpts
+   in the Church Fathers' commentary (site/bible/fath/) cover that verse; tapping it opens the verse's Commentary
+   tab. Settings > Church Fathers in the Bible turns it off. */
+(function(){
+"use strict";
+var view = document.getElementById("bibView"); if(!view) return;
+var B = function(){ return window.HCCBible || {}; };
+function on(){ try{ var v = localStorage.getItem("hcc.bible.fcount"); return (v ? JSON.parse(v) : "1") !== "0"; }catch(e){ return true; } } /* stored as JSON by Settings */
+var last = "", timer = 0;
+function clear(){ Array.prototype.forEach.call(view.querySelectorAll(".fv"), function(b){ b.parentNode.removeChild(b); }); last = ""; }
+function run(){
+  if(!on()){ if(view.querySelector(".fv")) clear(); return; }
+  var s = B().state && B().state(); if(!s || !B().fcount || !view.querySelector(".bv[data-v]")) return;
+  var key = s.ed + "~" + s.b + "~" + s.c;
+  if(key === last && view.querySelector(".fv")) return;
+  last = key;
+  B().fcount(s.ed, s.b, s.c, function(cnt){
+    var s2 = B().state(); if(s2.ed + "~" + s2.b + "~" + s2.c !== key) return;
+    Array.prototype.forEach.call(view.querySelectorAll(".bv[data-v]"), function(el){
+      if(el.querySelector(".fv")) return;
+      var v = el.dataset.v, x = cnt[v]; if(!x) return;
+      var sup = el.querySelector("sup"), b = document.createElement("button");
+      b.type = "button"; b.className = "fv"; b.dataset.fv = v; b.textContent = x[0];
+      var label = x[0] + (x[0] === 1 ? " excerpt" : " excerpts") + " from " + x[1] + (x[1] === 1 ? " Church Father" : " Church Fathers") + " on verse " + v;
+      b.title = label; b.setAttribute("aria-label", label);
+      if(sup && sup.nextSibling) el.insertBefore(b, sup.nextSibling); else el.insertBefore(b, el.firstChild);
+    });
+  });
+}
+new MutationObserver(function(){ clearTimeout(timer); timer = setTimeout(run, 120); }).observe(view, {childList: true, subtree: true});
+view.addEventListener("click", function(e){
+  var b = e.target.closest(".fv"); if(!b) return;
+  e.stopPropagation(); e.preventDefault();
+  if(B().openTab) B().openTab(+b.dataset.fv, "comm");
+}, true);
+window.HCCFathersCount = {refresh: function(){ last = ""; run(); }};
+setTimeout(run, 400);
 })();
 </script>
 </body>
