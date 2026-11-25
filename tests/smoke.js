@@ -81,6 +81,11 @@ async function finish(browser) {
     await p.waitForTimeout(2500);
     const n = await p.$$eval('.st-it', x => x.length);
     if (n !== 3) fail('studies-import', 'expected 3 items after import, found ' + n);
+    const re = await p.$$eval('.st-re .st-go', x => x.length), rby = await p.$$eval('.st-it.is-answered', x => x.length);
+    if (re !== 1 || rby !== 1) fail('studies-import', 'answer link lost on import (answers ' + re + ', answered ' + rby + ')');
+    await p.click('[data-view=threads]'); await p.waitForTimeout(300);
+    if (await p.$$eval('.st-root .st-thread .st-tn', x => x.length) !== 1) fail('studies-import', 'Threads view does not nest the answer');
+    await p.click('[data-view=cols]'); await p.waitForTimeout(300);
     const v = await p.$$eval('.st-it.t-verse .st-q', x => x.map(e => e.textContent));
     if (!v.length || /Loading/.test(v[0])) fail('studies-import', 'verse text did not load');
     // Change the default and re-open the study in the same page. (A reload is avoided on purpose: headless

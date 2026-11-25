@@ -101,6 +101,12 @@ TR = {
  "Study deleted": ["Estudio eliminado","Estudo excluído","Étude supprimée","حُذفت الدراسة"],
  "Study imported": ["Estudio importado","Estudo importado","Étude importée","استُوردت الدراسة"],
  "Name of the new study": ["Nombre del nuevo estudio","Nome do novo estudo","Nom de la nouvelle étude","اسم الدراسة الجديدة"],
+ "Both sides": ["Ambas posturas","Ambos os lados","Les deux positions","الجانبان"],
+ "Unanswered": ["Sin respuesta","Sem resposta","Sans réponse","بلا رد"],
+ "Threads": ["Hilos","Discussões","Fils","السلاسل"],
+ "Answer this": ["Responder","Responder","Répondre","الرد على هذا"],
+ "This answers (optional)": ["Responde a (opcional)","Responde a (opcional)","Répond à (facultatif)","يرد على (اختياري)"],
+ "Nothing (a new point)": ["Nada (un punto nuevo)","Nada (um ponto novo)","Rien (un nouveau point)","لا شيء (نقطة جديدة)"],
 }
 i = s.index('var T = {'); j = s.index('\n};', i); T = s[i:j]
 add = [(k, v) for k, v in TR.items() if '"%s":' % k not in T]

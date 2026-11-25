@@ -23,6 +23,7 @@ function titleOf(id){ var a = art(id); return a ? a.dataset.title : id; }
 function hashId(){ var h = location.hash.slice(1); try{ h = decodeURIComponent(h); }catch(e){} return h; }
 
 var ICON = {
+  reply: '<path d="M9 7L4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 6 6v1"/>',
   home: '<path d="M4 11l8-7 8 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/>',
   series: '<rect x="3.5" y="5" width="17" height="12" rx="1.5"/><path d="M8 20h8"/><path d="M10.5 8.8v4.4l3.8-2.2z" fill="currentColor"/>',
   bible: '<path d="M5 4.5h11a2 2 0 0 1 2 2V20H7a2 2 0 0 1-2-2z"/><path d="M5 18a2 2 0 0 1 2-2h11"/><path d="M11.5 7.5v6M9.3 9.6h4.4"/>',
@@ -226,7 +227,7 @@ function docs(){ return $$("details.doctext").map(function(d){ return {id: d.dat
 function docBy(id){ return docs().filter(function(d){ return d.id === id; })[0] || null; }
 var TYPES = {verse: "Scripture", father: "Church Father", doc: "Document", ep: "Episode", note: "Note", link: "Link"};
 
-function itemHTML(it, si, ii, n){
+function itemHTML(it, si, ii, n, L){
   var head = "", main = "", go = "";
   if(it.type === "verse"){
     head = '<button type="button" class="st-ref" data-goverse="'+esc(it.b+"~"+it.c+"~"+it.v)+'">'+esc(vLabel(it))+'</button>' + (it.ed ? ' <small>'+esc(it.ed)+'</small>' : "");
@@ -249,13 +250,33 @@ function itemHTML(it, si, ii, n){
     head = it.url ? '<a href="'+esc(it.url)+'" target="_blank" rel="noopener noreferrer">'+esc(it.title || it.url)+' ↗</a>' : '<b>'+esc(it.title || "Link")+'</b>';
     if(it.url) main = '<p class="st-url">'+esc(it.url.replace(/^https?:\/\//, "").slice(0, 70))+'</p>';
   }
-  return '<li class="st-it t-'+it.type+'" data-si="'+si+'" data-ii="'+ii+'"><p class="st-kind">'+esc(TYPES[it.type] || "")+'</p><div class="st-head">'+head+'</div>'+main+
-    (it.note ? '<p class="st-note">'+esc(it.note)+'</p>' : "") +
-    '<div class="st-acts"><button type="button" data-st="edit">Edit</button><button type="button" data-st="move">Move to '+esc(shortSide(si === 0 ? 1 : 0))+'</button>' +
+  var re = L && it.answers && L.at[it.answers] ? '<p class="st-re">'+svg("reply")+'<span>Answers '+goBtn(L, it.answers)+'</span></p>' : "";
+  var rby = L && L.by[it.id] ? '<p class="st-rby"><span>Answered by '+L.by[it.id].map(function(id){ return goBtn(L, id); }).join(", ")+'</span></p>' : "";
+  return '<li class="st-it t-'+it.type+(L && L.by[it.id] ? " is-answered" : "")+'" data-si="'+si+'" data-ii="'+ii+'" data-id="'+esc(it.id || "")+'">'+re+'<p class="st-kind">'+esc(TYPES[it.type] || "")+'</p><div class="st-head">'+head+'</div>'+main+
+    (it.note ? '<p class="st-note">'+esc(it.note)+'</p>' : "") + rby +
+    '<div class="st-acts"><button type="button" data-st="edit">Edit</button><button type="button" data-st="answer">Answer this</button><button type="button" data-st="move">Move to '+esc(shortSide(si === 0 ? 1 : 0))+'</button>' +
     (ii > 0 ? '<button type="button" data-st="up" aria-label="Move up">↑</button>' : "") + (ii < n - 1 ? '<button type="button" data-st="down" aria-label="Move down">↓</button>' : "") +
     '<button type="button" data-st="del" class="st-del">Delete</button></div></li>';
 }
-var CUR = null;
+var CUR = null, VIEW = "cols";
+/* linked answers: an item may record the id of the item it answers (it.answers) */
+function itemLabel(it){
+  if(!it) return "";
+  if(it.type === "verse") return vLabel(it);
+  if(it.type === "father") return (it.author || "Father") + (it.work ? ", " + it.work : "");
+  if(it.type === "doc"){ var d = docBy(it.doc); return d ? d.title : it.title || "Document"; }
+  if(it.type === "ep"){ var e = EP[it.ep]; return e ? e.t : titleOf(it.ep); }
+  if(it.type === "note") return it.title || String(it.text || "Note").slice(0, 60);
+  if(it.type === "link") return it.title || it.url || "Link";
+  return "";
+}
+function links(s){
+  var at = {}, by = {};
+  s.sides.forEach(function(sd, si){ sd.items.forEach(function(it, ii){ at[it.id] = {si: si, ii: ii, it: it}; }); });
+  s.sides.forEach(function(sd){ sd.items.forEach(function(it){ if(it.answers && at[it.answers] && it.answers !== it.id) (by[it.answers] = by[it.answers] || []).push(it.id); }); });
+  return {at: at, by: by};
+}
+function goBtn(L, id){ var x = L.at[id]; return x ? '<button type="button" class="st-go" data-goit="'+esc(id)+'">'+esc(itemLabel(x.it))+'</button> <small>'+esc(shortSide(x.si))+'</small>' : ""; }
 function shortSide(i){ var s = CUR && CUR.sides[i]; return s ? s.label : (i ? "Against" : "For"); }
 
 /* ====================================================================== Studies: views */
@@ -279,19 +300,34 @@ function renderStudies(){
   }
   STV.innerHTML = html;
 }
+function threadsHTML(s, L){
+  var seen = {};
+  function node(id, depth){
+    var x = L.at[id]; if(!x || seen[id]) return ""; seen[id] = 1;
+    var kids = (L.by[id] || []).map(function(k){ return node(k, depth + 1); }).join("");
+    return '<li class="st-tn" data-depth="'+Math.min(depth, 4)+'"><p class="st-side-tag s'+x.si+'">'+esc(shortSide(x.si))+'</p><ol class="st-items">'+itemHTML(x.it, x.si, x.ii, s.sides[x.si].items.length, L)+'</ol>'+(kids ? '<ol class="st-thread">'+kids+'</ol>' : "")+'</li>';
+  }
+  var roots = [];
+  s.sides.forEach(function(sd){ sd.items.forEach(function(it){ if(!it.answers || !L.at[it.answers] || it.answers === it.id) roots.push(it.id); }); });
+  var html = roots.map(function(id){ return node(id, 0); }).join("");
+  Object.keys(L.at).forEach(function(id){ if(!seen[id]) html += node(id, 0); }); /* items caught in a loop of answers */
+  return '<p class="st-tnote">Each claim with the answers given to it, and the answers to those answers.</p><ol class="st-thread st-root">' + (html || '<li class="ed21-empty">Nothing here yet.</li>') + '</ol>';
+}
 function renderStudy(s){
   CUR = s;
+  var L = links(s);
   var html = '<a class="st-back" href="#studies">← All studies</a>' +
     '<label class="st-lab vh" for="stTitle">Study title</label><input id="stTitle" class="st-title" value="'+esc(s.title)+'" data-stf="title" autocomplete="off">' +
     '<label class="st-lab" for="stOv">Overview and your conclusion</label><textarea id="stOv" class="st-ov" rows="3" data-stf="overview" placeholder="What is the question? What do you conclude so far?">'+esc(s.overview || "")+'</textarea>' +
     '<div class="ed21-acts st-tools"><button type="button" class="btn-sm" data-st="md">Export as Markdown</button><button type="button" class="btn-sm" data-st="share">Share as a file</button><button type="button" class="btn-sm st-del" data-st="delstudy">Delete study</button></div>' +
-    '<div class="st-seg" role="tablist" aria-label="Positions">' + s.sides.map(function(sd, i){ return '<button type="button" role="tab" data-side="'+i+'" aria-selected="'+(i === showSide)+'">'+esc(sd.label)+' <small>'+sd.items.length+'</small></button>'; }).join("") + '</div>' +
+    '<div class="st-view" role="radiogroup" aria-label="View">' + [["cols","Both sides"],["open","Unanswered"],["threads","Threads"]].map(function(v){ return '<button type="button" role="radio" data-view="'+v[0]+'" aria-checked="'+(VIEW === v[0])+'">'+esc(t(v[1]))+'</button>'; }).join("") + '</div>' +
+    (VIEW === "threads" ? threadsHTML(s, L) : '<div class="st-seg" role="tablist" aria-label="Positions">' + s.sides.map(function(sd, i){ return '<button type="button" role="tab" data-side="'+i+'" aria-selected="'+(i === showSide)+'">'+esc(sd.label)+' <small>'+sd.items.length+'</small></button>'; }).join("") + '</div>' +
     '<div class="st-cols" data-show="'+showSide+'">' + s.sides.map(function(sd, i){
       return '<section class="st-col" data-i="'+i+'"><header><label class="vh" for="stSide'+i+'">Position name</label><input id="stSide'+i+'" class="st-side" value="'+esc(sd.label)+'" data-stf="side" data-i="'+i+'"><span>'+sd.items.length+'</span></header>' +
-        '<ol class="st-items">' + sd.items.map(function(it, ii){ return itemHTML(it, i, ii, sd.items.length); }).join("") + '</ol>' +
-        (sd.items.length ? "" : '<p class="ed21-empty">Nothing here yet.</p>') +
+        '<ol class="st-items">' + sd.items.map(function(it, ii){ return VIEW === "open" && L.by[it.id] ? "" : itemHTML(it, i, ii, sd.items.length, L); }).join("") + '</ol>' +
+        (sd.items.length ? (VIEW === "open" && sd.items.every(function(it){ return L.by[it.id]; }) ? '<p class="ed21-empty">Everything here has an answer.</p>' : "") : '<p class="ed21-empty">Nothing here yet.</p>') +
         '<button type="button" class="btn-sm st-add" data-st="add" data-i="'+i+'">'+svg("plus")+'Add evidence</button></section>';
-    }).join("") + '</div>';
+    }).join("") + '</div>');
   STV.innerHTML = html;
   grow($("#stOv", STV));
   fillVerses(s);
@@ -328,6 +364,16 @@ if(STV) STV.addEventListener("click", function(e){
   if(g){ var p = g.dataset.goverse.split("~"), B = BIB(); if(B.go) B.go(null, p[0], +p[1], +p[2]); return; }
   var od = e.target.closest("[data-opendoc]"); if(od){ var dd = document.getElementById(od.dataset.opendoc); if(dd) dd.open = true; return; }
   var sd = e.target.closest("[data-side]"); if(sd && sd.closest(".st-seg")){ showSide = +sd.dataset.side; $$(".st-seg [data-side]", STV).forEach(function(b){ b.setAttribute("aria-selected", String(b === sd)); }); var c = $(".st-cols", STV); if(c) c.dataset.show = showSide; return; }
+  var vw = e.target.closest("[data-view]"); if(vw && CUR){ VIEW = vw.dataset.view; renderStudy(CUR); return; }
+  var gi = e.target.closest("[data-goit]");
+  if(gi && CUR){
+    var tid = gi.dataset.goit, Lk = links(CUR).at[tid];
+    if(VIEW === "open" && links(CUR).by[tid]){ VIEW = "cols"; renderStudy(CUR); }
+    if(Lk && VIEW === "cols" && showSide !== Lk.si && window.matchMedia("(max-width:899px)").matches){ showSide = Lk.si; renderStudy(CUR); }
+    var el = STV.querySelector('.st-it[data-id="'+(window.CSS && CSS.escape ? CSS.escape(tid) : tid)+'"]');
+    if(el){ el.scrollIntoView({block: "center", behavior: "smooth"}); el.classList.remove("st-flash"); void el.offsetWidth; el.classList.add("st-flash"); var f = el.querySelector("button,a"); if(f) f.focus({preventScroll: true}); }
+    return;
+  }
   var b = e.target.closest("[data-st]"); if(!b || b.tagName === "INPUT") return;
   var a = b.dataset.st;
   if(a === "new"){ var s = newStudy(""); location.hash = "studies~" + s.id; setTimeout(function(){ var ti = $("#stTitle"); if(ti){ ti.focus(); ti.select(); } }, 200); return; }
@@ -339,6 +385,7 @@ if(STV) STV.addEventListener("click", function(e){
   var li = b.closest(".st-it"); if(!li) return;
   var si = +li.dataset.si, ii = +li.dataset.ii, id = CUR.id;
   if(a === "edit"){ openAdd({study: id, side: si, edit: ii}); return; }
+  if(a === "answer"){ var src = CUR.sides[si].items[ii]; if(!src.id){ CUR = update(id, function(s){ s.sides[si].items[ii].id = uid(); }); src = CUR.sides[si].items[ii]; } openAdd({study: id, side: si ? 0 : 1, answers: src.id, type: "note"}); return; }
   if(a === "del"){
     var gone = CUR.sides[si].items[ii];
     CUR = update(id, function(s){ s.sides[si].items.splice(ii, 1); }); renderStudy(CUR);
@@ -359,7 +406,9 @@ if(STV) STV.addEventListener("change", function(e){
     var o; try{ o = JSON.parse(String(r.result || "")); }catch(err){ o = null; }
     var s = o && o.kind === "study" && o.study && Array.isArray(o.study.sides) ? o.study : null;
     if(!s){ toast("That file is not a shared study. Choose a file made with “Share as a file”."); return; }
-    s.id = uid(); s.updated = Date.now(); s.sides.forEach(function(sd){ (sd.items || []).forEach(function(it){ it.id = uid(); }); });
+    s.id = uid(); s.updated = Date.now(); var remap = {};
+    s.sides.forEach(function(sd){ sd.items = sd.items || []; sd.items.forEach(function(it){ var nid = uid() + Object.keys(remap).length.toString(36); if(it.id) remap[it.id] = nid; it.id = nid; }); });
+    s.sides.forEach(function(sd){ sd.items.forEach(function(it){ if(it.answers) it.answers = remap[it.answers] || ""; if(!it.answers) delete it.answers; }); });
     var list = studies(); list.unshift(s); saveStudies(list); location.hash = "studies~" + s.id; toast("Study imported");
   };
   r.readAsText(f.files[0]); f.value = "";
@@ -384,7 +433,7 @@ function download(name, mime, text){
   document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
 }
 function toMD(s){
-  var out = ["# " + s.title, ""]; if(s.overview) out.push(s.overview, "");
+  var out = ["# " + s.title, ""], L = links(s); if(s.overview) out.push(s.overview, "");
   s.sides.forEach(function(sd){
     out.push("## " + sd.label, "");
     if(!sd.items.length) out.push("_Nothing yet._", "");
@@ -396,7 +445,8 @@ function toMD(s){
       else if(it.type === "ep"){ var e = EP[it.ep]; line = "**Episode:** " + (e ? e.t + " (" + e.g + ")" : it.ep); }
       else if(it.type === "note") line = "**" + (it.title || "Note") + "**" + (it.text ? "  \n" + it.text : "");
       else if(it.type === "link") line = "[" + (it.title || it.url) + "](" + it.url + ")";
-      out.push("- " + line.replace(/\n/g, "\n  ") + (it.note ? "  \n  _" + it.note + "_" : ""), "");
+      var re = it.answers && L.at[it.answers] ? "  \n  ↳ _Answers: " + itemLabel(L.at[it.answers].it) + " (" + s.sides[L.at[it.answers].si].label + ")_" : "";
+      out.push("- " + line.replace(/\n/g, "\n  ") + (it.note ? "  \n  _" + it.note + "_" : "") + re, "");
     });
   });
   out.push("---", "_From History of the Christian Church · " + new Date().toLocaleDateString() + "_");
@@ -428,7 +478,10 @@ function openAdd(o){
   var sid = o.study || (CUR && find(CUR.id) ? CUR.id : list[0].id), s = find(sid) || list[0];
   var editing = o.edit != null ? s.sides[o.side].items[o.edit] : null;
   var it = editing ? JSON.parse(JSON.stringify(editing)) : {type: o.type || "verse"};
-  if(!editing){ ["b","c","v","v2","ed","author","work","date","quote","doc","ep","title","text","url"].forEach(function(k){ if(o[k] != null) it[k] = o[k]; }); }
+  if(!editing){ ["b","c","v","v2","ed","author","work","date","quote","doc","ep","title","text","url","answers"].forEach(function(k){ if(o[k] != null) it[k] = o[k]; }); }
+  function answerOpts(st){
+    return '<option value="">'+esc(t("Nothing (a new point)"))+'</option>' + st.sides.map(function(sd){ return '<optgroup label="'+esc(sd.label)+'">' + sd.items.filter(function(x){ return x.id && x.id !== it.id; }).map(function(x){ var l = itemLabel(x); return '<option value="'+esc(x.id)+'"'+(x.id === it.answers ? " selected" : "")+'>'+esc(l.length > 70 ? l.slice(0, 68) + "…" : l)+'</option>'; }).join("") + '</optgroup>'; }).join("");
+  }
   var side = o.side != null ? o.side : 0;
   var DOCS = docs(), fams = {};
   DOCS.forEach(function(d){ (fams[d.fam] = fams[d.fam] || []).push(d); });
@@ -464,7 +517,8 @@ function openAdd(o){
     '<div class="ed21-body">' +
     (editing ? "" : '<div class="ed21-row2">' + field("study", "Study", '<select id="ed21f-study" data-g="study">'+studyOpts+'</select>') + field("side", "Position", '<select id="ed21f-side" data-g="side">'+s.sides.map(function(x, i){ return '<option value="'+i+'"'+(i === side ? " selected" : "")+'>'+esc(x.label)+'</option>'; }).join("")+'</select>') + '</div>') +
     '<div class="ed21-types" role="radiogroup" aria-label="Kind of evidence">' + Object.keys(TYPES).map(function(k){ return '<button type="button" role="radio" data-ty="'+k+'" aria-checked="'+(k === it.type)+'"'+(editing && k !== it.type ? " disabled" : "")+'>'+esc(TYPES[k])+'</button>'; }).join("") + '</div>' +
-    '<div class="ed21-form">' + formFor(it.type) + '</div></div>' +
+    '<div class="ed21-form">' + formFor(it.type) + '</div>' +
+    field("answers", "This answers (optional)", '<select id="ed21f-answers" data-g="answers">'+answerOpts(s)+'</select>', "Link it to the claim or point it responds to.") + '</div>' +
     '<div class="ed21-dact"><button type="button" class="btn-sm" data-dx="1">Cancel</button><button type="button" class="btn-sm pri" data-dok="1">'+(editing ? "Save changes" : "Add evidence")+'</button></div>', "ed21aT");
   var P = d.el, form = $(".ed21-form", P);
   function val(k){ var f = P.querySelector('[data-f="'+k+'"]'); return f ? f.value.trim() : ""; }
@@ -484,6 +538,7 @@ function openAdd(o){
       if(e.target.value === "__new"){ var nm = prompt(t("Name of the new study"), ""); if(!nm){ e.target.value = s.id; return; } var ns = newStudy(nm); list = studies(); s = ns; e.target.insertAdjacentHTML("afterbegin", '<option value="'+esc(ns.id)+'">'+esc(ns.title)+'</option>'); e.target.value = ns.id; }
       else s = find(e.target.value) || s;
       var sideSel = $("#ed21f-side", P); if(sideSel) sideSel.innerHTML = s.sides.map(function(x, i){ return '<option value="'+i+'">'+esc(x.label)+'</option>'; }).join("");
+      it.answers = ""; var ans = $("#ed21f-answers", P); if(ans) ans.innerHTML = answerOpts(s);
     }
   });
   P.addEventListener("click", function(e){
@@ -510,7 +565,8 @@ function openAdd(o){
     return o2;
   }
   d.on("[data-dok]", function(){
-    var x = collect(), err = "";
+    var x = collect(), err = "", av = ($("#ed21f-answers", P) || {value: ""}).value;
+    if(av) x.answers = av; else delete x.answers;
     if(x.type === "verse" && !x.b) err = "Enter a Bible reference, e.g. John 21:15-17.";
     if(x.type === "father" && !x.author && !x.quote) err = "Add at least the author or the quotation.";
     if(x.type === "doc" && !x.doc) err = "Choose a document.";
@@ -523,7 +579,7 @@ function openAdd(o){
     var target = editing ? sid : s.id;
     var done = update(target, function(st){ if(editing) st.sides[si].items[o.edit] = x; else st.sides[si].items.push(x); });
     d.close();
-    if(hashId() === "studies~" + target) renderStudy(done);
+    if(hashId() === "studies~" + target){ showSide = si; renderStudy(done); }
     else toast(t("Added to") + " " + done.title, {action: "View", run: function(){ showSide = si; location.hash = "studies~" + target; }});
   });
 }
