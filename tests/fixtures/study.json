@@ -1,0 +1,19 @@
+{
+ "app": "church-history",
+ "kind": "study",
+ "v": 1,
+ "study": {
+  "id": "smoke",
+  "title": "Smoke test study",
+  "overview": "Used by tests/smoke.js.",
+  "sides": [
+   {"label": "For", "items": [
+    {"id": "a", "type": "verse", "b": "MAT", "c": 16, "v": 18, "v2": 18, "note": ""},
+    {"id": "b", "type": "note", "title": "A note", "text": "Text", "note": ""}
+   ]},
+   {"label": "Against", "items": [
+    {"id": "c", "type": "verse", "b": "TOB", "c": 12, "v": 9, "v2": 9, "note": "Deuterocanonical book"}
+   ]}
+  ]
+ }
+}
