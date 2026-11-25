@@ -282,9 +282,11 @@ never a background fill larger than a button.
 
 | Component | Rules |
 |---|---|
-| **Top bar** | Opaque `--paper`, hairline bottom rule once scrolled. Brand: mark + "History of the Christian Church" + subtitle "A story in fifteen seasons". Icon buttons 40 px. |
-| **Sidebar** | Paper background, hairline right rule. Roman numerals rubricated in display face, tabular. Current item: ink text, 2 px rubric bar at the left, no fill pill. Tabs: underline style (text + 2 px rubric underline), not filled pills. |
-| **Tab bar** | Opaque panel, hairline top rule. Items 48 px+ tall. Active: ink label + accent icon + 2 px accent bar at the top edge. No tinted pill. |
+| **Navigation model** (Edition 21) | Five sections, everywhere the same: **Home · Series · Bible · Studies · Library**. Wide screens show them as a text menu in the top bar; phones and touch tablets show them in the bottom bar. Search stays in the top bar. **Settings** is its own gear button (it is never reached through the Aa reading panel, which holds only reading options). Every section is a real page with its own URL, never a drawer. |
+| **Top bar** | Opaque `--paper`, hairline bottom rule once scrolled. Order: brand · menu · search · Aa · Settings. Brand: mark + "History of the Christian Church" + subtitle "A story in fifteen seasons" (subtitle, then title, drop out as the window narrows). Menu items: UI 15 px, muted; current = ink + 2 px rubric underline. Icon buttons 40 px. No bookmark, theme or "All" buttons in the bar: those live in the page, the Aa panel and the Series page. |
+| **Sidebar** | Only while reading the Series (seasons and episodes); every other section uses the full width. On phones the same tree opens as a drawer from Series → All chapters, or by tapping Series again. Paper background, hairline right rule. Roman numerals rubricated in display face, tabular. Current item: ink text, 2 px rubric bar at the left, no fill pill. Tabs: underline style (text + 2 px rubric underline), not filled pills. |
+| **Tab bar** | Opaque panel, hairline top rule. Items 48 px+ tall. Active: ink label + accent icon + 2 px accent bar at the top edge. No tinted pill. Tapping the current tab scrolls to the top. |
+| **Page actions** | Actions that belong to a page sit in the page: **Bookmark** and **Add to study** in an episode's hero actions, Bookmark under the title of reference pages. Bookmarks are listed in Library. |
 | **Buttons** | `--r-md`, 40 px min height (44 on touch). Primary: solid `--ink` on `--paper` (or paper on ink in heroes). Secondary: transparent with `--rule-strong` border. Press: `scale(.98)`. No gradients. |
 | **Chips (filters)** | Pill, 36 px, `--rule` border, `--panel` fill. Selected: ink fill, paper text. Only interactive toggles are chips. |
 | **Inputs and selects** | `--r-sm`, 44 px, `--elev` fill, `--rule-strong` border, custom chevron on selects, accent focus ring. Visible labels; placeholders only for hints. |
@@ -314,6 +316,24 @@ never a background fill larger than a button.
   low-chroma washes.
 - **Settings:** grouped cards, label + description + control; buttons named with verbs ("Save to a
   file").
+- **Series:** a grid of the fifteen seasons (image with the rubricated Roman numeral, season and dates,
+  title, episodes and minutes, progress), then the study companions. Actions: Continue / Start, All
+  chapters, Method and sources.
+- **Library:** ruled lists, two columns on wide screens: "Yours" (Studies, notebook, plans, Settings,
+  bookmarks) first, then the reference tools grouped by kind (Time, People and places, Councils and
+  doctrine, Texts and sources, Pictures, Bible companions). Each row is a title and the page's own
+  first sentence.
+- **Studies:** a list of studies, then one study per page (`#studies~<id>`): editable title, an
+  overview/conclusion field, and two positions (default **For** and **Against**, renamable) side by side,
+  as tabs on phones. Position headers carry a 2 px rule (lapis and porphyry: two neutral pigments, so
+  neither side reads as "right"). Evidence is a flat card: kind label (Scripture, Church Father,
+  Document, Episode, Note, Link) in eyebrow style, the source as a link, the quotation in the body face
+  with a hairline rule, the reader's note under a hairline, and quiet text actions (Edit, Move, ↑ ↓,
+  Delete with Undo). Verses are stored by reference and shown in the reader's edition. Adding uses one
+  dialog (a bottom sheet on phones) from the study, the Bible verse bar, the verse study sheet and each
+  Fathers excerpt, the texts library and episodes. Deleting a whole study asks for a named
+  confirmation. Studies are saved under `hcc.studies` (so they are in the backup file) and can be
+  exported as Markdown or shared as a `.study.json` file that another reader can import.
 
 ## 6. Accessibility
 
