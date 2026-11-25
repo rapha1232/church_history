@@ -126,6 +126,23 @@ async function finish(browser) {
     await p.close();
   }
 
+  // Quote cards carry the edition, and long quotes are marked abridged
+  {
+    const p = await page(browser, 'cards', PHONE);
+    await p.goto(URL + '#home');
+    await p.waitForTimeout(1500);
+    const r = await p.evaluate(() => {
+      HCCShareCard('In the beginning God created the heaven and the earth.', 'Genesis 1:1 (KJV)', '');
+      const a = !document.querySelector('.cardprev.ed25').hidden && document.querySelector('.ed25-cut').hidden;
+      HCCCard({q: 'word '.repeat(400), by: 'Test', sub: '', src: 'Test edition'});
+      const b = !document.querySelector('.ed25-cut').hidden;
+      return a && b;
+    });
+    if (!r) fail('cards', 'card preview or abridged notice did not behave as expected');
+    else console.log('  ok   cards');
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);

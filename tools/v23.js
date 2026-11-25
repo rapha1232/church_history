@@ -39,7 +39,7 @@ function cite(m, n, sec){
   return m.cite + " " + (m.book ? m.book + "." + n + (sec ? "." + sec : "") : n);
 }
 function credit(m){ return "trans. " + m.tr + "; " + m.ed; }
-function plain(h){ var d = document.createElement("div"); d.innerHTML = h; $$("sup", d).forEach(function(s){ s.remove(); }); return d.textContent.replace(/\s+/g, " ").trim(); }
+function plain(h){ var d = document.createElement("div"); d.innerHTML = h; $$("sup, .ft-sec", d).forEach(function(s){ s.parentNode.removeChild(s); }); return d.textContent.replace(/\s+/g, " ").trim(); }
 
 /* ---------- pages ---------- */
 function hash(){ var h = location.hash.slice(1); try{ h = decodeURIComponent(h); }catch(e){} return h.split("~"); }
@@ -90,7 +90,7 @@ function chapterHTML(m, c){
     (AU() && AU().chapter(m.id, c.n) ? AU().box(AU().chapter(m.id, c.n), false) : "") +
     '<div class="ft-tr">' + c.p.map(function(p){ return '<p class="ft-p">'+p+'</p>'; }).join("") + '</div>' +
     (c.fn && c.fn.length ? '<details class="ft-notes"><summary>Notes ('+c.fn.length+')</summary><ol>' + c.fn.map(function(f, i){ return '<li id="ft-'+esc(c.n.replace(/\W/g, ""))+'-n'+(i + 1)+'">'+f+'</li>'; }).join("") + '</ol></details>' : "") +
-    '<div class="ft-acts"><button type="button" class="btn-sm" data-ft="add">Add to study</button><button type="button" class="btn-sm" data-ft="cite">Copy citation</button><button type="button" class="btn-sm" data-ft="link">Copy link</button></div></section>';
+    '<div class="ft-acts"><button type="button" class="btn-sm" data-ft="add">Add to study</button><button type="button" class="btn-sm" data-ft="cite">Copy citation</button><button type="button" class="btn-sm" data-ft="link">Copy link</button>'+(window.HCCCard ? '<button type="button" class="btn-sm" data-ft="card">Share card</button>' : "")+'</div></section>';
 }
 function goTo(n, sec){
   var el = document.getElementById("ft-" + String(n).replace(/\W/g, "")); if(!el) return;
@@ -146,6 +146,11 @@ A.addEventListener("click", function(e){
   var chEl = b.closest(".ft-ch"), m = curWork(); if(!chEl || !m) return;
   var n = chEl.dataset.n, sel = selectionIn(chEl), sec = m.book ? sectionOf(chEl) : "", ref = cite(m, n, sec);
   if(b.dataset.ft === "cite"){ copy(ref + " (" + credit(m) + ")", "Citation copied"); return; }
+  if(b.dataset.ft === "card"){
+    var q = sel || plain($(".ft-p", chEl).innerHTML);
+    window.HCCCard({q: q, by: m.author, sub: m.title.replace(/, Book [IVXLC]+$/, "") + " " + ref.replace(m.cite + " ", "") + (m.date ? " · " + m.date.replace(/ \(.*\)$/, "") : ""), src: "Trans. " + m.tr + ". " + m.ed});
+    return;
+  }
   if(b.dataset.ft === "link"){ copy(location.href.split("#")[0] + "#ref-fathers~" + m.id + "~" + n + (sec ? "~" + sec : ""), "Link copied"); return; }
   if(b.dataset.ft === "add"){
     var quote = sel || $$(".ft-p", chEl).map(function(p){ return plain(p.innerHTML); }).join(" ");

@@ -257,7 +257,7 @@ function itemHTML(it, si, ii, n, L){
   var rby = L && L.by[it.id] ? '<p class="st-rby"><span>Answered by '+L.by[it.id].map(function(id){ return goBtn(L, id); }).join(", ")+'</span></p>' : "";
   return '<li class="st-it t-'+it.type+(L && L.by[it.id] ? " is-answered" : "")+'" data-si="'+si+'" data-ii="'+ii+'" data-id="'+esc(it.id || "")+'">'+re+'<p class="st-kind">'+esc(TYPES[it.type] || "")+'</p><div class="st-head">'+head+'</div>'+main+
     (it.note ? '<p class="st-note">'+esc(it.note)+'</p>' : "") + rby +
-    '<div class="st-acts"><button type="button" data-st="edit">Edit</button><button type="button" data-st="answer">Answer this</button><button type="button" data-st="move">Move to '+esc(shortSide(si === 0 ? 1 : 0))+'</button>' +
+    '<div class="st-acts"><button type="button" data-st="edit">Edit</button><button type="button" data-st="answer">Answer this</button>'+((it.type === "verse" || (it.type === "father" && it.quote) || (it.type === "doc" && it.quote)) && window.HCCCard ? '<button type="button" data-st="card">Share card</button>' : "")+'<button type="button" data-st="move">Move to '+esc(shortSide(si === 0 ? 1 : 0))+'</button>' +
     (ii > 0 ? '<button type="button" data-st="up" aria-label="Move up">↑</button>' : "") + (ii < n - 1 ? '<button type="button" data-st="down" aria-label="Move down">↓</button>' : "") +
     '<button type="button" data-st="del" class="st-del">Delete</button></div></li>';
 }
@@ -388,6 +388,13 @@ if(STV) STV.addEventListener("click", function(e){
   var li = b.closest(".st-it"); if(!li) return;
   var si = +li.dataset.si, ii = +li.dataset.ii, id = CUR.id;
   if(a === "edit"){ openAdd({study: id, side: si, edit: ii}); return; }
+  if(a === "card"){
+    var ci = CUR.sides[si].items[ii];
+    if(ci.type === "verse"){ var vt = (STV.querySelector('[data-vtext="'+ci.id+'"]') || {}).textContent || ci.text || ""; if(!vt || /Loading/.test(vt)) return; var M0 = window.__BIBMAN__ || {eds: []}, e0 = M0.eds.filter(function(x){ return x.short === ci.ed; })[0]; window.HCCCard({q: vt, by: vLabel(ci), sub: "", src: e0 ? e0.name + (e0.year ? ", " + e0.year : "") : (ci.ed || "")}); }
+    else if(ci.type === "father") window.HCCCard({q: ci.quote, by: ci.author || "", sub: [ci.work, ci.date].filter(Boolean).join(" · "), src: ci.src ? ci.src.replace(/^trans\./, "Trans.") : ""});
+    else if(ci.type === "doc"){ var dd = docBy(ci.doc); window.HCCCard({q: ci.quote, by: dd ? dd.title : (ci.title || ""), sub: dd && dd.date ? dd.date : "", src: ""}); }
+    return;
+  }
   if(a === "answer"){ var src = CUR.sides[si].items[ii]; if(!src.id){ CUR = update(id, function(s){ s.sides[si].items[ii].id = uid(); }); src = CUR.sides[si].items[ii]; } openAdd({study: id, side: si ? 0 : 1, answers: src.id, type: "note"}); return; }
   if(a === "del"){
     var gone = CUR.sides[si].items[ii];
