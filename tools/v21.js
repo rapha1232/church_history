@@ -156,7 +156,7 @@ var LIB = [
   ["Councils and doctrine", ["ref-councils", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
   ["Texts and sources", ["ref-fathers", "ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
   ["Pictures", ["ref-gallery", "ref-images"]],
-  ["Bible companions", ["bible-maps", "bible-canon", "bible-arcs"]]
+  ["Bible companions", ["bible-dcnt", "bible-maps", "bible-canon", "bible-arcs"]]
 ];
 function renderLibrary(){
   var el = art("library"); if(!el) return;

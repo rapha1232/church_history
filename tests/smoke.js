@@ -154,6 +154,21 @@ async function finish(browser) {
     await p.close();
   }
 
+  // The deuterocanon in the New Testament: 10 visible parallels and a marker on Hebrews 1:3
+  {
+    const p = await page(browser, 'dcnt', PHONE);
+    await p.goto(URL + '#bible-dcnt');
+    await p.waitForTimeout(2500);
+    const n = await p.$$eval('.dc-pair', x => x.filter(e => e.offsetHeight > 0).length);
+    if (n !== 10) fail('dcnt', 'expected 10 visible parallels, found ' + n);
+    await p.goto(URL + '#bible~kjv~HEB~1~3');
+    await p.waitForTimeout(2500);
+    const m = await p.$$eval('#bibView .dcm', x => x.map(b => b.textContent).join('|'));
+    if (!/Wisdom 7:25/.test(m)) fail('dcnt', 'no Wisdom marker on Hebrews 1:3 (' + m + ')');
+    if (!failures.some(f => f.startsWith('dcnt'))) console.log('  ok   dcnt');
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);
