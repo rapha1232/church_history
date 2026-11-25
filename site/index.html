@@ -5442,6 +5442,7 @@ function measure(){
   }
   var id = a.id, w = W[id] || {p:0};
   if(scrolled && p > (w.p||0)){ w.p = p; }
+  if(scrolled && p < 0.95) w.y = Math.round(scrollY); else if(p >= 0.95) delete w.y;
   w.t = Date.now(); W[id] = w;
   if(Date.now() - lastSave > 1200){ lastSave = Date.now(); save(); }
   // parallax + fade of the cold open while it leaves
@@ -5798,7 +5799,7 @@ function toMD(){
   }).join("\n");
 }
 document.addEventListener("click", function(e){
-  var d = e.target.closest("[data-nbdel]"); if(d){ unwrap(d.dataset.nbdel); NOTES = NOTES.filter(function(x){return x.id!==d.dataset.nbdel;}); save(NK, NOTES); renderNotebook(); return; }
+  var d = e.target.closest("[data-nbdel]"); if(d){ var gone = NOTES.filter(function(x){ return x.id === d.dataset.nbdel; })[0]; if(gone && window.HCCToast) HCCToast("Highlight deleted", {action: "Undo", run: function(){ NOTES.push(gone); save(NK, NOTES); var a = document.getElementById(gone.art); if(a && a._hl) wrapRange(a, gone); renderNotebook(); }}); unwrap(d.dataset.nbdel); NOTES = NOTES.filter(function(x){return x.id!==d.dataset.nbdel;}); save(NK, NOTES); renderNotebook(); return; }
   var x = e.target.closest("[data-nb]"); if(!x) return;
   if(x.dataset.nb === "md") download("church-history-notebook.md", "text/markdown", toMD());
   if(x.dataset.nb === "json") download("church-history-notebook.json", "application/json", JSON.stringify({v:1, notes:NOTES, watch:load("hcc.watch",{})}, null, 1));
@@ -8304,6 +8305,10 @@ var T = {
 "Read":["Leer","Ler","Lire","قراءة"], "Study":["Estudiar","Estudar","Étudier","دراسة"],
 "Reference · This app":["Referencia · Esta app","Referência · Este app","Référence · Cette app","مرجع · هذا التطبيق"],
 "Language, your reading and notes, Bible editions you add, offline packs and updates.":["Idioma, tu lectura y notas, ediciones de la Biblia que añadas, paquetes sin conexión y actualizaciones.","Idioma, sua leitura e anotações, edições da Bíblia que você adicionar, pacotes offline e atualizações.","Langue, votre lecture et vos notes, éditions de la Bible ajoutées, packs hors ligne et mises à jour.","اللغة، وقراءتك وملاحظاتك، وطبعات الكتاب المقدس التي تضيفها، والحزم دون اتصال، والتحديثات."],
+"Recent":["Recientes","Recentes","Récentes","الأخيرة"], "Clear":["Borrar","Limpar","Effacer","مسح"], "Try":["Prueba","Experimente","Essayez","جرّب"],
+"Bookmarked":["Guardado en marcadores","Salvo nos marcadores","Ajouté aux signets","أُضيفت إشارة"], "Bookmark removed":["Marcador quitado","Marcador removido","Signet retiré","أُزيلت الإشارة"],
+"View":["Ver","Ver","Voir","عرض"], "Undo":["Deshacer","Desfazer","Annuler","تراجع"], "Highlight deleted":["Subrayado eliminado","Destaque excluído","Surlignage supprimé","حُذف التظليل"],
+"Continue where you left off":["Sigue donde lo dejaste","Continue de onde parou","Reprenez où vous en étiez","تابع من حيث توقفت"], "Resume":["Seguir","Continuar","Reprendre","متابعة"], "min left":["min restantes","min restantes","min restantes","دقيقة متبقية"],
 "What the Fathers said":["Qué dijeron los Padres","O que disseram os Padres","Ce qu’ont dit les Pères","ماذا قال الآباء"]
 };
 var IDX = {en:-1, es:0, pt:1, fr:2, ar:3};
@@ -8547,6 +8552,117 @@ addEventListener("hashchange", function(){ setTimeout(route, 120); });
 window.HCCSettings = {render: render, lang: function(){ return LANG; }, t: t};
 })();
 </script>
+<style>
+/* ===== Edition 20: UX ===== */
+.hcc-toast{position:fixed;left:50%;bottom:calc(var(--tabh,62px) + 18px + env(safe-area-inset-bottom,0px));z-index:1500;display:flex;align-items:center;gap:14px;width:max-content;max-width:min(calc(100vw - 24px),460px);box-sizing:border-box;
+  padding:11px 12px 11px 16px;border-radius:14px;background:#17181d;color:#f3eee4;font:500 14px/1.35 var(--font-ui);box-shadow:0 10px 30px rgba(0,0,0,.35);
+  transform:translate(-50%,16px);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.7,.1,1),opacity .2s}
+.hcc-toast.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.hcc-toast span{flex:1;min-width:0}
+.hcc-toast button{flex:none;border:0;background:none;color:#e2b85b;font:700 13px var(--font-ui);letter-spacing:.04em;text-transform:uppercase;padding:8px 10px;margin:-6px -2px;border-radius:8px;cursor:pointer;min-height:36px}
+.hcc-toast button:hover{background:rgba(226,184,91,.12)}
+body.chrome-off .hcc-toast{bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+@media (min-width:961px){.hcc-toast{bottom:28px}}
+/* search: recent and suggested before typing */
+.sx-start{padding:12px 14px 14px}
+.sx-sh{display:flex;justify-content:space-between;align-items:center;margin:4px 0 10px!important;background:none!important;padding:0!important}
+.sx-sh button{border:0;background:none;color:var(--muted);font:600 12px var(--font-ui);cursor:pointer;padding:4px 6px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.sx-chips button{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);font:500 13.5px var(--font-ui);cursor:pointer}
+.sx-chips button:hover{background:var(--wash)}
+/* floating controls: never on top of each other or unreadable over content */
+.totop{background:color-mix(in srgb,var(--elev,#fff) 92%,transparent)!important;border:1px solid var(--rule)!important;box-shadow:0 6px 18px rgba(0,0,0,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+@media (max-width:760px){.nowpill{max-width:calc(100vw - 148px)!important}}
+@media (prefers-reduced-motion:reduce){.hcc-toast{transition:opacity .15s}}
+</style>
+<script>(function(){
+"use strict";
+/* Edition 20: UX. Feedback with undo, back keeps your place, resume an episode, a useful empty search. */
+var $ = function(s,r){return (r||document).querySelector(s)};
+function get(k,d){ try{ var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+function put(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]}); }
+function tr(s){ return window.HCCSettings && HCCSettings.t ? HCCSettings.t(s) : s; }
+
+/* ---------- toast: short confirmation, optional action (Undo, View) ---------- */
+var toast = document.createElement("div"); toast.className = "hcc-toast"; toast.setAttribute("role","status"); toast.setAttribute("aria-live","polite");
+document.body.appendChild(toast);
+var tT = 0;
+function hide(){ toast.classList.remove("on"); }
+window.HCCToast = function(msg, o){
+  o = o || {}; clearTimeout(tT);
+  toast.innerHTML = '<span>'+esc(tr(msg))+'</span>' + (o.action ? '<button type="button">'+esc(tr(o.action))+'</button>' : "");
+  var b = $("button", toast); if(b) b.onclick = function(){ hide(); try{ o.run(); }catch(e){} };
+  void toast.offsetWidth; toast.classList.add("on");
+  tT = setTimeout(hide, o.ms || (o.action ? 5500 : 2600));
+};
+toast.addEventListener("pointerenter", function(){ clearTimeout(tT); });
+toast.addEventListener("pointerleave", function(){ tT = setTimeout(hide, 1800); });
+addEventListener("hashchange", function(){ setTimeout(hide, 0); });
+
+/* bookmarks: say what happened and where to find it */
+var mb = $("#markBtn");
+if(mb) mb.addEventListener("click", function(){
+  var on = mb.getAttribute("aria-pressed") === "true";
+  HCCToast(on ? "Bookmarked" : "Bookmark removed", on ? {action: "View", run: function(){ var t = document.querySelector('.tabbar [data-t="saved"]'); if(t) t.click(); }} : {action: "Undo", run: function(){ mb.click(); }});
+});
+
+/* ---------- Back returns to where you were on the page ---------- */
+var sT = 0, restoring = false;
+function remember(){ try{ var st = history.state && typeof history.state === "object" ? history.state : {}; if(st.y !== scrollY){ st = Object.assign({}, st, {y: Math.round(scrollY)}); history.replaceState(st, ""); } }catch(e){} }
+addEventListener("scroll", function(){ if(restoring) return; clearTimeout(sT); sT = setTimeout(remember, 160); }, {passive: true});
+addEventListener("popstate", function(e){
+  var y = e.state && e.state.y; if(!(y > 0)) return;
+  restoring = true;
+  /* the page re-renders on the hash change first; land after it, and once more after late layout */
+  [60, 260, 600].forEach(function(t){ setTimeout(function(){ if(Math.abs(scrollY - y) > 4) scrollTo({top: y, behavior: "instant" in document.documentElement.style ? "instant" : "auto"}); }, t); });
+  setTimeout(function(){ restoring = false; remember(); }, 700);
+  window.__restored = Date.now();
+});
+
+/* ---------- reopen an episode where you stopped ---------- */
+function offerResume(){
+  var a = $("main article.active"); if(!a || !a.dataset.ep) return;
+  if(window.__restored && Date.now() - window.__restored < 1500) return;
+  var w = (get("hcc.watch", {}) || {})[a.id]; if(!w || !(w.y > 700) || !(w.p > 0.05) || w.p >= 0.95) return;
+  var EP = window.__EP__ || {}, e = EP[a.id], left = e && e.m ? Math.max(1, Math.ceil(e.m * (1 - w.p))) : 0, id = a.id, y = w.y;
+  setTimeout(function(){
+    if(scrollY > 300 || !$("#" + id + ".active")) return;
+    HCCToast(tr("Continue where you left off") + (left ? " · " + left + " " + tr("min left") : ""), {action: "Resume", ms: 7000, run: function(){ scrollTo({top: y, behavior: "smooth"}); }});
+  }, 500);
+}
+addEventListener("hashchange", function(){ setTimeout(offerResume, 120); });
+setTimeout(offerResume, 1600);
+
+/* ---------- search: recent searches and good starting points before typing ---------- */
+var q = $("#q"), res = $("#results");
+if(q && res){
+  var phone = matchMedia("(max-width: 760px)");
+  function ph(){ q.placeholder = phone.matches ? "Search the history" : "Search people, councils, terms…  ( / )"; }
+  ph(); if(phone.addEventListener) phone.addEventListener("change", ph);
+  var SUGGEST = ["Nicaea", "Augustine", "Great Schism", "Reformation", "Chalcedon", "Desert Fathers", "Icons", "Church of the East"];
+  function recent(){ var r = get("hcc.recent", []); return Array.isArray(r) ? r : []; }
+  function addRecent(v){ v = String(v || "").trim(); if(v.length < 2) return; var r = recent().filter(function(x){ return x.toLowerCase() !== v.toLowerCase(); }); r.unshift(v); put("hcc.recent", r.slice(0, 6)); }
+  function start(){
+    if(q.value.trim() || document.activeElement !== q) return;
+    var r = recent();
+    res.classList.remove("sx");
+    res.innerHTML = '<div class="sx-start">' +
+      (r.length ? '<p class="sx-sh shelf-h"><span>'+esc(tr("Recent"))+'</span><button type="button" data-sxclear="1">'+esc(tr("Clear"))+'</button></p><div class="sx-chips">' + r.map(function(x){ return '<button type="button" data-sxq="'+esc(x)+'">'+esc(x)+'</button>'; }).join("") + '</div>' : "") +
+      '<p class="sx-sh shelf-h"><span>'+esc(tr("Try"))+'</span></p><div class="sx-chips">' + SUGGEST.filter(function(x){ return !r.some(function(y){ return y.toLowerCase() === x.toLowerCase(); }); }).map(function(x){ return '<button type="button" data-sxq="'+esc(x)+'">'+esc(x)+'</button>'; }).join("") + '</div></div>';
+    res.hidden = false;
+  }
+  q.addEventListener("focus", function(){ setTimeout(start, 0); });
+  q.addEventListener("input", function(){ if(!q.value.trim()) setTimeout(start, 0); });
+  res.addEventListener("mousedown", function(e){ if(e.target.closest("[data-sxq],[data-sxclear]")) e.preventDefault(); });
+  res.addEventListener("click", function(e){
+    var c = e.target.closest("[data-sxclear]"); if(c){ put("hcc.recent", []); start(); return; }
+    var b = e.target.closest("[data-sxq]"); if(b){ q.value = b.dataset.sxq; q.dispatchEvent(new Event("input")); q.focus(); return; }
+    if(e.target.closest("a[href], [data-sx]")) addRecent(q.value);
+  }, true);
+  q.addEventListener("keydown", function(e){ if(e.key === "Enter") addRecent(q.value); });
+}
+})();</script>
 <style id="ed20">
 /* ================= Edition 20: design layer =================
    Implements DESIGN.md: "a scriptorium, used with restraint". Vellum and iron-gall ink by day,
@@ -8695,7 +8811,7 @@ body.scrolled .topbar{border-bottom-color:var(--rule)}
 .tabbar.tb2 button:active svg{background:none!important;transform:scale(.94)}
 
 /* back to top: a real button, only after scrolling */
-a.totop{display:grid!important;place-items:center;width:44px;height:44px;padding:0;border-radius:var(--r-md)!important;background:var(--elev);border:1px solid var(--rule);color:var(--ink)!important;text-decoration:none!important;font:600 18px/1 var(--font-ui);box-shadow:var(--shadow-1);opacity:0!important;pointer-events:none!important;transform:translateY(8px);transition:opacity var(--t-med) var(--ease),transform var(--t-med) var(--ease)}
+a.totop{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:grid!important;place-items:center;width:44px;height:44px;padding:0;border-radius:var(--r-md)!important;background:var(--elev)!important;border:1px solid var(--rule)!important;color:var(--ink)!important;text-decoration:none!important;font:600 18px/1 var(--font-ui);box-shadow:var(--shadow-1)!important;opacity:0!important;pointer-events:none!important;transform:translateY(8px);transition:opacity var(--t-med) var(--ease),transform var(--t-med) var(--ease)}
 body.ed20-deep a.totop{opacity:1!important;pointer-events:auto!important;transform:none}
 body.chrome-off a.totop{opacity:0!important;pointer-events:none!important}
 @media (min-width:961px){a.totop{right:24px;bottom:24px}}
@@ -8706,6 +8822,13 @@ body.chrome-off a.totop{opacity:0!important;pointer-events:none!important}
 .trail ol{background:var(--paper);border-left:1px solid var(--rule)}
 body.ed20-hero .trail{opacity:0!important;pointer-events:none!important}
 body.ed20-hero .src-fab{opacity:0;pointer-events:none}
+
+/* toast (from the UX edition): a floating surface like the others, theme tokens instead of fixed colours */
+.hcc-toast{background:var(--elev)!important;color:var(--ink)!important;border:1px solid var(--rule);border-radius:var(--r-md)!important;box-shadow:var(--shadow-2)!important;font:500 15px/1.4 var(--font-ui)!important}
+.hcc-toast button{color:var(--accent)!important;font:600 14px var(--font-ui)!important;letter-spacing:.02em!important;text-transform:none!important;border-radius:var(--r-sm)!important;min-height:40px!important}
+.hcc-toast button:hover{background:var(--wash)!important}
+.sx-chips button{font:500 14px var(--font-ui)!important}
+.sx-chips button:hover{border-color:var(--rule-strong)}
 
 /* ---------- controls ---------- */
 .btn-sm{border-radius:var(--r-md)!important;min-height:40px;padding:8px 16px;font:600 14px var(--font-ui)!important;background:var(--panel);border:1px solid var(--rule-strong);color:var(--ink);transition:background var(--t-fast),border-color var(--t-fast),transform var(--t-fast)}

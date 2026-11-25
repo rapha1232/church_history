@@ -145,7 +145,7 @@ body.scrolled .topbar{border-bottom-color:var(--rule)}
 .tabbar.tb2 button:active svg{background:none!important;transform:scale(.94)}
 
 /* back to top: a real button, only after scrolling */
-a.totop{display:grid!important;place-items:center;width:44px;height:44px;padding:0;border-radius:var(--r-md)!important;background:var(--elev);border:1px solid var(--rule);color:var(--ink)!important;text-decoration:none!important;font:600 18px/1 var(--font-ui);box-shadow:var(--shadow-1);opacity:0!important;pointer-events:none!important;transform:translateY(8px);transition:opacity var(--t-med) var(--ease),transform var(--t-med) var(--ease)}
+a.totop{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:grid!important;place-items:center;width:44px;height:44px;padding:0;border-radius:var(--r-md)!important;background:var(--elev)!important;border:1px solid var(--rule)!important;color:var(--ink)!important;text-decoration:none!important;font:600 18px/1 var(--font-ui);box-shadow:var(--shadow-1)!important;opacity:0!important;pointer-events:none!important;transform:translateY(8px);transition:opacity var(--t-med) var(--ease),transform var(--t-med) var(--ease)}
 body.ed20-deep a.totop{opacity:1!important;pointer-events:auto!important;transform:none}
 body.chrome-off a.totop{opacity:0!important;pointer-events:none!important}
 @media (min-width:961px){a.totop{right:24px;bottom:24px}}
@@ -156,6 +156,13 @@ body.chrome-off a.totop{opacity:0!important;pointer-events:none!important}
 .trail ol{background:var(--paper);border-left:1px solid var(--rule)}
 body.ed20-hero .trail{opacity:0!important;pointer-events:none!important}
 body.ed20-hero .src-fab{opacity:0;pointer-events:none}
+
+/* toast (from the UX edition): a floating surface like the others, theme tokens instead of fixed colours */
+.hcc-toast{background:var(--elev)!important;color:var(--ink)!important;border:1px solid var(--rule);border-radius:var(--r-md)!important;box-shadow:var(--shadow-2)!important;font:500 15px/1.4 var(--font-ui)!important}
+.hcc-toast button{color:var(--accent)!important;font:600 14px var(--font-ui)!important;letter-spacing:.02em!important;text-transform:none!important;border-radius:var(--r-sm)!important;min-height:40px!important}
+.hcc-toast button:hover{background:var(--wash)!important}
+.sx-chips button{font:500 14px var(--font-ui)!important}
+.sx-chips button:hover{border-color:var(--rule-strong)}
 
 /* ---------- controls ---------- */
 .btn-sm{border-radius:var(--r-md)!important;min-height:40px;padding:8px 16px;font:600 14px var(--font-ui)!important;background:var(--panel);border:1px solid var(--rule-strong);color:var(--ink);transition:background var(--t-fast),border-color var(--t-fast),transform var(--t-fast)}
