@@ -46,6 +46,11 @@ or publish a release from the GitHub website with a tag such as `v18.1`, or run 
 (Actions → Release APK → Run workflow). The tag sets the version: `v18` → version 18 (code 1800),
 `v18.1` → version 18.1 (code 1801).
 
+**Automatic releases.** Merging a change to `site/` or `android/` into `main` makes the **Release on merge**
+workflow tag that commit with the next version (the highest `vN` tag plus one, e.g. `v24` → `v25`, computed by
+`scripts/next_version.sh`) and start the Release APK build for it. Put `[skip release]` in the merge commit
+message to skip it. Tags pushed by hand still work as before.
+
 ### One-time setup: the signing key
 
 Android only installs an update if it is signed with the same key as the installed app. The key is

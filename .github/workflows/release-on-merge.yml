@@ -1,0 +1,53 @@
+name: Release on merge
+
+# When a change to the app (site/ or android/) lands on main, tag it with the next version (v24 -> v25) and
+# build that release with the Release APK workflow. Put [skip release] in the merge commit message to skip it.
+#
+# The tag is pushed with the workflow's own token, and GitHub does not start other workflows for pushes made
+# with that token. So the build is started explicitly (workflow_dispatch on the new tag), which GitHub allows.
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'android/**']
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: release-on-merge
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Next version
+        id: v
+        run: |
+          git fetch --force --tags origin
+          if git tag --points-at "$GITHUB_SHA" | grep -q '^v[0-9]'; then
+            echo "This commit is already tagged ($(git tag --points-at "$GITHUB_SHA" | tr '\n' ' ')). Nothing to do."
+            echo "tag=" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=$(bash scripts/next_version.sh)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Tag the commit
+        if: steps.v.outputs.tag != ''
+        run: |
+          git tag "${{ steps.v.outputs.tag }}" "$GITHUB_SHA"
+          git push origin "refs/tags/${{ steps.v.outputs.tag }}"
+
+      - name: Build the release
+        if: steps.v.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run release.yml --ref "${{ steps.v.outputs.tag }}" -f tag="${{ steps.v.outputs.tag }}"
+          echo "Started Release APK for ${{ steps.v.outputs.tag }}" >> "$GITHUB_STEP_SUMMARY"
