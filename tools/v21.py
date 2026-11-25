@@ -109,6 +109,8 @@ TR = {
  "Study imported": ["Estudio importado","Estudo importado","Étude importée","استُوردت الدراسة"],
  "Name of the new study": ["Nombre del nuevo estudio","Nome do novo estudo","Nom de la nouvelle étude","اسم الدراسة الجديدة"],
  "Both sides": ["Ambas posturas","Ambos os lados","Les deux positions","الجانبان"],
+ "Ready-made studies": ["Estudios preparados","Estudos prontos","Études toutes prêtes","دراسات جاهزة"],
+ "Study added": ["Estudio añadido","Estudo adicionado","Étude ajoutée","أضيفت الدراسة"],
  "Unanswered": ["Sin respuesta","Sem resposta","Sans réponse","بلا رد"],
  "Threads": ["Hilos","Discussões","Fils","السلاسل"],
  "Answer this": ["Responder","Responder","Répondre","الرد على هذا"],

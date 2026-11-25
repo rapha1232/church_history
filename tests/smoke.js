@@ -180,6 +180,23 @@ async function finish(browser) {
     await p.close();
   }
 
+  // Ready-made studies: five offered; adding one creates a study with its verses loaded
+  {
+    const p = await page(browser, 'ready-studies', PHONE);
+    await p.goto(URL + '#studies');
+    await p.waitForTimeout(1200);
+    await p.click('[data-st=ready]'); await p.waitForTimeout(1200);
+    const n = await p.$$eval('[data-ready]', x => x.length);
+    if (n !== 5) fail('ready-studies', 'expected 5 ready-made studies, found ' + n);
+    else {
+      await p.click('[data-ready="0"]'); await p.waitForTimeout(2500);
+      const r = await p.evaluate(() => [document.querySelectorAll('.st-it').length, [...document.querySelectorAll('.st-it.t-verse .st-q')].filter(e => !/Loading/.test(e.textContent)).length]);
+      if (r[0] !== 14 || r[1] !== 6) fail('ready-studies', 'papacy study: expected 14 items and 6 loaded verses, found ' + r.join(' and '));
+      else console.log('  ok   ready-studies');
+    }
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);

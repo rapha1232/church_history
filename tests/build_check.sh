@@ -32,3 +32,10 @@ if ! git diff --quiet -- site/bible/doctrines.js; then
   exit 1
 fi
 echo "ok   doctrine timeline quotations verified against their sources"
+
+python3 tools/studies.py > /dev/null
+if ! git diff --quiet -- site/bible/studies.js; then
+  echo "FAIL: site/bible/studies.js is out of date. Run python3 tools/studies.py and commit it."
+  exit 1
+fi
+echo "ok   ready-made study quotations verified against their sources"

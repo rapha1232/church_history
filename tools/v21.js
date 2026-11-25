@@ -291,7 +291,7 @@ function renderStudies(){
   CUR = null;
   var list = studies();
   var html = '<p class="eyebrow">Your research</p><h2>Studies</h2><p class="lede">Gather the evidence on a question, for and against: Scripture, the Church Fathers, councils and documents, episodes and your own notes.</p>' +
-    '<div class="ed21-acts"><button type="button" class="btn-sm pri" data-st="new">'+svg("plus")+'New study</button><label class="btn-sm">Import a study file<input type="file" accept="application/json,.json" hidden data-st="import"></label></div>';
+    '<div class="ed21-acts"><button type="button" class="btn-sm pri" data-st="new">'+svg("plus")+'New study</button><button type="button" class="btn-sm" data-st="ready">Ready-made studies</button><label class="btn-sm">Import a study file<input type="file" accept="application/json,.json" hidden data-st="import"></label></div>';
   if(!list.length){
     html += '<div class="st-empty"><h3>Start with a question</h3><p>For example: “Was the papacy part of the early Church?” Add the verses, Fathers and documents you find on each side as you read. Every verse menu, Fathers excerpt, document and episode has <b>Add to study</b>.</p><button type="button" class="btn-sm pri" data-st="new">New study</button></div>';
   } else {
@@ -379,6 +379,7 @@ if(STV) STV.addEventListener("click", function(e){
   }
   var b = e.target.closest("[data-st]"); if(!b || b.tagName === "INPUT") return;
   var a = b.dataset.st;
+  if(a === "ready"){ openReady(); return; }
   if(a === "new"){ var s = newStudy(""); location.hash = "studies~" + s.id; setTimeout(function(){ var ti = $("#stTitle"); if(ti){ ti.focus(); ti.select(); } }, 200); return; }
   if(!CUR) return;
   if(a === "add"){ openAdd({side: +b.dataset.i, study: CUR.id}); return; }
@@ -416,13 +417,34 @@ if(STV) STV.addEventListener("change", function(e){
     var o; try{ o = JSON.parse(String(r.result || "")); }catch(err){ o = null; }
     var s = o && o.kind === "study" && o.study && Array.isArray(o.study.sides) ? o.study : null;
     if(!s){ toast("That file is not a shared study. Choose a file made with “Share as a file”."); return; }
-    s.id = uid(); s.updated = Date.now(); var remap = {};
-    s.sides.forEach(function(sd){ sd.items = sd.items || []; sd.items.forEach(function(it){ var nid = uid() + Object.keys(remap).length.toString(36); if(it.id) remap[it.id] = nid; it.id = nid; }); });
-    s.sides.forEach(function(sd){ sd.items.forEach(function(it){ if(it.answers) it.answers = remap[it.answers] || ""; if(!it.answers) delete it.answers; }); });
-    var list = studies(); list.unshift(s); saveStudies(list); location.hash = "studies~" + s.id; toast("Study imported");
+    addStudy(s, "Study imported");
   };
   r.readAsText(f.files[0]); f.value = "";
 });
+
+/* add a study from a file or the ready-made set: new ids, links between items kept */
+function addStudy(s, msg){
+  s = JSON.parse(JSON.stringify(s));
+  s.id = uid(); s.created = s.updated = Date.now(); var remap = {};
+  s.sides.forEach(function(sd){ sd.items = sd.items || []; sd.items.forEach(function(it){ var nid = uid() + Object.keys(remap).length.toString(36); if(it.id) remap[it.id] = nid; it.id = nid; }); });
+  s.sides.forEach(function(sd){ sd.items.forEach(function(it){ if(it.answers) it.answers = remap[it.answers] || ""; if(!it.answers) delete it.answers; }); });
+  var list = studies(); list.unshift(s); saveStudies(list); location.hash = "studies~" + s.id; toast(msg);
+}
+/* ready-made studies (site/bible/studies.js, built and checked by tools/studies.py) */
+var READY = null, readyWait = [];
+window.__STUDIES = function(x){ READY = x; readyWait.forEach(function(f){ f(); }); readyWait = []; };
+function ready(cb){ if(READY) return cb(); readyWait.push(cb); if(readyWait.length > 1) return; var sc = document.createElement("script"); sc.src = "bible/studies.js"; sc.async = true; sc.onerror = function(){ var w = readyWait; readyWait = []; w.forEach(function(f){ f(); }); }; document.head.appendChild(sc); }
+function openReady(){
+  ready(function(){
+    if(!READY){ toast("The ready-made studies could not be loaded"); return; }
+    var have = studies().map(function(x){ return x.title; });
+    var d = dialog('<div class="ed21-ph"><h3 id="ed21rT">Ready-made studies</h3><button type="button" class="ed21-x" data-dx="1" aria-label="Close">✕</button></div>' +
+      '<div class="ed21-body"><p class="st-tnote">Each gathers the main texts cited on both sides, from the Bible, the early Christian texts and the confessions in this app. Every quotation is checked against its source. Adding one makes your own copy to edit.</p><ul class="ed21-rows st-ready">' +
+      READY.map(function(r, i){ var n = r.study.sides.reduce(function(a, sd){ return a + sd.items.length; }, 0); return '<li><button type="button" data-ready="'+i+'"><b>'+esc(r.title)+'</b><span>'+esc(r.blurb)+' · '+n+' items'+(have.indexOf(r.title) >= 0 ? ' · you already have a copy' : "")+'</span></button></li>'; }).join("") +
+      '</ul></div>', "ed21rT");
+    d.on("[data-ready]", function(e){ var r = READY[+e.target.closest("[data-ready]").dataset.ready]; d.close(); addStudy(r.study, "Study added"); });
+  });
+}
 
 /* delete a whole study: a named confirmation (DESIGN.md §4) */
 function confirmDelete(s){
