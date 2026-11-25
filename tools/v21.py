@@ -45,8 +45,8 @@ else: sys.exit('v21: articleFor not found')
 API = '''window.HCCBible = {go: go,
   /* Edition 21: for Studies */
   parse: function(q){ var x = String(q || "").replace(/[\\u2013\\u2014]/g, "-").match(/^(.*?\\d+(?:\\s*[:.,]\\s*\\d+)?)\\s*(?:-\\s*(\\d+))?\\s*$/), r = x ? parseRef(x[1]) : null; if(!r || !r.v) return null; var v2 = x[2] ? Math.max(+x[2], r.v) : r.v; return {b: r.b, c: r.c, v: r.v, v2: v2}; },
-  label: function(b, c, v, v2){ try{ return shortName(edFor(b), b) + " " + c + ":" + v + (v2 && v2 !== v ? "\\u2013" + v2 : ""); }catch(e){ return b + " " + c + ":" + v; } },
-  text: function(r, cb){ try{ var ed = ED[st.ed].idx[r.b] != null ? st.ed : edFor(r.b), ch = xchap(ed, r.b, r.c), src = srcOf(ed, r.b); if(!src) return cb(null);
+  label: function(b, c, v, v2){ try{ return shortName(qEd(b), b) + " " + c + ":" + v + (v2 && v2 !== v ? "\\u2013" + v2 : ""); }catch(e){ return b + " " + c + ":" + v; } },
+  text: function(r, cb){ try{ var ed = qEd(r.b), ch = xchap(ed, r.b, r.c), src = srcOf(ed, r.b); if(!src) return cb(null);
     load(src, r.b, function(d){ var t = (chapter(d, ch) || []).filter(function(x){ return x[0] >= r.v && x[0] <= (r.v2 || r.v); }).map(function(x){ return x[1]; }).join(" ").replace(/\\s+/g, " ").trim();
       cb(t ? {text: t, ed: ED[ed].short, label: shortName(ed, r.b) + " " + r.c + ":" + r.v + (r.v2 && r.v2 !== r.v ? "\\u2013" + r.v2 : "")} : null); }); }catch(e){ cb(null); } },
   fathers: function(r, cb){ try{ var ob = origBook(r.b) || r.b, ch = engCh(edFor(r.b), r.b, r.c), g = grpOf(ob);

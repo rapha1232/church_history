@@ -14,6 +14,7 @@ function haptic(){ try{ if(APP) APP.haptic("tick"); }catch(e){} }
 /* ====================== language ====================== */
 var LANGS = [["en","English"],["es","Español"],["pt","Português"],["fr","Français"],["ar","العربية"]];
 var T = {
+"Default Bible":["Biblia predeterminada", "Bíblia padrão", "Bible par défaut", "الكتاب المقدس الافتراضي"], "The edition I am reading":["La edición que estoy leyendo", "A edição que estou lendo", "L’édition que je lis", "الطبعة التي أقرأها"], "Default Bible saved":["Biblia predeterminada guardada", "Bíblia padrão salva", "Bible par défaut enregistrée", "حُفظ الكتاب المقدس الافتراضي"], "Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.":["Se usa para los versículos citados en Estudios, las referencias bíblicas, el versículo del día y los enlaces que abren la Biblia. Los libros que no tiene se toman de otra edición.", "Usada nos versículos citados em Estudos, nas referências bíblicas, no versículo do dia e nos links que abrem a Bíblia. Os livros que ela não tem vêm de outra edição.", "Utilisée pour les versets cités dans les Études, les références bibliques, le verset du jour et les liens qui ouvrent la Bible. Les livres qu’elle n’a pas viennent d’une autre édition.", "تُستخدم للآيات المقتبسة في الدراسات والمراجع الكتابية وآية اليوم والروابط التي تفتح الكتاب المقدس. الأسفار غير الموجودة فيها تؤخذ من طبعة أخرى."],
 "Contents":["Índice","Sumário","Sommaire","المحتويات"], "Search":["Buscar","Pesquisar","Rechercher","بحث"], "Texts":["Textos","Textos","Textes","النصوص"],
 "Saved":["Guardado","Salvos","Enregistré","المحفوظات"], "Bible":["Biblia","Bíblia","Bible","الكتاب المقدس"], "Eras":["Épocas","Épocas","Époques","العصور"],
 "Topics":["Temas","Temas","Thèmes","المواضيع"], "Theme":["Tema","Tema","Thème","السمة"], "Text size":["Tamaño del texto","Tamanho do texto","Taille du texte","حجم النص"],
@@ -246,6 +247,9 @@ function render(){
   h += section("Language", '<div class="set-row"><span><small>' + esc(t("The menus and buttons change; episodes and Bible texts stay in English.")) + '</small></span><span class="set-b"><select id="setLang" aria-label="' + esc(t("Language")) + '">' +
     LANGS.map(function(l){ return '<option value="' + l[0] + '"' + (l[0] === LANG ? " selected" : "") + '>' + l[1] + '</option>'; }).join("") + '</select></span></div>');
   var when = has("backupTime") ? (function(){ try{ var ms = APP.backupTime(); return ms > 0 ? new Date(ms).toLocaleString() : ""; }catch(e){ return ""; } })() : "";
+  var DE = (window.__BIBMAN__ || {eds: []}).eds, de = get("hcc.bible.def", "");
+  h += section("Default Bible", '<div class="set-row"><span><small>' + esc(t("Used for verses quoted in Studies, Bible references, the verse of the day and links that open the Bible. Books it does not have come from another edition.")) + '</small></span><span class="set-b"><select id="setDefEd" style="width:100%;max-width:100%;min-width:0" aria-label="' + esc(t("Default Bible")) + '"><option value="">' + esc(t("The edition I am reading")) + '</option>' +
+    DE.map(function(e){ return '<option value="' + esc(e.id) + '"' + (e.id === de ? " selected" : "") + '>' + esc(e.short + " · " + e.name) + '</option>'; }).join("") + '</select></span></div>');
   h += section("Your reading and notes", '<p class="set-p">' + esc(t("Bookmarks, notes, highlights, reading plans, chapters read and settings. Save them to a file to move them to another phone or browser.")) + '</p>' +
     (APP ? '<p class="set-p">' + esc(t("Also kept by your phone’s backup, so a new phone or a reinstall gets it back.")) + (when ? ' ' + esc(t("Last copy")) + ': ' + esc(when) + '.' : '') + '</p>' : '') +
     '<div class="set-b"><button type="button" class="btn-sm pri" data-do="bk-save">' + esc(t("Save to a file")) + '</button><label class="btn-sm">' + esc(t("Restore from a file")) + '<input type="file" accept="application/json,.json" hidden id="setBk"></label></div>');
@@ -270,6 +274,7 @@ function render(){
 document.addEventListener("change", function(e){
   var el = e.target;
   if(el.id === "setLang"){ haptic(); setLang(el.value); }
+  else if(el.id === "setDefEd"){ put("hcc.bible.def", el.value); try{ var b0 = get("hcc.bible", null); if(!b0 && el.value){ put("hcc.bible", {ed: el.value, b: "JOH", c: 1, cmp: "", v: 0}); } }catch(err){} if(window.HCCToast) HCCToast(t("Default Bible saved")); }
   else if(el.id === "setAuto"){ try{ APP.setAutoUpdate(el.checked); }catch(err){} }
   else if(el.id === "setBk" && el.files && el.files[0]){ loadBackup(el.files[0]); el.value = ""; }
   else if(el.id === "edFile" && el.files && el.files[0]){ importEdition(el.files[0]); el.value = ""; }
