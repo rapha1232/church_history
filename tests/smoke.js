@@ -113,6 +113,9 @@ async function finish(browser) {
     const here = await p.$eval('.ft-here', x => x.textContent).catch(() => '');
     if (!/every Church should agree with this Church/.test(here)) fail('fathers', 'Irenaeus 3.3.2 did not open at its section');
     if (await p.$$eval('#ft-3 [data-sref]', x => x.length) < 1) fail('fathers', 'no scripture links in Irenaeus 3.3');
+    if (!(await p.$('#ft-3 .au-box'))) fail('fathers', 'no authenticity note on Irenaeus 3.3');
+    const m = await p.evaluate(() => [HCCAuth.match('Ignatius of Antioch', 'Letter to the Smyrnaeans 8'), HCCAuth.match('Ignatius', 'Epistle to the Tarsians'), HCCAuth.match('Augustine', 'Sermon 131')].join(','));
+    if (m !== 'ign7,ignlong,') fail('fathers', 'authenticity matcher returned ' + m);
     if (!failures.some(f => f.startsWith('fathers'))) console.log('  ok   fathers');
     await p.close();
   }

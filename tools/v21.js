@@ -236,6 +236,8 @@ function itemHTML(it, si, ii, n, L){
     head = '<b>'+esc(it.author || "Unknown")+'</b>' + (it.work ? ' <small>'+esc(it.work)+(it.date ? ' · '+esc(it.date) : "")+'</small>' : (it.date ? ' <small>'+esc(it.date)+'</small>' : ""));
     if(it.quote) main = '<blockquote class="st-q">'+esc(it.quote)+'</blockquote>';
     if(it.ft) main += '<p class="st-ctx"><a href="#ref-fathers~'+esc(it.ft)+'">Read in context</a>'+(it.src ? ' <small>'+esc(it.src)+'</small>' : "")+'</p>';
+    var au = window.HCCAuth ? HCCAuth.match(it.author, it.work) : "";
+    if(au) main += HCCAuth.box(au, false);
   } else if(it.type === "doc"){
     var d = docBy(it.doc);
     head = d ? '<a href="#'+esc(d.el)+'" data-opendoc="'+esc(d.el)+'">'+esc(d.title)+'</a> <small>'+esc(d.date || "")+'</small>' : '<b>'+esc(it.title || "Document")+'</b>';

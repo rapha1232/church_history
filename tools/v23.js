@@ -8,6 +8,8 @@ var $$ = function(s, r){ return Array.prototype.slice.call((r || document).query
 function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 function toast(m){ if(window.HCCToast) HCCToast(m); }
 var A = document.getElementById("ref-fathers"); if(!A) return;
+var AU = function(){ return window.HCCAuth || null; };
+
 var MOUNT = $(".ft-mount", A);
 
 /* ---------- data (loaded on demand) ---------- */
@@ -51,7 +53,7 @@ function showCatalog(){
     by.map(function(g){
       return '<section class="ft-grp"><h3 class="ed21-h">'+esc(g.a)+'</h3><ul class="ed21-rows">' + g.w.map(function(w){
         var n = w.chapters.filter(function(c){ return c[0] !== "0" && !c[2]; }).length, min = Math.max(1, Math.round(w.words / 230));
-        return '<li><a href="#ref-fathers~'+esc(w.id)+'"><b>'+esc(w.title)+'</b><span>'+esc(w.date)+' · '+n+' '+(w.id === "cyp-unity" ? "sections" : "chapters")+' · about '+min+' min · trans. '+esc(w.tr)+'</span></a></li>';
+        return '<li><a href="#ref-fathers~'+esc(w.id)+'"><b>'+esc(w.title)+'</b>'+(AU() && AU().work(w.id) ? AU().chip(AU().work(w.id)) : "")+'<span>'+esc(w.date)+' · '+n+' '+(w.id === "cyp-unity" ? "sections" : "chapters")+' · about '+min+' min · trans. '+esc(w.tr)+'</span></a></li>';
       }).join("") + '</ul></section>';
     }).join("");
 }
@@ -65,7 +67,7 @@ function showWork(id, ch, sec){
       '<header class="ft-head"><p class="eyebrow">'+esc(m.author)+'</p><h3 class="ft-title">'+esc(m.title)+'</h3>' +
       '<p class="ft-meta">'+esc(m.date)+'</p>' +
       '<p class="ft-src">Translated by '+esc(m.tr)+'. From '+esc(m.ed)+'. <a href="'+esc(m.src)+'" target="_blank" rel="noopener noreferrer">Source text at CCEL ↗</a></p>' +
-      '<p class="ft-src">'+esc(m.brackets)+'</p></header>' +
+      '<p class="ft-src">'+esc(m.brackets)+'</p>' + (AU() && AU().work(m.id) ? AU().box(AU().work(m.id), false) : "") + '</header>' +
       '<div class="ft-jump"><label for="ftJump">Go to</label><select id="ftJump">' + w.ch.map(function(c){ return '<option value="'+esc(c.n)+'">'+esc(chName(m, c.n) + (c.t ? " · " + (c.t.length > 60 ? c.t.slice(0, 58) + "…" : c.t) : ""))+'</option>'; }).join("") + '</select></div>' +
       main.map(function(c){ return chapterHTML(m, c); }).join("") +
       (app.length ? '<h3 class="ft-apph">Appended documents</h3><p class="ft-src">Printed after the Apology in the edition used here. They are imperial letters, not Justin’s own words, and their authenticity is disputed.</p>' + app.map(function(c){ return chapterHTML(m, c); }).join("") : "") +
@@ -77,6 +79,7 @@ function showWork(id, ch, sec){
 function chapterHTML(m, c){
   return '<section class="ft-ch" id="ft-'+esc(c.n.replace(/\W/g, ""))+'" data-n="'+esc(c.n)+'">' +
     '<h4 class="ft-h"><span>'+esc(chName(m, c.n))+'</span>'+(c.t ? ' <small>'+esc(c.t)+'</small>' : "")+'</h4>' +
+    (AU() && AU().chapter(m.id, c.n) ? AU().box(AU().chapter(m.id, c.n), false) : "") +
     c.p.map(function(p){ return '<p class="ft-p">'+p+'</p>'; }).join("") +
     (c.fn && c.fn.length ? '<details class="ft-notes"><summary>Notes ('+c.fn.length+')</summary><ol>' + c.fn.map(function(f, i){ return '<li id="ft-'+esc(c.n.replace(/\W/g, ""))+'-n'+(i + 1)+'">'+f+'</li>'; }).join("") + '</ol></details>' : "") +
     '<div class="ft-acts"><button type="button" class="btn-sm" data-ft="add">Add to study</button><button type="button" class="btn-sm" data-ft="cite">Copy citation</button><button type="button" class="btn-sm" data-ft="link">Copy link</button></div></section>';
