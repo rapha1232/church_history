@@ -13,7 +13,12 @@ var AU = function(){ return window.HCCAuth || null; };
 var MOUNT = $(".ft-mount", A);
 
 /* ---------- data (loaded on demand) ---------- */
-var CAT = null, WORK = {}, wait = {};
+var CAT = null, WORK = {}, ORIG = {}, wait = {};
+var LANG = {grc: "Greek", la: "Latin"};
+function showOrig(){ try{ return localStorage.getItem("hcc.ft.orig") === "1"; }catch(e){ return false; } }
+function setOrig(v){ try{ localStorage.setItem("hcc.ft.orig", v ? "1" : "0"); }catch(e){} }
+window.__FTO = function(o){ ORIG[o.id] = o; (wait[o.id + ".orig"] || []).forEach(function(f){ f(o); }); delete wait[o.id + ".orig"]; };
+function orig(id, cb){ if(ORIG[id]) return cb(ORIG[id]); script("bible/texts/" + id + ".orig.js", id + ".orig", cb); }
 window.__FTI = function(c){ CAT = c; (wait.__i || []).forEach(function(f){ f(); }); delete wait.__i; };
 window.__FT = function(w){ WORK[w.id] = w; (wait[w.id] || []).forEach(function(f){ f(w); }); delete wait[w.id]; };
 function script(src, key, cb){
@@ -43,6 +48,7 @@ function route(){
   var p = hash();
   catalog(function(){
     if(!CAT){ MOUNT.innerHTML = '<p class="ft-err">The texts could not be loaded. If you are offline, open this page once with a connection, or use “Save everything for offline”.</p>'; return; }
+    A.classList.remove("ft-par");
     if(p[1] && meta(p[1])) showWork(p[1], p[2], p[3]); else showCatalog();
   });
 }
@@ -67,20 +73,22 @@ function showWork(id, ch, sec){
       '<header class="ft-head"><p class="eyebrow">'+esc(m.author)+'</p><h3 class="ft-title">'+esc(m.title)+'</h3>' +
       '<p class="ft-meta">'+esc(m.date)+'</p>' +
       '<p class="ft-src">Translated by '+esc(m.tr)+'. From '+esc(m.ed)+'. <a href="'+esc(m.src)+'" target="_blank" rel="noopener noreferrer">Source text at CCEL ↗</a></p>' +
-      '<p class="ft-src">'+esc(m.brackets)+'</p>' + (AU() && AU().work(m.id) ? AU().box(AU().work(m.id), false) : "") + '</header>' +
-      '<div class="ft-jump"><label for="ftJump">Go to</label><select id="ftJump">' + w.ch.map(function(c){ return '<option value="'+esc(c.n)+'">'+esc(chName(m, c.n) + (c.t ? " · " + (c.t.length > 60 ? c.t.slice(0, 58) + "…" : c.t) : ""))+'</option>'; }).join("") + '</select></div>' +
+      '<p class="ft-src">'+esc(m.brackets)+'</p>' +
+      (m.orig ? '<p class="ft-otog"><button type="button" class="btn-sm" data-ft="orig" aria-pressed="'+showOrig()+'">'+(showOrig() ? "Hide the " : "Show the ")+esc(LANG[m.orig])+'</button><span class="ft-osrc"></span></p>' : "") + (AU() && AU().work(m.id) ? AU().box(AU().work(m.id), false) : "") + '</header>' +
+      '<div class="ft-jump"><label for="ftJump">Go to</label><select id="ftJump">' + w.ch.map(function(c){ return '<option value="'+esc(c.n)+'">'+esc(chName(m, c.n) + (c.t && c.t !== chName(m, c.n) ? " · " + (c.t.length > 60 ? c.t.slice(0, 58) + "…" : c.t) : ""))+'</option>'; }).join("") + '</select></div>' +
       main.map(function(c){ return chapterHTML(m, c); }).join("") +
       (app.length ? '<h3 class="ft-apph">Appended documents</h3><p class="ft-src">Printed after the Apology in the edition used here. They are imperial letters, not Justin’s own words, and their authenticity is disputed.</p>' + app.map(function(c){ return chapterHTML(m, c); }).join("") : "") +
       '<p class="ft-end"><a href="#ref-fathers">← All texts</a></p>';
     MOUNT.innerHTML = html;
+    if(m.orig && showOrig()) addOrig(m, function(){ if(ch) goTo(ch, sec); });
     if(ch) setTimeout(function(){ goTo(ch, sec); }, 30); else window.scrollTo(0, 0);
   });
 }
 function chapterHTML(m, c){
   return '<section class="ft-ch" id="ft-'+esc(c.n.replace(/\W/g, ""))+'" data-n="'+esc(c.n)+'">' +
-    '<h4 class="ft-h"><span>'+esc(chName(m, c.n))+'</span>'+(c.t ? ' <small>'+esc(c.t)+'</small>' : "")+'</h4>' +
+    '<h4 class="ft-h"><span>'+esc(chName(m, c.n))+'</span>'+(c.t && c.t !== chName(m, c.n) ? ' <small>'+esc(c.t)+'</small>' : "")+'</h4>' +
     (AU() && AU().chapter(m.id, c.n) ? AU().box(AU().chapter(m.id, c.n), false) : "") +
-    c.p.map(function(p){ return '<p class="ft-p">'+p+'</p>'; }).join("") +
+    '<div class="ft-tr">' + c.p.map(function(p){ return '<p class="ft-p">'+p+'</p>'; }).join("") + '</div>' +
     (c.fn && c.fn.length ? '<details class="ft-notes"><summary>Notes ('+c.fn.length+')</summary><ol>' + c.fn.map(function(f, i){ return '<li id="ft-'+esc(c.n.replace(/\W/g, ""))+'-n'+(i + 1)+'">'+f+'</li>'; }).join("") + '</ol></details>' : "") +
     '<div class="ft-acts"><button type="button" class="btn-sm" data-ft="add">Add to study</button><button type="button" class="btn-sm" data-ft="cite">Copy citation</button><button type="button" class="btn-sm" data-ft="link">Copy link</button></div></section>';
 }
@@ -92,6 +100,25 @@ function goTo(n, sec){
   t.classList.add("ft-here"); setTimeout(function(){ t.classList.remove("ft-here"); }, 1600);
   var j = $("#ftJump", MOUNT); if(j) j.value = n;
 }
+
+/* ---------- original language beside the translation ---------- */
+function addOrig(m, done){
+  orig(m.id, function(o){
+    if(!o){ toast("The " + LANG[m.orig] + " text could not be loaded"); return; }
+    if(hash()[1] !== m.id) return;
+    A.classList.add("ft-par");
+    var src = $(".ft-osrc", MOUNT); if(src) src.textContent = LANG[o.lang] + ": " + o.ed + ". " + o.lic + ". " + o.note;
+    $$(".ft-ch", MOUNT).forEach(function(el){
+      var c = o.ch[el.dataset.n]; if(!c || $(".ft-o", el)) return;
+      var tr = $(".ft-tr", el);
+      tr.insertAdjacentHTML("afterend", '<div class="ft-o" lang="'+(o.lang === "grc" ? "grc" : "la")+'"><p class="ft-ol">'+esc(LANG[o.lang])+'</p>' +
+        c.map(function(x){ return '<p>'+(x[0] && c.length > 1 ? '<sup>'+esc(x[0])+'</sup> ' : "")+esc(x[1])+'</p>'; }).join("") +
+        (o.chnote && o.chnote[el.dataset.n] ? '<p class="ft-onote">'+esc(o.chnote[el.dataset.n])+'</p>' : "") + '</div>');
+    });
+    if(done) done();
+  });
+}
+function hideOrig(){ A.classList.remove("ft-par"); $$(".ft-o", MOUNT).forEach(function(x){ x.parentNode.removeChild(x); }); var src = $(".ft-osrc", MOUNT); if(src) src.textContent = ""; }
 
 /* ---------- actions ---------- */
 function curWork(){ var p = hash(); return meta(p[1]); }
@@ -115,6 +142,7 @@ A.addEventListener("click", function(e){
   var f = e.target.closest("sup[data-fn]");
   if(f){ var chEl = f.closest(".ft-ch"), d = $(".ft-notes", chEl); if(d){ d.open = true; var li = document.getElementById(chEl.id + "-n" + f.dataset.fn); if(li){ li.scrollIntoView({block: "center"}); li.classList.add("ft-here"); setTimeout(function(){ li.classList.remove("ft-here"); }, 1600); } } return; }
   var b = e.target.closest("[data-ft]"); if(!b) return;
+  if(b.dataset.ft === "orig"){ var mw = curWork(); if(!mw) return; var on = !showOrig(); setOrig(on); b.setAttribute("aria-pressed", String(on)); b.textContent = (on ? "Hide the " : "Show the ") + LANG[mw.orig]; if(on) addOrig(mw); else hideOrig(); return; }
   var chEl = b.closest(".ft-ch"), m = curWork(); if(!chEl || !m) return;
   var n = chEl.dataset.n, sel = selectionIn(chEl), sec = m.book ? sectionOf(chEl) : "", ref = cite(m, n, sec);
   if(b.dataset.ft === "cite"){ copy(ref + " (" + credit(m) + ")", "Citation copied"); return; }

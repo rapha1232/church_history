@@ -341,7 +341,8 @@ __FTI([
 0
 ]
 ],
-"words": 13283
+"words": 13283,
+"orig": "grc"
 },
 {
 "id": "ign-eph",
@@ -465,7 +466,8 @@ __FTI([
 0
 ]
 ],
-"words": 2685
+"words": 2685,
+"orig": "grc"
 },
 {
 "id": "ign-magn",
@@ -559,7 +561,8 @@ __FTI([
 0
 ]
 ],
-"words": 1567
+"words": 1567,
+"orig": "grc"
 },
 {
 "id": "ign-trall",
@@ -643,7 +646,8 @@ __FTI([
 0
 ]
 ],
-"words": 1393
+"words": 1393,
+"orig": "grc"
 },
 {
 "id": "ign-rom",
@@ -712,7 +716,8 @@ __FTI([
 0
 ]
 ],
-"words": 1637
+"words": 1637,
+"orig": "grc"
 },
 {
 "id": "ign-phld",
@@ -786,7 +791,8 @@ __FTI([
 0
 ]
 ],
-"words": 1438
+"words": 1438,
+"orig": "grc"
 },
 {
 "id": "ign-smyrn",
@@ -870,7 +876,8 @@ __FTI([
 0
 ]
 ],
-"words": 1646
+"words": 1646,
+"orig": "grc"
 },
 {
 "id": "ign-pol",
@@ -929,7 +936,8 @@ __FTI([
 0
 ]
 ],
-"words": 1165
+"words": 1165,
+"orig": "grc"
 },
 {
 "id": "pol-phil",
@@ -1241,7 +1249,8 @@ __FTI([
 0
 ]
 ],
-"words": 2615
+"words": 2615,
+"orig": "grc"
 },
 {
 "id": "justin-1apol",
@@ -1610,7 +1619,8 @@ __FTI([
 1
 ]
 ],
-"words": 21120
+"words": 21120,
+"orig": "grc"
 },
 {
 "id": "iren-ah3",
@@ -1904,6 +1914,7 @@ __FTI([
 0
 ]
 ],
-"words": 7776
+"words": 7776,
+"orig": "la"
 }
 ]);

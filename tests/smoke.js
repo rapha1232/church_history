@@ -116,6 +116,12 @@ async function finish(browser) {
     if (!(await p.$('#ft-3 .au-box'))) fail('fathers', 'no authenticity note on Irenaeus 3.3');
     const m = await p.evaluate(() => [HCCAuth.match('Ignatius of Antioch', 'Letter to the Smyrnaeans 8'), HCCAuth.match('Ignatius', 'Epistle to the Tarsians'), HCCAuth.match('Augustine', 'Sermon 131')].join(','));
     if (m !== 'ign7,ignlong,') fail('fathers', 'authenticity matcher returned ' + m);
+    await p.evaluate(() => { location.hash = 'ref-fathers~ign-rom~0'; });
+    await p.waitForTimeout(1500);
+    await p.click('[data-ft=orig]'); await p.waitForTimeout(1200);
+    const gk = await p.$eval('#ft-0 .ft-o', x => x.textContent).catch(() => '');
+    if (!/προκαθημένη τῆς ἀγάπης/.test(gk)) fail('fathers', 'Greek of Romans greeting not shown');
+    await p.click('[data-ft=orig]'); await p.waitForTimeout(300);
     if (!failures.some(f => f.startsWith('fathers'))) console.log('  ok   fathers');
     await p.close();
   }
