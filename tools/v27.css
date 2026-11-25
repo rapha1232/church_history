@@ -1,0 +1,23 @@
+/* Edition 27: the deuterocanon in the New Testament */
+#bible-dcnt .dc-legend{max-width:var(--measure);margin:0 0 20px;font:14.5px/1.55 var(--font-ui);color:var(--muted)}
+#bible-dcnt .dc-legend p{margin:0 0 6px}
+.dc-k{display:inline-block;margin-right:6px;padding:1px 7px;border:1px solid currentColor;border-radius:var(--r-sm);font:600 12px/1.5 var(--font-ui)}
+.dc-strong{color:var(--lapis)}.dc-history,.dc-event{color:var(--verdigris)}.dc-partial{color:var(--gold)}.dc-weak{color:var(--muted)}
+.dc-pair{margin:0 0 18px;padding:14px 16px;border:1px solid var(--rule);border-left:3px solid currentColor;border-radius:var(--r-md);background:var(--panel)}
+.dc-pair h4{margin:0 0 10px;font:600 1.1rem/1.35 var(--font-display);color:var(--ink)}
+.dc-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:699px){.dc-cols{grid-template-columns:1fr}}
+.dc-side{margin:0 0 2px;font:600 11px/1.3 var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dc-ref{margin:0 0 6px}
+.dc-go{border:0;background:none;padding:0;font:600 15px var(--font-ui);color:var(--lapis);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.dc-en{margin:0;font:16px/1.6 var(--font-body);color:var(--ink)}
+.dc-en small{font:12.5px var(--font-ui);color:var(--muted)}
+.dc-ev{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--rule);font:14.5px/1.55 var(--font-ui);color:var(--ink)}
+.dc-ev p{margin:0 0 6px}
+.dc-gk{margin:8px 0 0;font:14px var(--font-ui);color:var(--muted)}
+.dc-gk summary{min-height:40px;display:flex;align-items:center;cursor:pointer;font-weight:600}
+.dc-gk section p{margin:0 0 8px;font:16px/1.6 var(--font-body);color:var(--ink)}
+.dc-gk sup{font:600 11px var(--font-ui);color:var(--muted)}
+.dc-meta{margin-top:20px}
+#bibView .dcm{display:inline-flex;align-items:center;margin:0 0 0 6px;padding:0 6px;min-height:20px;border:1px solid currentColor;border-radius:9px;background:none;font:600 11px/1.6 var(--font-ui);vertical-align:.15em;cursor:pointer}
+@media (pointer:coarse){#bibView .dcm{min-height:24px;font-size:12px}}

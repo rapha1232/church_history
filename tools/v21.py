@@ -53,6 +53,13 @@ API = '''window.HCCBible = {go: go,
     script("bible/fath/"+g+".js", function(){ return !!FATH[ob] || FATH["__"+g]; }, function(){ FATH["__"+g] = 1; var L = [];
       (pick(FATH[ob], ch) || []).forEach(function(e){ if(r.v >= e[0] && r.v <= e[1]) L.push({author: e[2], work: String(e[3]).replace(/^Catena Aurea by Aquinas$/, "quoted in Aquinas, Catena Aurea"), text: e[4], date: e[5] || ""}); });
       cb(L); }); }catch(e){ cb([]); } },
+  /* Edition 26: how many excerpts in the Fathers' commentary cover each verse of a chapter */
+  fcount: function(ed, b, c, cb){ try{ var ob = origBook(b) || b, ch = engCh(ed, b, c), g = grpOf(ob);
+    script("bible/fath/"+g+".js", function(){ return !!FATH[ob] || FATH["__"+g]; }, function(){ FATH["__"+g] = 1; var n = {}, who = {};
+      (pick(FATH[ob], ch) || []).forEach(function(e){ for(var v = e[0]; v <= e[1] && v - e[0] < 200; v++){ n[v] = (n[v] || 0) + 1; (who[v] = who[v] || {})[e[2]] = 1; } });
+      var out = {}; Object.keys(n).forEach(function(v){ out[v] = [n[v], Object.keys(who[v]).length]; }); cb(out); }); }catch(e){ cb({}); } },
+  state: function(){ return {ed: st.ed, b: st.b, c: st.c, mode: mode}; },
+  openTab: function(v, t){ try{ openVerseTab(v, t); }catch(e){} },
   cur: function(){ return cur; }
 };'''
 once('window.HCCBible = {go: go};', API, 'Bible API')
@@ -101,6 +108,14 @@ TR = {
  "Study deleted": ["Estudio eliminado","Estudo excluído","Étude supprimée","حُذفت الدراسة"],
  "Study imported": ["Estudio importado","Estudo importado","Étude importée","استُوردت الدراسة"],
  "Name of the new study": ["Nombre del nuevo estudio","Nome do novo estudo","Nom de la nouvelle étude","اسم الدراسة الجديدة"],
+ "Both sides": ["Ambas posturas","Ambos os lados","Les deux positions","الجانبان"],
+ "Ready-made studies": ["Estudios preparados","Estudos prontos","Études toutes prêtes","دراسات جاهزة"],
+ "Study added": ["Estudio añadido","Estudo adicionado","Étude ajoutée","أضيفت الدراسة"],
+ "Unanswered": ["Sin respuesta","Sem resposta","Sans réponse","بلا رد"],
+ "Threads": ["Hilos","Discussões","Fils","السلاسل"],
+ "Answer this": ["Responder","Responder","Répondre","الرد على هذا"],
+ "This answers (optional)": ["Responde a (opcional)","Responde a (opcional)","Répond à (facultatif)","يرد على (اختياري)"],
+ "Nothing (a new point)": ["Nada (un punto nuevo)","Nada (um ponto novo)","Rien (un nouveau point)","لا شيء (نقطة جديدة)"],
 }
 i = s.index('var T = {'); j = s.index('\n};', i); T = s[i:j]
 add = [(k, v) for k, v in TR.items() if '"%s":' % k not in T]
