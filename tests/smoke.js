@@ -169,6 +169,17 @@ async function finish(browser) {
     await p.close();
   }
 
+  // How doctrines developed: three doctrines, the Eucharist tab has 10 witnesses
+  {
+    const p = await page(browser, 'doctrines', PHONE);
+    await p.goto(URL + '#ref-doctrines~eucharist');
+    await p.waitForTimeout(2500);
+    const tabs = await p.$$eval('[data-dt]', x => x.length), n = await p.$$eval('.dt-it', x => x.length);
+    if (tabs !== 3 || n !== 10) fail('doctrines', 'expected 3 doctrines and 10 Eucharist witnesses, found ' + tabs + ' and ' + n);
+    else console.log('  ok   doctrines');
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);

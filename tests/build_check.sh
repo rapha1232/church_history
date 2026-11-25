@@ -24,3 +24,11 @@ if ! git diff --quiet -- site tools; then
   exit 1
 fi
 echo "ok   build steps are idempotent"
+
+# the doctrine timeline: every quotation must still be found word for word in its source text
+python3 tools/doctrines.py > /dev/null
+if ! git diff --quiet -- site/bible/doctrines.js; then
+  echo "FAIL: site/bible/doctrines.js is out of date. Run python3 tools/doctrines.py and commit it."
+  exit 1
+fi
+echo "ok   doctrine timeline quotations verified against their sources"
