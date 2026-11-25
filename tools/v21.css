@@ -125,6 +125,9 @@ blockquote.st-q{padding:0 0 0 12px;border-left:2px solid var(--rule-strong)}
 .st-syn,.st-url{color:var(--muted)}
 .st-url{margin:4px 0 0;font:13px var(--font-ui);overflow-wrap:anywhere}
 .st-pre{white-space:pre-wrap}
+.st-ctx{margin:6px 0 0;font:600 13.5px/1.45 var(--font-ui)}
+.st-ctx a{color:var(--lapis)}
+.st-ctx small{display:block;font-weight:400;color:var(--muted)}
 .st-load{color:var(--muted);font:14px var(--font-ui)}
 .st-note{margin:8px 0 0;padding-top:8px;border-top:1px solid var(--rule);font:14.5px/1.5 var(--font-ui);color:var(--muted)}
 .st-acts{display:flex;flex-wrap:wrap;gap:2px;margin:8px -6px 0}

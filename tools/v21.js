@@ -154,7 +154,7 @@ var LIB = [
   ["Time", ["ref-zoom", "ref-timeline", "ref-otd", "ref-tree"]],
   ["People and places", ["ref-people", "ref-atlas", "ref-councilmap", "ref-churches"]],
   ["Councils and doctrine", ["ref-councils", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
-  ["Texts and sources", ["ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
+  ["Texts and sources", ["ref-fathers", "ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
   ["Pictures", ["ref-gallery", "ref-images"]],
   ["Bible companions", ["bible-maps", "bible-canon", "bible-arcs"]]
 ];
@@ -235,6 +235,7 @@ function itemHTML(it, si, ii, n, L){
   } else if(it.type === "father"){
     head = '<b>'+esc(it.author || "Unknown")+'</b>' + (it.work ? ' <small>'+esc(it.work)+(it.date ? ' · '+esc(it.date) : "")+'</small>' : (it.date ? ' <small>'+esc(it.date)+'</small>' : ""));
     if(it.quote) main = '<blockquote class="st-q">'+esc(it.quote)+'</blockquote>';
+    if(it.ft) main += '<p class="st-ctx"><a href="#ref-fathers~'+esc(it.ft)+'">Read in context</a>'+(it.src ? ' <small>'+esc(it.src)+'</small>' : "")+'</p>';
   } else if(it.type === "doc"){
     var d = docBy(it.doc);
     head = d ? '<a href="#'+esc(d.el)+'" data-opendoc="'+esc(d.el)+'">'+esc(d.title)+'</a> <small>'+esc(d.date || "")+'</small>' : '<b>'+esc(it.title || "Document")+'</b>';
@@ -478,7 +479,7 @@ function openAdd(o){
   var sid = o.study || (CUR && find(CUR.id) ? CUR.id : list[0].id), s = find(sid) || list[0];
   var editing = o.edit != null ? s.sides[o.side].items[o.edit] : null;
   var it = editing ? JSON.parse(JSON.stringify(editing)) : {type: o.type || "verse"};
-  if(!editing){ ["b","c","v","v2","ed","author","work","date","quote","doc","ep","title","text","url","answers"].forEach(function(k){ if(o[k] != null) it[k] = o[k]; }); }
+  if(!editing){ ["b","c","v","v2","ed","author","work","date","quote","doc","ep","title","text","url","answers","ft","src"].forEach(function(k){ if(o[k] != null) it[k] = o[k]; }); }
   function answerOpts(st){
     return '<option value="">'+esc(t("Nothing (a new point)"))+'</option>' + st.sides.map(function(sd){ return '<optgroup label="'+esc(sd.label)+'">' + sd.items.filter(function(x){ return x.id && x.id !== it.id; }).map(function(x){ var l = itemLabel(x); return '<option value="'+esc(x.id)+'"'+(x.id === it.answers ? " selected" : "")+'>'+esc(l.length > 70 ? l.slice(0, 68) + "…" : l)+'</option>'; }).join("") + '</optgroup>'; }).join("");
   }
@@ -560,6 +561,7 @@ function openAdd(o){
   });
   function collect(){
     var o2 = {id: it.id || uid(), type: it.type};
+    if(it.type === "father"){ if(it.ft) o2.ft = it.ft; if(it.src) o2.src = it.src; }
     $$("[data-f]", form).forEach(function(f){ if(f.dataset.f !== "ref" && f.dataset.f !== "fref") o2[f.dataset.f] = f.value.trim(); });
     if(it.type === "verse"){ var r = BIB().parse ? BIB().parse(val("ref")) : null; if(r){ o2.b = r.b; o2.c = r.c; o2.v = r.v; o2.v2 = r.v2; } else if(it.b){ o2.b = it.b; o2.c = it.c; o2.v = it.v; o2.v2 = it.v2; } }
     return o2;

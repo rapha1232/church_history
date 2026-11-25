@@ -101,6 +101,22 @@ async function finish(browser) {
     await p.close();
   }
 
+  // Early Christian texts: catalogue, a deep link to a section, scripture links
+  {
+    const p = await page(browser, 'fathers', PHONE);
+    await p.goto(URL + '#ref-fathers');
+    await p.waitForTimeout(1500);
+    const n = await p.$$eval('#ref-fathers .ed21-rows li', x => x.length);
+    if (n !== 14) fail('fathers', 'expected 14 works in the catalogue, found ' + n);
+    await p.evaluate(() => { location.hash = 'ref-fathers~iren-ah3~3~2'; });
+    await p.waitForTimeout(1500);
+    const here = await p.$eval('.ft-here', x => x.textContent).catch(() => '');
+    if (!/every Church should agree with this Church/.test(here)) fail('fathers', 'Irenaeus 3.3.2 did not open at its section');
+    if (await p.$$eval('#ft-3 [data-sref]', x => x.length) < 1) fail('fathers', 'no scripture links in Irenaeus 3.3');
+    if (!failures.some(f => f.startsWith('fathers'))) console.log('  ok   fathers');
+    await p.close();
+  }
+
   // Settings: exactly one Default Bible section listing every edition
   {
     const p = await page(browser, 'settings-default-bible', PHONE);
