@@ -1,6 +1,7 @@
 // Fetch Google Fonts CSS + woff2 with a real browser and write android/assets/fonts(.css)
 const { chromium } = require('playwright'); const fs = require('fs'); const crypto = require('crypto');
-const URL = process.argv[2], OUT = '/home/user/church/android/assets/';
+const path = require('path');
+const URL = process.argv[2], OUT = path.join(__dirname, '..', 'android', 'assets') + '/';
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage();
   const r = await p.goto(URL); let css = await r.text();
