@@ -19,6 +19,9 @@ function applyRS(){
   document.documentElement.style.setProperty("--rs", RS.size||1);
   if(RS.lh) document.documentElement.style.setProperty("--rl", RS.lh); else document.documentElement.style.removeProperty("--rl");
   document.body.classList.toggle("dimimg", !!RS.dim);
+  var r = document.documentElement;
+  r.setAttribute("data-width", RS.w || "normal");
+  r.setAttribute("data-font", RS.font || "serif");
 }
 applyRS();
 window.HCCReadRS = {set: function(v){ RS.size = v; applyRS(); save("hcc.read", RS); }};
@@ -31,15 +34,21 @@ if(tb){
   p.innerHTML = '<h4>Theme</h4><div class="rs-th">'+[["auto","Auto","linear-gradient(90deg,#eff1ec 50%,#101219 50%)"],["light","Light","#eff1ec"],["sepia","Sepia","#f3ead6"],["dark","Night","#101219"]].map(function(t){ return '<button type="button" data-th="'+t[0]+'"><i style="background:'+t[2]+'"></i>'+t[1]+'</button>'; }).join("")+'</div>'+
     '<div class="rs-row"><label for="rsSize">Text size</label><input type="range" id="rsSize" min="0.9" max="1.3" step="0.05"></div>'+
     '<div class="rs-row"><label for="rsLh">Line spacing</label><input type="range" id="rsLh" min="1.5" max="2.1" step="0.1"></div>'+
+    '<h4>Text width</h4><div class="rs-seg" role="group" aria-label="Text width">'+[["narrow","Narrow"],["normal","Normal"],["wide","Wide"]].map(function(x){ return '<button type="button" data-rsw="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</div>'+
+    '<h4>Font</h4><div class="rs-seg rs-fonts" role="group" aria-label="Font">'+[["serif","Book","Literata"],["sans","Plain","Sans-serif"],["easy","Easy read","Wider spacing"]].map(function(x){ return '<button type="button" data-rsf="'+x[0]+'" class="rsf-'+x[0]+'"><b>'+x[1]+'</b><small>'+x[2]+'</small></button>'; }).join("")+'</div>'+
     '<div class="rs-row"><label for="rsDim">Dim pictures</label><input type="checkbox" class="switch" id="rsDim"></div>';
   document.body.appendChild(p);
   function curTheme(){ return document.documentElement.getAttribute("data-theme") || "auto"; }
-  function syncP(){ $$(".rs-th button", p).forEach(function(x){ x.setAttribute("aria-pressed", x.dataset.th === curTheme() ? "true" : "false"); }); $("#rsSize").value = RS.size||1; $("#rsLh").value = RS.lh||1.7; $("#rsDim").checked = !!RS.dim; }
+  function syncP(){ $$(".rs-th button", p).forEach(function(x){ x.setAttribute("aria-pressed", x.dataset.th === curTheme() ? "true" : "false"); }); $("#rsSize").value = RS.size||1; $("#rsLh").value = RS.lh||1.7; $("#rsDim").checked = !!RS.dim;
+    $$("[data-rsw]", p).forEach(function(x){ x.setAttribute("aria-pressed", String(x.dataset.rsw === (RS.w || "normal"))); });
+    $$("[data-rsf]", p).forEach(function(x){ x.setAttribute("aria-pressed", String(x.dataset.rsf === (RS.font || "serif"))); }); }
   b.addEventListener("click", function(e){ e.stopPropagation(); p.hidden = !p.hidden; b.setAttribute("aria-expanded", String(!p.hidden)); syncP(); });
   document.addEventListener("click", function(e){ if(!p.hidden && !e.target.closest(".rset,#rsBtn")){ p.hidden = true; b.setAttribute("aria-expanded","false"); } });
   document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !p.hidden){ p.hidden = true; b.focus(); } });
   window.HCCReadSetOpen = function(){ return !p.hidden; }; window.HCCReadSetClose = function(){ p.hidden = true; b.setAttribute("aria-expanded","false"); };
   p.addEventListener("click", function(e){
+    var w = e.target.closest("[data-rsw],[data-rsf]");
+    if(w){ if(w.dataset.rsw) RS.w = w.dataset.rsw; else RS.font = w.dataset.rsf; applyRS(); save("hcc.read", RS); syncP(); hap("tick"); return; }
     var t = e.target.closest("[data-th]"); if(!t) return;
     var v = t.dataset.th, r = document.documentElement;
     if(v === "auto"){ r.removeAttribute("data-theme"); try{ localStorage.removeItem("theme"); }catch(err){} }

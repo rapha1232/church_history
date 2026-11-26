@@ -334,7 +334,7 @@ act.addEventListener("click", function(e){
   if(a === "bm"){ setNote({k: !(NOTES[curKey()]||{}).k}); haptic("tick"); hideAct(); return; }
   if(a === "copy"){ try{ navigator.clipboard.writeText("“"+cur.txt+"” — "+ref); }catch(err){} b.lastChild.textContent = "Copied"; setTimeout(hideAct, 700); return; }
   if(a === "card"){ hideAct(); window.HCCShareCard(cur.txt, ref, ""); return; }
-  if(a === "study" || a === "note"){ act.hidden = true; if(el) el.classList.add("sel"); openAt(cur.ed, cur.b, cur.c, cur.v, cur.txt); if(a === "note"){ var w = $(".vs-nt", sheet); if(w){ w.hidden = false; var ta = $("#vsNote", sheet); if(ta) ta.focus(); } } }
+  if(a === "study" || a === "note"){ act.hidden = true; if(el) el.classList.add("sel"); openAt(cur.ed, cur.b, cur.c, cur.v, cur.txt); if(a === "note"){ var w = $(".vs-nt", sheet); if(w){ w.hidden = false; mk.classList.add("tg-on"); var ta = $("#vsNote", sheet); if(ta) ta.focus(); } } }
 });
 /* study mode on wide screens keeps the panel docked beside the text */
 function studyDock(){ return !!st.study && (matchMedia("(min-width: 1100px)").matches || matchMedia("(pointer: coarse) and (orientation: landscape) and (min-width: 900px)").matches) && location.hash === "#bible"; }
@@ -613,7 +613,8 @@ function saveNotes(){ put("hcc.bnotes", NOTES); countSaved(); }
 var mk = document.createElement("div"); mk.className = "vs-mark";
 mk.innerHTML = '<div class="vs-hcs" role="group" aria-label="Highlight colour">'+[["y","Yellow"],["g","Green"],["b","Blue"],["p","Pink"]].map(function(c){ return '<button type="button" class="hcb hc-'+c[0]+'" data-hc="'+c[0]+'" aria-label="Highlight '+c[1]+'" aria-pressed="false"></button>'; }).join("")+
   '<button type="button" class="hcb hcx" data-hc="" aria-label="Remove highlight">✕</button></div><button type="button" class="btn-sm" data-bm="1" aria-pressed="false">☆ Bookmark</button><button type="button" class="btn-sm" data-nt="1">✎ Note</button>'+
-  '<div class="vs-nt" hidden><label class="vh" for="vsNote">Your note on this verse</label><textarea id="vsNote" rows="3" placeholder="Write a note…"></textarea></div>';
+  '<div class="vs-nt" hidden><label class="vh" for="vsNote">Your note on this verse</label><textarea id="vsNote" rows="3" placeholder="Write a note…"></textarea></div>'+
+  '<div class="vs-tags"><span class="vs-tgl" id="vsTags"></span><label class="vh" for="vsTag">Add a tag</label><input id="vsTag" list="vsTagList" placeholder="Add a tag (promise, prayer…)" maxlength="30" enterkeyhint="done" autocomplete="off"><datalist id="vsTagList"></datalist></div>';
 sheet.insertBefore(mk, $(".vs-tabs", sheet));
 function curKey(){ return cur ? nkey(cur.ed, cur.b, cur.c, cur.v) : null; }
 function markUI(){
@@ -621,12 +622,18 @@ function markUI(){
   $$(".hcb", mk).forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.hc && b.dataset.hc === n.h ? "true" : "false"); });
   var bm = $("[data-bm]", mk); bm.setAttribute("aria-pressed", n.k ? "true" : "false"); bm.textContent = n.k ? "★ Bookmarked" : "☆ Bookmark";
   $("#vsNote", mk).value = n.n || ""; $(".vs-nt", mk).hidden = !n.n;
+  $("#vsTags", mk).innerHTML = (n.g || []).map(function(g){ return '<button type="button" class="vs-tgc" data-tgx="'+esc(g)+'" aria-label="Remove tag '+esc(g)+'">#'+esc(g)+' <span aria-hidden="true">✕</span></button>'; }).join("");
+  mk.classList.toggle("tg-on", !!(n.g && n.g.length) || !!n.n);
+  $("#vsTagList", mk).innerHTML = allTags().map(function(g){ return '<option value="'+esc(g)+'">'; }).join("");
 }
+function allTags(){ var o = {}; Object.keys(NOTES).forEach(function(k){ (NOTES[k].g || []).forEach(function(g){ o[g] = (o[g] || 0) + 1; }); }); return Object.keys(o).sort(function(a, b){ return o[b] - o[a] || a.localeCompare(b); }); }
+function addTag(v){ v = String(v || "").replace(/^#+/, "").replace(/\s+/g, " ").trim().toLowerCase().slice(0, 30); if(!v) return; var g = ((NOTES[curKey()] || {}).g || []).slice(); if(g.indexOf(v) < 0) g.push(v); setNote({g: g}); }
 function setNote(patch){
   var k = curKey(); if(!k) return; var n = NOTES[k] || {};
   Object.keys(patch).forEach(function(x){ n[x] = patch[x]; });
   n.t = Date.now(); n.ed = cur.ed; n.txt = cur.txt; n.ref = shortName(cur.ed, cur.b) + " " + cur.c + ":" + cur.v;
-  if(!n.h && !n.n && !n.k) delete NOTES[k]; else NOTES[k] = n;
+  if(n.g && !n.g.length) delete n.g;
+  if(!n.h && !n.n && !n.k && !n.g) delete NOTES[k]; else NOTES[k] = n;
   saveNotes(); markUI();
   var el = $('.bv[data-v="'+cur.v+'"]', view);
   if(el && st.b === cur.b && st.c === cur.c){ el.className = el.className.replace(/\s*(hc-\w|has-note|has-bm)/g, ""); el.className += noteCls(cur.b, cur.v); }
@@ -635,8 +642,11 @@ mk.addEventListener("click", function(e){
   var b = e.target.closest("button"); if(!b) return;
   if(b.dataset.hc != null){ setNote({h: b.dataset.hc}); haptic("tick"); }
   if(b.dataset.bm){ setNote({k: !(NOTES[curKey()]||{}).k}); haptic("tick"); }
-  if(b.dataset.nt){ var w = $(".vs-nt", mk); w.hidden = !w.hidden; if(!w.hidden) $("#vsNote", mk).focus(); }
+  if(b.dataset.nt){ var w = $(".vs-nt", mk); w.hidden = !w.hidden; mk.classList.toggle("tg-on", !w.hidden || !!((NOTES[curKey()] || {}).g || []).length); if(!w.hidden) $("#vsNote", mk).focus(); }
+  if(b.dataset.tgx){ setNote({g: ((NOTES[curKey()] || {}).g || []).filter(function(g){ return g !== b.dataset.tgx; })}); haptic("tick"); }
 });
+mk.addEventListener("keydown", function(e){ if(e.target.id === "vsTag" && (e.key === "Enter" || e.key === ",")){ e.preventDefault(); addTag(e.target.value); e.target.value = ""; haptic("tick"); } });
+mk.addEventListener("change", function(e){ if(e.target.id === "vsTag" && e.target.value.trim()){ addTag(e.target.value); e.target.value = ""; } });
 var ntT = null;
 mk.addEventListener("input", function(e){ if(e.target.id !== "vsNote") return; clearTimeout(ntT); var v = e.target.value; ntT = setTimeout(function(){ setNote({n: v.trim()}); }, 400); });
 function countSaved(){
@@ -734,6 +744,16 @@ function wordStudy(id){
     });
   });
 }
+/* open the word study for a Strong's number from anywhere: the sheet opens on its first occurrence */
+function openWord(id){
+  var k = id[0] === "G" ? "g" : "h";
+  script("bible/conc/"+k+".js", function(){ return !!CONC[k]; }, function(ok){
+    var C = CONC[k], base = id.replace(/[A-Z]$/, ""), e = ok && (C[id] || C[base] || C[base+"A"] || C[base+"G"]);
+    var m = e && String(e[1]).split("|")[0].match(/^([1-3A-Z]{3})(\d+):(\d+)/);
+    var b = m ? m[1] : (k === "g" ? "JOH" : "GEN"), ed = edFor(b), c = m ? xchap(ed, b, +m[2]) : 1, v = m ? +m[3] : 1;
+    load(srcOf(ed, b), b, function(d){ var vv = (chapter(d, c)||[]).filter(function(x){ return x[0] === v; })[0]; tab = "word"; openAt(ed, b, c, v, vv ? vv[1] : ""); tab = "orig"; wordStudy(id); });
+  });
+}
 sheet.addEventListener("click", function(e){
   var t;
   if((t = e.target.closest("[data-ws]"))){ e.stopPropagation(); wordStudy(t.dataset.ws); return; }
@@ -829,7 +849,8 @@ function commView(c, cb){
       var long = e[4].length > 420;
       return '<div class="fa"><p class="fa-h"><b>'+esc(e[2])+'</b>'+(e[5] ? ' <span class="fa-d" title="'+(e[6] === "w" ? "When this work was written" : "The author’s lifetime (this work is not precisely dated)")+'">'+(e[6] === "w" ? "" : "lived ")+esc(e[5])+'</span>' : "")+' <small>'+esc(e[3].replace(/^Catena Aurea by Aquinas$/, "quoted in Aquinas, Catena Aurea (1262–64)"))+(e[1] !== e[0] ? ' · on vv. '+e[0]+'–'+e[1] : "")+'</small></p><div class="fa-t'+(long ? " clip" : "")+'">'+esc(e[4]).replace(/\n+/g, "</p><p>").replace(/^/, "<p>")+'</p></div>'+(long ? '<button type="button" class="fa-more">Read more</button>' : "")+'</div>';
     }).join("") + '<p class="vs-cite">Excerpts from public-domain translations (Ante-Nicene and Nicene and Post-Nicene Fathers, Newman’s Catena Aurea, and others), via the HistoricalChristianFaith Commentaries Database.</p>';
-    cb(html || '<p class="vs-none">No commentary is gathered for this verse yet. Try a neighbouring verse, or the Connections tab.</p>');
+    var fall = '<p class="fa-allp"><button type="button" class="btn-sm" data-fall="'+esc(shortName(edFor(ob), ob)+" "+ch)+'">All the Fathers on '+esc(shortName(edFor(ob), ob)+" "+ch)+', in date order</button></p>';
+    cb(html ? html + fall : '<p class="vs-none">No commentary is gathered for this verse yet. Try a neighbouring verse, or the Connections tab.</p>' + fall);
   });
 }
 sheet.addEventListener("click", function(e){ var m = e.target.closest(".fa-more"); if(!m) return; var t = m.previousElementSibling; t.classList.toggle("clip"); m.textContent = t.classList.contains("clip") ? "Read more" : "Show less"; });
@@ -841,11 +862,11 @@ function bookRx(){
   var names = {};
   M.eds.forEach(function(e){ e.books.forEach(function(b){ var n = b[2].replace(/\s*\(.*\)$/, ""); if(/^(Esther|Daniel) \(/.test(b[2]) || /additions/i.test(b[2])) return; if(!names[n]) names[n] = b[0]; }); });
   names["Psalm"] = "PSA"; names["Song of Solomon"] = "SOL"; names["Ecclesiasticus"] = "SIR"; names["Apocalypse"] = "REV";
-  var ab = {"Gen":"GEN","Exod":"EXO","Ex":"EXO","Lev":"LEV","Num":"NUM","Deut":"DEU","Josh":"JOS","Judg":"JDG","1 Sam":"1SA","2 Sam":"2SA","1 Kgs":"1KI","2 Kgs":"2KI","1 Chron":"1CH","2 Chron":"2CH","Neh":"NEH","Ps":"PSA","Pss":"PSA","Prov":"PRO","Eccl":"ECC","Isa":"ISA","Jer":"JER","Lam":"LAM","Ezek":"EZE","Dan":"DAN","Hos":"HOS","Mic":"MIC","Zech":"ZEC","Mal":"MAL","Matt":"MAT","Mt":"MAT","Mk":"MAR","Lk":"LUK","Jn":"JOH","Rom":"ROM","1 Cor":"1CO","2 Cor":"2CO","Gal":"GAL","Eph":"EPH","Phil":"PHI","Col":"COL","1 Thess":"1TH","2 Thess":"2TH","1 Tim":"1TI","2 Tim":"2TI","Tit":"TIT","Heb":"HEB","Jas":"JAM","1 Pet":"1PE","2 Pet":"2PE","1 Jn":"1JO","Rev":"REV","Sir":"SIR","Wis":"WIS","Tob":"TOB","1 Macc":"1MA","2 Macc":"2MA"};
+  var ab = {"Gen":"GEN","Exod":"EXO","Ex":"EXO","Lev":"LEV","Num":"NUM","Deut":"DEU","Josh":"JOS","Judg":"JDG","1 Sam":"1SA","2 Sam":"2SA","1 Kgs":"1KI","2 Kgs":"2KI","1 Chron":"1CH","2 Chron":"2CH","Neh":"NEH","Ps":"PSA","Pss":"PSA","Prov":"PRO","Eccl":"ECC","Isa":"ISA","Jer":"JER","Lam":"LAM","Ezek":"EZE","Dan":"DAN","Hos":"HOS","Mic":"MIC","Zech":"ZEC","Mal":"MAL","Matt":"MAT","Mt":"MAT","Mk":"MAR","Lk":"LUK","Jn":"JOH","Rom":"ROM","1 Cor":"1CO","2 Cor":"2CO","Gal":"GAL","Eph":"EPH","Phil":"PHI","Col":"COL","1 Thess":"1TH","2 Thess":"2TH","1 Tim":"1TI","2 Tim":"2TI","Tit":"TIT","Heb":"HEB","Jas":"JAM","1 Pet":"1PE","2 Pet":"2PE","1 Jn":"1JO","Rev":"REV","Sir":"SIR","Wis":"WIS","Tob":"TOB","1 Macc":"1MA","2 Macc":"2MA","Esth":"EST","Obad":"OBA","Hab":"HAB","Zeph":"ZEP","Hag":"HAG","Phlm":"PHM","Philem":"PHM","2 Jn":"2JO","3 Jn":"3JO","1 Thes":"1TH","2 Thes":"2TH","1 Kings":"1KI","2 Kings":"2KI","1 Chr":"1CH","2 Chr":"2CH","Song":"SOL","Bar":"BAR","Jdt":"JDT","Apoc":"REV"};
   Object.keys(ab).forEach(function(k){ names[k] = ab[k]; });
   var keys = Object.keys(names).sort(function(a,b){ return b.length - a.length; });
   keys.forEach(function(k){ BKMAP[k.toLowerCase()] = names[k]; });
-  BKRX = new RegExp("\\b(" + keys.map(function(k){ return k.replace(/ /g, "\\s").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }).join("|") + ")\\.?\\s(\\d{1,3}):(\\d{1,3})(?:\\s?[–-]\\s?(\\d{1,3})(?!:))?", "g");
+  BKRX = new RegExp("\\b(" + keys.map(function(k){ return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s"); }).join("|") + ")\\.?\\s(\\d{1,3}):(\\d{1,3})(?:\\s?[–-]\\s?(\\d{1,3})(?!:))?", "g");
   return BKRX;
 }
 function findRefs(text){
@@ -1517,6 +1538,19 @@ if(tb && !$('[data-tab="bible"]', tb)){
   function mark(){ bt.setAttribute("aria-current", location.hash === "#bible" ? "true" : "false"); }
   addEventListener("hashchange", mark); mark();
 }
+
+/* ---------- internals for the features in bible-extras.js ---------- */
+window.HCCBibleX = {M: M, ED: ED, st: st, view: view, art: art, sheet: sheet, XMODE: XMODE, NOTES: NOTES, BX2: BX2, BOOKORDER: BOOKORDER, NTB: NTB, HASORIG: HASORIG,
+  LEX: LEX, FATH: FATH, esc: esc, fmt: fmt, get: get, put: put, haptic: haptic, save: save, render: render, toolsMark: toolsMark, load: load, chapter: chapter,
+  shortName: shortName, bname: bname, edFor: edFor, qEd: qEd, srcOf: srcOf, xchap: xchap, engCh: engCh, equiv: equiv, origBook: origBook, grpOf: grpOf, pick: pick,
+  script: script, parseRef: parseRef, findRefs: findRefs, refIndex: refIndex, linkRefs: linkRefs, go: go, goEng: goEng, openAt: openAt, openWord: openWord,
+  lexEntry: lexEntry, normT: normT, allTags: allTags, closeSheet: closeSheet, hRefs: hRefs, saveNotes: saveNotes, markUI: markUI, curKey: curKey,
+  cur: function(){ return cur; }, mode: function(m){ if(m != null) mode = m; return mode; },
+  /* open a Bible tool page (search, notes, lexicon…) from anywhere */
+  tool: function(m){ mode = m; pickHide(); if(location.hash !== "#bible"){ location.hash = "bible"; setTimeout(function(){ render(); toolsMark(); window.scrollTo({top: art.getBoundingClientRect().top + scrollY - 70}); }, 80); } else { render(); toolsMark(); window.scrollTo({top: art.getBoundingClientRect().top + scrollY - 70}); } }
+};
+HCCBible.word = openWord;
+HCCBible.search = function(q){ st.sq = String(q || "").trim(); st.ss = "all"; save(); HCCBibleX.tool("search"); };
 
 /* ---------- widgets: tell the app what is being watched ---------- */
 if(APP && APP.setProgress){

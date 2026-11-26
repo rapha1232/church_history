@@ -1,0 +1,65 @@
+[
+  {"s": "The Law", "items": [
+    {"t": "Two accounts of creation", "c": [["GEN", "1:1-2:3"], ["GEN", "2:4-25"]], "n": "The six days, then the garden: two tellings placed side by side at the start of the Bible."},
+    {"t": "A wife said to be a sister", "c": [["GEN", "12:10-20"], ["GEN", "20:1-18"], ["GEN", "26:1-11"]], "n": "The same story told of Abraham in Egypt, of Abraham at Gerar, and of Isaac at Gerar."},
+    {"t": "Hagar in the wilderness", "c": [["GEN", "16:1-16"], ["GEN", "21:8-21"]]},
+    {"t": "Manna and quails", "c": [["EXO", "16:1-36"], ["NUM", "11:4-35"]]},
+    {"t": "Water from the rock", "c": [["EXO", "17:1-7"], ["NUM", "20:1-13"]]},
+    {"t": "The Ten Commandments", "c": [["EXO", "20:1-17"], ["DEU", "5:6-21"]], "n": "Deuteronomy gives a different reason for keeping the sabbath and a different order in the last commandment."},
+    {"t": "Freeing Hebrew slaves", "c": [["EXO", "21:1-11"], ["DEU", "15:12-18"]]},
+    {"t": "Clean and unclean animals", "c": [["LEV", "11:1-47"], ["DEU", "14:3-21"]]},
+    {"t": "The feasts of the year", "c": [["LEV", "23:1-44"], ["DEU", "16:1-17"]]},
+    {"t": "The spies sent into Canaan", "c": [["NUM", "13:1-33"], ["DEU", "1:19-46"]], "n": "Numbers tells the story; in Deuteronomy Moses retells it to the next generation."}
+  ]},
+  {"s": "Joshua, Judges and the kings", "items": [
+    {"t": "The capture of Hebron and Debir", "c": [["JOS", "15:13-19"], ["JDG", "1:10-15"]]},
+    {"t": "The death of Joshua", "c": [["JOS", "24:28-31"], ["JDG", "2:6-9"]]},
+    {"t": "The death of Saul", "c": [["1SA", "31:1-13"], ["1CH", "10:1-14"]]},
+    {"t": "David king over all Israel; Jerusalem taken", "c": [["2SA", "5:1-10"], ["1CH", "11:1-9"]]},
+    {"t": "David’s mighty men", "c": [["2SA", "23:8-39"], ["1CH", "11:10-47"]]},
+    {"t": "The ark on its way to Jerusalem", "c": [["2SA", "6:1-11"], ["1CH", "13:1-14"]]},
+    {"t": "The ark comes into the city", "c": [["2SA", "6:12-23"], ["1CH", "15:25-16:3"]]},
+    {"t": "God’s covenant with David", "c": [["2SA", "7:1-29"], ["1CH", "17:1-27"]]},
+    {"t": "David’s wars", "c": [["2SA", "8:1-18"], ["1CH", "18:1-17"]]},
+    {"t": "War with the Ammonites", "c": [["2SA", "10:1-19"], ["1CH", "19:1-19"]]},
+    {"t": "David’s song of deliverance", "c": [["2SA", "22:1-51"], ["PSA", "18:1-50"]], "n": "Psalm 18 in the Hebrew and English numbering (Psalm 17 in the Greek and Latin). Verse numbers can differ by one where the title is counted."},
+    {"t": "David’s census", "c": [["2SA", "24:1-25"], ["1CH", "21:1-30"]], "n": "Samuel says the LORD incited David; Chronicles says Satan did."},
+    {"t": "Solomon asks for wisdom", "c": [["1KI", "3:4-15"], ["2CH", "1:1-13"]]},
+    {"t": "Solomon’s prayer at the dedication of the temple", "c": [["1KI", "8:22-53"], ["2CH", "6:12-42"]]},
+    {"t": "God appears to Solomon again", "c": [["1KI", "9:1-9"], ["2CH", "7:11-22"]]},
+    {"t": "The queen of Sheba", "c": [["1KI", "10:1-13"], ["2CH", "9:1-12"]]},
+    {"t": "Solomon’s wealth", "c": [["1KI", "10:14-29"], ["2CH", "9:13-28"]]},
+    {"t": "The kingdom divides", "c": [["1KI", "12:1-24"], ["2CH", "10:1-11:4"]]},
+    {"t": "Micaiah and the death of Ahab", "c": [["1KI", "22:1-35"], ["2CH", "18:1-34"]]},
+    {"t": "Athaliah and the boy king Joash", "c": [["2KI", "11:1-21"], ["2CH", "22:10-23:21"]]},
+    {"t": "Sennacherib besieges Jerusalem", "c": [["2KI", "18:13-19:37"], ["ISA", "36:1-37:38"], ["2CH", "32:1-23"]]},
+    {"t": "Hezekiah’s illness", "c": [["2KI", "20:1-11"], ["ISA", "38:1-22"], ["2CH", "32:24-26"]]},
+    {"t": "Envoys from Babylon", "c": [["2KI", "20:12-19"], ["ISA", "39:1-8"]]},
+    {"t": "Josiah and the book of the law", "c": [["2KI", "22:1-23:3"], ["2CH", "34:1-33"]]},
+    {"t": "The fall of Jerusalem", "c": [["2KI", "24:18-25:30"], ["JER", "52:1-34"], ["2CH", "36:11-21"]]},
+    {"t": "Cyrus lets the exiles return", "c": [["2CH", "36:22-23"], ["EZR", "1:1-4"]], "n": "The last words of Chronicles, the last book of the Hebrew Bible, are the first words of Ezra."},
+    {"t": "The list of those who returned", "c": [["EZR", "2:1-70"], ["NEH", "7:6-73"]]}
+  ]},
+  {"s": "Psalms and prophets", "items": [
+    {"t": "“The fool says in his heart”", "c": [["PSA", "14:1-7"], ["PSA", "53:1-6"]], "n": "The same psalm twice: Psalm 14 uses the name LORD, Psalm 53 says God."},
+    {"t": "“Make haste to help me”", "c": [["PSA", "40:13-17"], ["PSA", "70:1-5"]]},
+    {"t": "A psalm built from two others", "c": [["PSA", "108:1-13"], ["PSA", "57:7-11, 60:5-12"]]},
+    {"t": "David’s psalm when the ark arrived", "c": [["1CH", "16:8-36"], ["PSA", "105:1-15, 96:1-13, 106:1, 106:47-48"]]},
+    {"t": "Swords into ploughshares", "c": [["ISA", "2:2-4"], ["MIC", "4:1-3"]]},
+    {"t": "The oracle against Edom", "c": [["OBA", "1:1-9"], ["JER", "49:7-16"]]}
+  ]},
+  {"s": "The Old Testament in the New", "items": [
+    {"t": "The Spirit poured out", "c": [["JOE", "2:28-32"], ["ACT", "2:14-21"]], "n": "Joel 3:1–5 in the Hebrew numbering."},
+    {"t": "The new covenant", "c": [["JER", "31:31-34"], ["HEB", "8:7-13"]]},
+    {"t": "The suffering servant", "c": [["ISA", "53:1-12"], ["ACT", "8:26-35"]]},
+    {"t": "The stone the builders rejected", "c": [["PSA", "118:22-23"], ["MAT", "21:42-44"], ["1PE", "2:4-8"]]}
+  ]},
+  {"s": "Acts and the letters", "items": [
+    {"t": "The Lord’s Supper", "c": [["MAT", "26:26-29"], ["MAR", "14:22-25"], ["LUK", "22:14-20"], ["1CO", "11:23-26"]], "n": "Paul’s account is probably the oldest written."},
+    {"t": "Paul’s conversion, told three times", "c": [["ACT", "9:1-19"], ["ACT", "22:3-16"], ["ACT", "26:9-18"]]},
+    {"t": "Peter and Cornelius, and Peter’s report", "c": [["ACT", "10:9-48"], ["ACT", "11:1-18"]]},
+    {"t": "The new life in Christ", "c": [["EPH", "4:17-32"], ["COL", "3:5-17"]]},
+    {"t": "Wives and husbands, children, slaves", "c": [["EPH", "5:21-6:9"], ["COL", "3:18-4:1"]]},
+    {"t": "False teachers", "c": [["JUD", "1:3-18"], ["2PE", "2:1-3:3"]], "n": "Most of Jude reappears in 2 Peter; most scholars think 2 Peter used Jude."}
+  ]}
+]
