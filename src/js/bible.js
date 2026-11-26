@@ -242,6 +242,10 @@ var pendingV = 0;
 window.HCCBible = {go: go,
   /* Edition 21: for Studies */
   parse: function(q){ var x = String(q || "").replace(/[\u2013\u2014]/g, "-").match(/^(.*?\d+(?:\s*[:.,]\s*\d+)?)\s*(?:-\s*(\d+))?\s*$/), r = x ? parseRef(x[1]) : null; if(!r || !r.v) return null; var v2 = x[2] ? Math.max(+x[2], r.v) : r.v; return {b: r.b, c: r.c, v: r.v, v2: v2}; },
+  /* a reference typed in the main search bar ("John 3:36", "1 Cor 13", "Ps 23:1-4"): needs a chapter; null if the book or chapter does not exist */
+  ref: function(q){ var x = String(q || "").replace(/[\u2013\u2014]/g, "-").match(/^(.*?\d+(?:\s*[:.,]\s*\d+)?)\s*(?:-\s*(\d+))?\s*$/), r = x && /[a-z].*\d/i.test(x[1]) ? parseRef(x[1]) : null; if(!r) return null;
+    var ed = qEd(r.b), bk = ED[ed].books[ED[ed].idx[r.b]]; if(!bk || r.c < 1 || r.c > bk[3]) return null;
+    var v2 = x[2] && r.v ? Math.max(+x[2], r.v) : r.v; return {b: r.b, c: r.c, v: r.v, v2: v2, label: shortName(ed, r.b) + " " + r.c + (r.v ? ":" + r.v + (v2 !== r.v ? "\u2013" + v2 : "") : "")}; },
   label: function(b, c, v, v2){ try{ return shortName(qEd(b), b) + " " + c + ":" + v + (v2 && v2 !== v ? "\u2013" + v2 : ""); }catch(e){ return b + " " + c + ":" + v; } },
   text: function(r, cb){ try{ var ed = qEd(r.b), ch = xchap(ed, r.b, r.c), src = srcOf(ed, r.b); if(!src) return cb(null);
     load(src, r.b, function(d){ var t = (chapter(d, ch) || []).filter(function(x){ return x[0] >= r.v && x[0] <= (r.v2 || r.v); }).map(function(x){ return x[1]; }).join(" ").replace(/\s+/g, " ").trim();
