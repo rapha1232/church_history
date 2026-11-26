@@ -1,29 +1,18 @@
 #!/usr/bin/env bash
-# Checks that the committed site/index.html is exactly what the build steps produce, and that every
-# build step is idempotent (a second run changes nothing). Run from the repository root:
+# Checks that the page builds from src/ (every source file used, nothing missing), that the build is
+# deterministic, and that the generated data files are up to date. Run from the repository root:
 #   bash tests/build_check.sh
 set -euo pipefail
 
-STEPS=$(ls tools/v2[0-9].py | sort -V)
-echo "Build steps: $(echo $STEPS | tr '\n' ' ')"
+TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 
-run_all() { for s in $STEPS; do python3 "$s" > /dev/null; done; }
-
-run_all
-if ! git diff --quiet -- site tools; then
-  echo "FAIL: running the build steps changed committed files. Run them and commit the result:"
-  git diff --stat -- site tools
+python3 scripts/build_site.py "$TMP/a.html"
+python3 scripts/build_site.py "$TMP/b.html"
+if ! cmp -s "$TMP/a.html" "$TMP/b.html"; then
+  echo "FAIL: two builds of the same sources differ (the build is not deterministic)"
   exit 1
 fi
-echo "ok   committed page matches the build steps"
-
-run_all
-if ! git diff --quiet -- site tools; then
-  echo "FAIL: a second run of the build steps changed files (a step is not idempotent):"
-  git diff --stat -- site tools
-  exit 1
-fi
-echo "ok   build steps are idempotent"
+echo "ok   page builds from src/ and the build is deterministic"
 
 # the doctrine timeline: every quotation must still be found word for word in its source text
 python3 tools/doctrines.py > /dev/null

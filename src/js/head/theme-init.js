@@ -1,0 +1,1 @@
+try{if(!localStorage.getItem("theme"))document.documentElement.setAttribute("data-theme","dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}

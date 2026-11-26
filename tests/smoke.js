@@ -1,6 +1,6 @@
 // Smoke test: opens the built app (site/index.html) in Chromium and fails on any JavaScript error,
 // page wider than a phone screen, or a broken core feature. Run from the repository root:
-//   node tests/smoke.js
+//   python3 scripts/build_site.py && node tests/smoke.js
 // Needs Playwright (npm install playwright, then npx playwright install chromium).
 const path = require('path');
 const { chromium } = require('playwright');

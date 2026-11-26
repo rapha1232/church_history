@@ -1,0 +1,21 @@
+
+/* ===== Edition 20: UX ===== */
+.hcc-toast{position:fixed;left:50%;bottom:calc(var(--tabh,62px) + 18px + env(safe-area-inset-bottom,0px));z-index:1500;display:flex;align-items:center;gap:14px;width:max-content;max-width:min(calc(100vw - 24px),460px);box-sizing:border-box;
+  padding:11px 12px 11px 16px;
+  transform:translate(-50%,16px);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.7,.1,1),opacity .2s}
+.hcc-toast.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.hcc-toast span{flex:1;min-width:0}
+.hcc-toast button{flex:none;border:0;background:none;padding:8px 10px;margin:-6px -2px;cursor:pointer;}
+body.chrome-off .hcc-toast{bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+@media (min-width:961px){.hcc-toast{bottom:28px}}
+/* search: recent and suggested before typing */
+.sx-start{padding:12px 14px 14px}
+.sx-sh{display:flex;justify-content:space-between;align-items:center;margin:4px 0 10px!important;background:none!important;padding:0!important}
+.sx-sh button{border:0;background:none;color:var(--muted);font:600 12px var(--font-ui);cursor:pointer;padding:4px 6px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.sx-chips button{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);cursor:pointer}
+.sx-chips button:hover{background:var(--wash)}
+/* floating controls: never on top of each other or unreadable over content */
+.totop{background:color-mix(in srgb,var(--elev,#fff) 92%,transparent)!important;border:1px solid var(--rule)!important;box-shadow:0 6px 18px rgba(0,0,0,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+@media (max-width:760px){.nowpill{max-width:calc(100vw - 148px)!important}}
+@media (prefers-reduced-motion:reduce){.hcc-toast{transition:opacity .15s}}

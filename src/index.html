@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- ======================================================================================================
+     The page template. scripts/build_site.py turns it into site/index.html; that script describes the
+     directives. Comments like this one are left out of the built page.
+     Order matters: stylesheets are listed in cascade order (later wins), scripts in the order they run.
+     ====================================================================================================== -->
+<!--@script js/head/clipboard.js-->
+<!--@script js/head/theme-init.js-->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>History of the Christian Church</title>
+<!--@include partials/favicon.html-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&amp;family=Source+Sans+3:ital,wght@0,400..700;1,400&amp;display=swap" rel="stylesheet">
+
+<!-- The launch screen, drawn before anything else -->
+<!--@style css/launch.css-->
+<!--@script js/head/splash.js-->
+
+<!-- Every stylesheet, in cascade order. Foundations first, then each feature, then the design layer
+     (DESIGN.md) that restyles them all. A new feature's stylesheet goes before design.css unless it must
+     override it. -->
+<!--@style
+  css/base.css
+  css/sources.css
+  css/scriptorium.css
+  css/media.css
+  css/series.css
+  css/cast-maps-notebook.css
+  css/tree-otd-plans.css
+  css/councils.css
+  css/takeaways-search.css
+  css/bible.css
+  css/bible-study.css
+  css/new-look.css
+  css/new-look-bible.css
+  css/timeline-tablets.css
+  css/ux.css
+  css/design.css
+  css/navigation-studies.css
+  css/texts-reader.css
+  css/authenticity.css
+  css/quote-cards.css
+  css/fathers-count.css
+  css/deuterocanon.css
+  css/doctrines.css
+-->
+</head>
+<body>
+<!--@include partials/sprite-splash.html-->
+<!--@script js/splash-ready.js-->
+
+<!-- Header, sidebar contents and navigation -->
+<!--@include partials/chrome.html-->
+
+<!-- The pages: one <article> each, in the order listed in src/pages/order.txt -->
+<main id="main" tabindex="-1">
+<!--@pages-->
+</main>
+<div id="pop" role="dialog" aria-live="polite" hidden></div>
+<a class="iconbtn totop" href="#" onclick="window.scrollTo(0,0);return false" aria-label="Back to top">↑</a>
+
+<!-- Core: routing, the full-text reader, images -->
+<!--@data DATA-->
+<!--@script js/router.js-->
+<!--@include partials/reader.html-->
+<!--@script js/reader.js-->
+<!--@include partials/lightbox.html-->
+<!--@data IMG-->
+<!--@script js/media.js-->
+
+<!-- The Series: seasons and episodes -->
+<!--@include partials/series-overlays.html-->
+<!--@data EP SEASONS-->
+<!--@script js/series.js-->
+
+<!-- Reference features -->
+<!--@include partials/land-paths.html-->
+<!--@data X-->
+<!--@script js/cast-maps-notebook.js-->
+<!--@data X2-->
+<!--@script js/tree-otd-plans.js-->
+<!--@data X3-->
+<!--@script js/councils.js-->
+<!--@script js/search.js-->
+
+<!-- The Bible -->
+<!--@data BIBMAN VOTD BIBX BIBX2-->
+<!--@script js/bible-user-editions.js-->
+<!--@script js/bible.js-->
+
+<!-- App shell: tab bar, look, widgets, settings, feedback -->
+<!--@script js/tabbar.js-->
+<!--@script js/look.js-->
+<!--@script js/widgets.js-->
+<!--@script js/settings.js-->
+<!--@script js/ux.js-->
+<!--@script js/design.js-->
+
+<!-- Later features. Each adds itself to the pages above. -->
+<!--@script js/navigation-studies.js-->
+<!--@script js/texts-reader.js-->
+<!--@script js/authenticity.js-->
+<!--@script js/quote-cards.js-->
+<!--@script js/fathers-count.js-->
+<!--@script js/deuterocanon.js-->
+<!--@script js/doctrines.js-->
+</body>
+</html>

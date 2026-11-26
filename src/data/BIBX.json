@@ -1,0 +1,1642 @@
+{
+ "intro": {
+  "GEN": [
+   "Moses, by Jewish and Christian tradition.",
+   "Most scholars see several sources or layers (often labelled J, E, P) brought together during or after the Babylonian exile; others argue for more unified composition.",
+   "Traditions very old; final form c. 6th–5th century BC on the critical view.",
+   "Creation, the fall, the flood and Babel (1–11), then the patriarchs Abraham, Isaac, Jacob and Joseph (12–50). Its themes are covenant, promise and blessing to the nations."
+  ],
+  "EXO": [
+   "Moses.",
+   "Composite sources as with Genesis; the date and route of the exodus are debated (13th century BC is the most common estimate).",
+   "Final form c. 6th–5th century BC on the critical view.",
+   "Israel’s slavery in Egypt, the call of Moses, the plagues and Passover, the crossing of the sea, the covenant and Ten Commandments at Sinai, and the building of the tabernacle."
+  ],
+  "LEV": [
+   "Moses.",
+   "Generally assigned to the Priestly source and the Holiness Code (17–26).",
+   "Priestly material of uncertain age; final form exilic or post-exilic.",
+   "Sacrifice, priesthood, purity and the Day of Atonement (16): how a holy God dwells among his people. “Love your neighbour as yourself” (19:18)."
+  ],
+  "NUM": [
+   "Moses.",
+   "Composite, with Priestly and older narrative material.",
+   "As for the rest of the Pentateuch.",
+   "Forty years in the wilderness: the census, rebellion and the spies, the bronze serpent, Balaam, and the generation that would enter the land."
+  ],
+  "DEU": [
+   "Moses, as his farewell speeches.",
+   "Widely linked to the “book of the law” found under King Josiah (2 Kings 22, c. 622 BC) and to the Deuteronomistic History.",
+   "7th century BC core on the critical view, revised in exile.",
+   "Moses’ speeches on the plains of Moab renewing the covenant: the Shema (6:4–5), blessings and curses, and the death of Moses."
+  ],
+  "JOS": [
+   "Joshua, in Jewish tradition.",
+   "Part of the Deuteronomistic History; archaeology complicates a single swift conquest.",
+   "Edited c. 7th–6th century BC.",
+   "The crossing of the Jordan, Jericho, the conquest and division of Canaan among the tribes, and the covenant at Shechem (“As for me and my house…”, 24:15)."
+  ],
+  "JDG": [
+   "Samuel, in the Talmud.",
+   "Deuteronomistic editing of older hero stories.",
+   "Edited c. 7th–6th century BC.",
+   "A cycle of sin, oppression, crying out and rescue under judges such as Deborah, Gideon and Samson: “In those days there was no king in Israel” (21:25)."
+  ],
+  "RUT": [
+   "Samuel, in the Talmud.",
+   "Dated anywhere from the monarchy to after the exile.",
+   "Uncertain.",
+   "A Moabite widow’s loyalty to Naomi and marriage to Boaz; Ruth becomes great-grandmother of David and appears in Matthew’s genealogy of Jesus."
+  ],
+  "1SA": [
+   "Samuel, Nathan and Gad (1 Chronicles 29:29).",
+   "Part of the Deuteronomistic History, using older court sources.",
+   "Edited c. 7th–6th century BC.",
+   "Samuel, the rise and fall of Saul, Israel’s first king, and the anointing of David and his flight from Saul."
+  ],
+  "2SA": [
+   "As 1 Samuel.",
+   "The “Succession Narrative” (9–20) is often thought to be early court history.",
+   "As 1 Samuel.",
+   "David’s reign: Jerusalem as capital, God’s covenant promise of an everlasting dynasty (7), Bathsheba and Nathan, and Absalom’s revolt."
+  ],
+  "1KI": [
+   "Jeremiah, in the Talmud.",
+   "Deuteronomistic History, drawing on royal annals.",
+   "Completed after 561 BC.",
+   "Solomon and the Temple, the division of the kingdom, and the prophet Elijah against Ahab and Jezebel."
+  ],
+  "2KI": [
+   "As 1 Kings.",
+   "As 1 Kings.",
+   "Completed after 561 BC.",
+   "Elisha, the fall of the northern kingdom to Assyria (722 BC), Hezekiah and Josiah’s reforms, and the fall of Jerusalem to Babylon (587/586 BC)."
+  ],
+  "1CH": [
+   "Ezra, in Jewish tradition.",
+   "The work of a post-exilic “Chronicler”, using Samuel–Kings.",
+   "c. 400–300 BC.",
+   "Genealogies from Adam, then David’s reign retold with emphasis on worship, the Levites and preparations for the Temple."
+  ],
+  "2CH": [
+   "As 1 Chronicles.",
+   "As 1 Chronicles.",
+   "c. 400–300 BC.",
+   "Solomon to the exile, focused on Judah, the Temple and repentance, ending with Cyrus’ decree allowing the return."
+  ],
+  "EZR": [
+   "Ezra the scribe.",
+   "Linked with Nehemiah and often with Chronicles; the order of Ezra and Nehemiah is debated.",
+   "c. 400 BC.",
+   "The return from Babylon, rebuilding of the Temple, and Ezra’s reading and teaching of the law."
+  ],
+  "NEH": [
+   "Nehemiah (first-person memoir).",
+   "Contains an authentic memoir; edited with Ezra.",
+   "c. 400 BC.",
+   "Nehemiah rebuilds Jerusalem’s walls under opposition and leads covenant renewal."
+  ],
+  "EST": [
+   "Mordecai, in some Jewish tradition.",
+   "A Persian-period story; its historicity is debated.",
+   "c. 4th century BC.",
+   "Esther, a Jewish queen of Persia, saves her people from Haman’s plot: the origin of Purim. The Hebrew text never names God."
+  ],
+  "JOB": [
+   "Moses, in the Talmud; otherwise unknown.",
+   "A poetic masterpiece framed by a prose tale.",
+   "Often dated 6th–4th century BC.",
+   "A righteous man loses everything; his friends insist he must have sinned. God answers from the whirlwind. The great biblical book on innocent suffering."
+  ],
+  "PSA": [
+   "David for many psalms; also Asaph, the sons of Korah, Solomon, Moses.",
+   "Collected over centuries; titles were added later.",
+   "c. 1000–300 BC.",
+   "150 prayers and songs in five books: praise, lament, thanksgiving, royal and wisdom psalms. The prayer book of Israel and the Church."
+  ],
+  "PRO": [
+   "Solomon, with Agur and Lemuel.",
+   "Collections from different periods, some echoing Egyptian wisdom.",
+   "Collected c. 10th–5th century BC.",
+   "“The fear of the Lord is the beginning of knowledge” (1:7): practical wisdom for life, Lady Wisdom, and the capable wife (31)."
+  ],
+  "ECC": [
+   "Solomon (“the Preacher, son of David”).",
+   "Most date it late because of its language.",
+   "c. 3rd century BC on the critical view.",
+   "“Vanity of vanities”: a frank look at toil, death and meaning, concluding “Fear God and keep his commandments”."
+  ],
+  "SOL": [
+   "Solomon.",
+   "Love poetry, perhaps a collection.",
+   "Uncertain.",
+   "Love poems between a woman and her beloved. Jewish and Christian interpreters read it of God and Israel, Christ and the Church, or the soul."
+  ],
+  "ISA": [
+   "Isaiah son of Amoz (8th century BC).",
+   "Most scholars divide it: 1–39 (Isaiah), 40–55 (exile), 56–66 (after the return); others defend unity.",
+   "8th–5th century BC.",
+   "Judgment and hope: Immanuel (7:14), the child born (9:6), the servant who suffers for others (52:13–53:12), and new heavens and new earth."
+  ],
+  "JER": [
+   "Jeremiah, with his scribe Baruch.",
+   "The Greek text is about one-eighth shorter and in a different order.",
+   "c. 627–580 BC.",
+   "The prophet of Jerusalem’s fall, called to “pluck up and to plant”, who promised a new covenant written on the heart (31:31–34)."
+  ],
+  "LAM": [
+   "Jeremiah, by tradition.",
+   "Authorship uncertain.",
+   "Soon after 587 BC.",
+   "Five acrostic laments over ruined Jerusalem, with hope at the centre: “his mercies… are new every morning” (3:22–23)."
+  ],
+  "EZE": [
+   "Ezekiel, a priest among the exiles.",
+   "Largely accepted as his, with editing.",
+   "c. 593–571 BC.",
+   "Visions of God’s glory leaving and returning to the Temple, the valley of dry bones (37), and a new heart and spirit."
+  ],
+  "DAN": [
+   "Daniel in Babylon (6th century BC).",
+   "Most scholars date the visions to the Maccabean crisis (c. 165 BC); traditional scholars defend a 6th-century date.",
+   "6th or 2nd century BC.",
+   "Stories of faithfulness in exile (the furnace, the lions’ den) and apocalyptic visions of kingdoms and “one like a son of man” (7:13)."
+  ],
+  "HOS": [
+   "Hosea (8th century BC).",
+   "Largely accepted.",
+   "c. 750–722 BC.",
+   "Hosea’s marriage to unfaithful Gomer pictures God’s steadfast love for unfaithful Israel."
+  ],
+  "JOE": [
+   "Joel.",
+   "Date debated widely.",
+   "Uncertain.",
+   "A locust plague as a sign of the Day of the Lord; the promise to pour out the Spirit on all flesh (2:28), quoted at Pentecost."
+  ],
+  "AMO": [
+   "Amos, a shepherd of Tekoa.",
+   "Largely accepted.",
+   "c. 760–750 BC.",
+   "“Let justice roll down like waters” (5:24): judgment on Israel’s injustice amid prosperity."
+  ],
+  "OBA": [
+   "Obadiah.",
+   "Uncertain.",
+   "After 587 BC.",
+   "The shortest Old Testament book: judgment on Edom for gloating over Jerusalem’s fall."
+  ],
+  "JON": [
+   "Jonah son of Amittai (2 Kings 14:25).",
+   "Many read it as a didactic story.",
+   "Uncertain.",
+   "A reluctant prophet, a great fish, and God’s mercy to Nineveh. Jesus speaks of “the sign of Jonah”."
+  ],
+  "MIC": [
+   "Micah of Moresheth (8th century BC).",
+   "Later additions possible.",
+   "Late 8th century BC.",
+   "Judgment and hope; a ruler from Bethlehem (5:2); “do justice, love kindness, walk humbly with your God” (6:8)."
+  ],
+  "NAH": [
+   "Nahum.",
+   "Accepted.",
+   "Before 612 BC.",
+   "A poem celebrating the coming fall of Nineveh, Assyria’s capital."
+  ],
+  "HAB": [
+   "Habakkuk.",
+   "Accepted.",
+   "c. 600 BC.",
+   "A prophet questions God about injustice; “the righteous shall live by his faith” (2:4), key for Paul and Luther."
+  ],
+  "ZEP": [
+   "Zephaniah.",
+   "Accepted.",
+   "c. 630 BC.",
+   "The Day of the Lord (the source of the hymn “Dies irae”) and the joy of restored Zion."
+  ],
+  "HAG": [
+   "Haggai.",
+   "Accepted.",
+   "520 BC.",
+   "A call to rebuild the Temple after the return from exile."
+  ],
+  "ZEC": [
+   "Zechariah.",
+   "9–14 are often attributed to a later hand.",
+   "520–518 BC and later.",
+   "Night visions, and a humble king riding on a donkey (9:9), “they shall look on him whom they have pierced” (12:10)."
+  ],
+  "MAL": [
+   "Malachi (“my messenger”).",
+   "Possibly a title rather than a name.",
+   "c. 450 BC.",
+   "Disputes with priests and people; the messenger who prepares the way and the return of Elijah (4:5), the last words of the Christian Old Testament."
+  ],
+  "MAT": [
+   "The apostle Matthew (Papias, c. 125).",
+   "Most scholars think it used Mark and a sayings source (“Q”); author unknown.",
+   "c. 80–90 on the majority view; earlier on the traditional view.",
+   "Jesus as the Messiah who fulfils Israel’s scriptures: five great discourses including the Sermon on the Mount, ending with the Great Commission."
+  ],
+  "MAR": [
+   "John Mark, recording Peter’s preaching (Papias).",
+   "Widely held to be the earliest Gospel.",
+   "c. 65–70.",
+   "A fast-moving account of Jesus’ deeds, the hidden Messiah, and the cross, ending at the empty tomb (16:8; the longer ending is absent in the oldest manuscripts)."
+  ],
+  "LUK": [
+   "Luke, Paul’s companion and physician.",
+   "Same author as Acts; date debated.",
+   "c. 80–90 on the majority view; 60s on the traditional view.",
+   "An “orderly account” of Jesus’ life with the infancy narratives, parables like the Prodigal Son and Good Samaritan, and concern for the poor and outsiders."
+  ],
+  "JOH": [
+   "The apostle John, “the disciple whom Jesus loved”.",
+   "Many scholars see a Johannine community and stages of composition.",
+   "c. 90–100.",
+   "The Word made flesh: seven signs, the “I am” sayings, the farewell discourses, and the glory of the cross. The great source of later Christology."
+  ],
+  "ACT": [
+   "Luke.",
+   "Historical reliability debated in detail; author accepted as the same as Luke.",
+   "c. 80–90 (or early 60s).",
+   "From the Ascension and Pentecost to Paul in Rome: the spread of the Church “to the end of the earth” and the Council of Jerusalem (15)."
+  ],
+  "ROM": [
+   "Paul.",
+   "Undisputed.",
+   "c. 57.",
+   "Paul’s fullest statement of the gospel: sin, justification by faith, life in the Spirit, Israel and the nations, and Christian living."
+  ],
+  "1CO": [
+   "Paul.",
+   "Undisputed.",
+   "c. 54–55.",
+   "Answers to a divided church: factions, morality, marriage, the Lord’s Supper, spiritual gifts, the hymn to love (13), and the resurrection (15)."
+  ],
+  "2CO": [
+   "Paul.",
+   "Undisputed, though many think it combines several letters.",
+   "c. 55–56.",
+   "Paul defends his ministry: strength in weakness, the new covenant, reconciliation, and the collection for Jerusalem."
+  ],
+  "GAL": [
+   "Paul.",
+   "Undisputed.",
+   "c. 48–55.",
+   "Against requiring circumcision of Gentiles: justification by faith, freedom in Christ, and the fruit of the Spirit."
+  ],
+  "EPH": [
+   "Paul.",
+   "Many scholars think a disciple wrote it in his name.",
+   "c. 60–62, or 80–90.",
+   "The Church as Christ’s body, salvation by grace through faith (2:8), unity, and the armour of God."
+  ],
+  "PHI": [
+   "Paul, from prison.",
+   "Undisputed.",
+   "c. 55–62.",
+   "Joy in suffering and the hymn to Christ who emptied himself (2:5–11)."
+  ],
+  "COL": [
+   "Paul.",
+   "Authorship disputed.",
+   "c. 60–62, or later.",
+   "Christ the image of the invisible God, firstborn of creation (1:15–20), against a false philosophy."
+  ],
+  "1TH": [
+   "Paul.",
+   "Undisputed.",
+   "c. 50: probably the earliest New Testament writing.",
+   "Encouragement to a young church and teaching on the Lord’s coming."
+  ],
+  "2TH": [
+   "Paul.",
+   "Disputed.",
+   "c. 51, or later.",
+   "Corrects the idea that the Day of the Lord had already come."
+  ],
+  "1TI": [
+   "Paul.",
+   "Most scholars consider the Pastoral Epistles later and pseudonymous; traditional scholars defend Paul.",
+   "c. 62–64, or c. 100.",
+   "Church order: bishops/overseers and deacons, sound teaching, and the Church as “pillar and bulwark of the truth” (3:15)."
+  ],
+  "2TI": [
+   "Paul, shortly before his death.",
+   "As 1 Timothy.",
+   "c. 64–67, or later.",
+   "Paul’s farewell: “I have fought the good fight” (4:7), and “all Scripture is inspired by God” (3:16)."
+  ],
+  "TIT": [
+   "Paul.",
+   "As 1 Timothy.",
+   "As 1 Timothy.",
+   "Appointing elders in Crete and the grace of God that trains believers."
+  ],
+  "PHM": [
+   "Paul.",
+   "Undisputed.",
+   "c. 55–62.",
+   "A personal letter asking Philemon to receive his runaway slave Onesimus “as a beloved brother”."
+  ],
+  "HEB": [
+   "Paul, in Eastern tradition; doubted in the early West.",
+   "Author unknown (Barnabas, Apollos and others proposed); Origen: “who wrote it, God knows”.",
+   "Before 70 or c. 80–90.",
+   "Christ greater than angels, Moses and the priesthood; the once-for-all sacrifice; the great chapter of faith (11)."
+  ],
+  "JAM": [
+   "James the brother of the Lord.",
+   "Some think pseudonymous; others accept James.",
+   "c. 45–62, or later.",
+   "Practical faith: “faith without works is dead” (2:26). Luther called it “an epistle of straw” compared with Paul."
+  ],
+  "1PE": [
+   "The apostle Peter, through Silvanus.",
+   "Authorship debated.",
+   "c. 62–64, or 70–90.",
+   "Hope for suffering Christians: a royal priesthood (2:9), and Christ who preached to the spirits in prison (3:19)."
+  ],
+  "2PE": [
+   "Peter.",
+   "Widely regarded as pseudonymous and among the latest NT writings; doubted in antiquity too.",
+   "c. 64, or c. 100–125.",
+   "Against false teachers and scoffers about the Lord’s return; “partakers of the divine nature” (1:4)."
+  ],
+  "1JO": [
+   "The apostle John.",
+   "From the Johannine circle.",
+   "c. 90–100.",
+   "“God is love” (4:8): tests of true faith against those who denied Christ had come in the flesh."
+  ],
+  "2JO": [
+   "“The elder”, traditionally John.",
+   "As 1 John.",
+   "c. 90–100.",
+   "A short letter to “the elect lady” on truth and love."
+  ],
+  "3JO": [
+   "“The elder”.",
+   "As 1 John.",
+   "c. 90–100.",
+   "A note to Gaius about hospitality and the troublesome Diotrephes."
+  ],
+  "JUD": [
+   "Jude, brother of James.",
+   "Debated.",
+   "c. 65–80.",
+   "A warning against false teachers, quoting 1 Enoch."
+  ],
+  "REV": [
+   "John, exiled on Patmos; traditionally the apostle.",
+   "Dionysius of Alexandria (3rd c.) already argued it was a different John; reception slow in the East.",
+   "c. 95 (or c. 68).",
+   "Letters to seven churches and visions of the Lamb, conflict with evil, and the new Jerusalem. Read in preterist, historicist, futurist and symbolic ways."
+  ],
+  "TOB": [
+   "Tobit, in the first person.",
+   "A Jewish story of the diaspora; Aramaic and Hebrew fragments found at Qumran.",
+   "c. 200 BC.",
+   "Tobit’s blindness, his son Tobias’ journey with the angel Raphael, and marriage to Sarah: almsgiving, prayer and providence."
+  ],
+  "JDT": [
+   "Unknown.",
+   "Historical fiction with deliberate anachronisms.",
+   "c. 150–100 BC.",
+   "The widow Judith saves her city by beheading the general Holofernes."
+  ],
+  "ESG": [
+   "As Esther.",
+   "Six Greek additions that bring God and prayer into the story.",
+   "c. 2nd–1st century BC.",
+   "Esther in the Greek form read by Catholics and Orthodox, including Mordecai’s dream and the prayers of Mordecai and Esther."
+  ],
+  "WIS": [
+   "Solomon (by its own voice).",
+   "Written in Greek by an Alexandrian Jew.",
+   "c. 50 BC–AD 40.",
+   "Wisdom as “a breath of the power of God” (7:25), the immortality of the righteous soul, and God’s acts in the exodus. Echoed in Hebrews 1:3."
+  ],
+  "SIR": [
+   "Jesus son of Sirach, translated by his grandson.",
+   "Hebrew manuscripts survive in large part (Cairo Geniza, Masada).",
+   "c. 180 BC; Greek c. 132 BC.",
+   "A long book of wisdom on daily life, the law, and praise of “famous men” (44–50). Also called Ecclesiasticus, “the church book”."
+  ],
+  "BAR": [
+   "Baruch, Jeremiah’s scribe.",
+   "Composite; probably later.",
+   "c. 2nd century BC.",
+   "Confession, wisdom identified with the law, and comfort for Jerusalem. Chapter 6 in Catholic Bibles is the Letter of Jeremiah."
+  ],
+  "EPJ": [
+   "Jeremiah.",
+   "A later Jewish polemic.",
+   "c. 300 BC.",
+   "A satire against idols, addressed to the exiles."
+  ],
+  "1MA": [
+   "Unknown Jewish historian.",
+   "Valued as a history source.",
+   "c. 100 BC.",
+   "The revolt of the Maccabees against Antiochus IV, the rededication of the Temple (the origin of Hanukkah), and the Hasmonean leaders."
+  ],
+  "2MA": [
+   "Abridgement of Jason of Cyrene.",
+   "A theological history in Greek.",
+   "c. 124 BC.",
+   "The martyrdom of Eleazar and the seven brothers, resurrection hope, and prayer for the dead (12:42–46)."
+  ],
+  "1ES": [
+   "Unknown.",
+   "A Greek re-working of Chronicles–Ezra–Nehemiah.",
+   "c. 2nd century BC.",
+   "Josiah to Ezra, with the contest of the three guards (“truth is great and prevails”)."
+  ],
+  "4ES": [
+   "Ezra (pseudonymous).",
+   "A Jewish apocalypse with Christian additions.",
+   "c. AD 100.",
+   "Visions after the fall of Jerusalem in 70, wrestling with suffering and justice. In the Vulgate appendix and Anglican Apocrypha."
+  ],
+  "PRM": [
+   "King Manasseh (2 Chronicles 33:12–13).",
+   "Pseudonymous.",
+   "c. 2nd–1st century BC.",
+   "A short, moving prayer of repentance."
+  ],
+  "PSX": [
+   "David.",
+   "A Hebrew form was found at Qumran.",
+   "Uncertain.",
+   "David’s psalm about his anointing and his victory over Goliath; in Orthodox Bibles at the end of the Psalter."
+  ],
+  "PRA": [
+   "Unknown.",
+   "A Greek addition to Daniel 3.",
+   "c. 2nd century BC.",
+   "The prayer of Azariah and the hymn of the three young men in the furnace (“Bless the Lord, all you works of the Lord”), sung in Christian morning prayer."
+  ],
+  "SUS": [
+   "Unknown.",
+   "Greek addition to Daniel.",
+   "c. 2nd–1st century BC.",
+   "Young Daniel exposes the false witnesses against the faithful Susanna."
+  ],
+  "BEL": [
+   "Unknown.",
+   "Greek addition to Daniel.",
+   "c. 2nd–1st century BC.",
+   "Daniel exposes the priests of the idol Bel and kills a dragon worshipped in Babylon."
+  ],
+  "3MA": [
+   "Unknown.",
+   "A Greek Jewish story; not about the Maccabees.",
+   "c. 1st century BC.",
+   "Ptolemy IV’s persecution of the Jews of Egypt and their deliverance."
+  ],
+  "4MA": [
+   "Once attributed to Josephus.",
+   "A philosophical sermon.",
+   "c. AD 20–130.",
+   "Devout reason is master of the passions, shown through the Maccabean martyrs."
+  ],
+  "DNG": [
+   "As Daniel.",
+   "Daniel with the Greek additions.",
+   "As Daniel.",
+   "Daniel in the Greek form, including the Song of the Three, Susanna, and Bel and the Dragon."
+  ]
+ },
+ "trad": [
+  [
+   "MAT",
+   16,
+   18,
+   19,
+   "Peter and the rock",
+   [
+    [
+     "Catholic",
+     "Christ builds the Church on Peter personally; the keys and the power to bind and loose pass to his successors, the bishops of Rome (Vatican I, Pastor aeternus)."
+    ],
+    [
+     "Orthodox",
+     "Peter is first among the apostles, and the rock is often read as his confession of faith shared by every faithful bishop; it does not give Rome jurisdiction over the whole Church."
+    ],
+    [
+     "Protestant",
+     "Most read the rock as Peter’s confession of Christ or as Christ himself (cf. 1 Corinthians 3:11); some accept a role for Peter personally, but deny that it passes to a papal office."
+    ]
+   ],
+   "Fathers read it in several ways: Cyprian of Peter as the source of unity; Augustine often of Peter’s confession; Leo the Great of Peter living on in his see."
+  ],
+  [
+   "JOH",
+   6,
+   53,
+   56,
+   "Eating the flesh of the Son of Man",
+   [
+    [
+     "Catholic",
+     "Refers to the Eucharist, in which bread and wine become the body and blood of Christ (transubstantiation, Trent 1551)."
+    ],
+    [
+     "Orthodox",
+     "Refers to the Eucharist, the true body and blood of Christ; the change is affirmed as a mystery without a philosophical definition."
+    ],
+    [
+     "Protestant",
+     "Lutherans: Christ’s body is truly present “in, with and under” the bread. Reformed: a real spiritual feeding by faith. Zwinglians and many evangelicals: eating means believing, and the passage is not about the Supper."
+    ]
+   ],
+   "Early writers such as Ignatius (c. 110) and Justin (c. 150) already speak of the Eucharist as the flesh of Jesus."
+  ],
+  [
+   "ROM",
+   3,
+   28,
+   28,
+   "Justified by faith apart from works of the law",
+   [
+    [
+     "Catholic",
+     "Initial justification is a free gift received by faith without prior merit; “works of the law” are the Mosaic law. Justification also renews the person inwardly, and grace bears fruit in good works (Trent, session 6)."
+    ],
+    [
+     "Orthodox",
+     "Salvation is theosis: union with God by grace, received in faith and lived in the sacraments and ascetic struggle. The forensic framing of the Western debate is often thought too narrow."
+    ],
+    [
+     "Protestant",
+     "Justification is God’s declaration that the sinner is righteous through faith alone (sola fide), by Christ’s righteousness imputed; works follow as fruit, not as ground."
+    ]
+   ],
+   "The Joint Declaration on the Doctrine of Justification (1999), signed by Catholics and Lutherans and later by Methodists, Reformed and Anglicans, states a common understanding of basic truths."
+  ],
+  [
+   "JAM",
+   2,
+   24,
+   24,
+   "Justified by works and not by faith alone",
+   [
+    [
+     "Catholic",
+     "Confirms that faith working through love, not faith alone, justifies; good works done in grace increase justification."
+    ],
+    [
+     "Orthodox",
+     "Faith and works are inseparable in the life of grace; the verse is read with Paul, not against him."
+    ],
+    [
+     "Protestant",
+     "James speaks of showing or demonstrating justification before others, or of a dead, merely intellectual “faith”; living faith always produces works."
+    ]
+   ],
+   "Luther placed James at the back of his New Testament and called it “an epistle of straw” beside Paul, while still reading and preaching it."
+  ],
+  [
+   "1TI",
+   3,
+   15,
+   15,
+   "The Church, pillar and bulwark of the truth",
+   [
+    [
+     "Catholic",
+     "The Church, through the bishops in communion with the pope, is the authoritative guardian and interpreter of revealed truth."
+    ],
+    [
+     "Orthodox",
+     "The Church as a whole, guided by the Holy Spirit and expressed in the councils and the consensus of the Fathers, guards the truth."
+    ],
+    [
+     "Protestant",
+     "The Church upholds and proclaims the truth of Scripture; Scripture remains the final authority over the Church (sola scriptura)."
+    ]
+   ],
+   ""
+  ],
+  [
+   "MAT",
+   26,
+   26,
+   28,
+   "“This is my body”",
+   [
+    [
+     "Catholic",
+     "The words of institution effect the change of the bread and wine; the Mass makes present the one sacrifice of Calvary."
+    ],
+    [
+     "Orthodox",
+     "The change is completed in the whole anaphora, especially the epiclesis calling down the Spirit; the Liturgy is the bloodless sacrifice."
+    ],
+    [
+     "Protestant",
+     "At Marburg (1529) Luther insisted on “is”; Zwingli read “signifies”. Calvin taught a real spiritual presence. Most Protestants reject the Mass as a sacrifice."
+    ]
+   ],
+   ""
+  ],
+  [
+   "JOH",
+   20,
+   22,
+   23,
+   "Forgiving and retaining sins",
+   [
+    [
+     "Catholic",
+     "Institutes the sacrament of penance: priests absolve sins in Christ’s name."
+    ],
+    [
+     "Orthodox",
+     "The basis of the mystery of confession; the priest is witness and the absolution is prayed in Christ’s name."
+    ],
+    [
+     "Protestant",
+     "Usually read as the authority to proclaim forgiveness through the gospel; Lutherans and Anglicans keep private confession and absolution as an option."
+    ]
+   ],
+   ""
+  ],
+  [
+   "LUK",
+   1,
+   28,
+   28,
+   "“Hail, full of grace”",
+   [
+    [
+     "Catholic",
+     "Kecharitōmenē, “having been graced”, supports Mary’s fullness of grace, read as part of the basis for the Immaculate Conception (1854)."
+    ],
+    [
+     "Orthodox",
+     "Mary is honoured as Theotokos and all-holy, but the Immaculate Conception is generally not accepted, since it is tied to a Western view of original sin."
+    ],
+    [
+     "Protestant",
+     "Many translate “favoured one”: Mary is a model believer chosen by grace, without additional doctrines about her."
+    ]
+   ],
+   ""
+  ],
+  [
+   "MAT",
+   1,
+   25,
+   25,
+   "“Until she had borne a son”",
+   [
+    [
+     "Catholic",
+     "“Until” does not imply what happened afterwards; Mary remained ever-virgin, and the “brothers” of Jesus were relatives."
+    ],
+    [
+     "Orthodox",
+     "Mary is ever-virgin; the brothers are usually explained as Joseph’s children by an earlier marriage."
+    ],
+    [
+     "Protestant",
+     "The Reformers (Luther, Calvin, Zwingli) mostly held Mary’s perpetual virginity; most Protestants today read the brothers as later children of Mary and Joseph."
+    ]
+   ],
+   "Jerome argued the brothers were cousins; Epiphanius that they were Joseph’s sons; Helvidius (c. 383) that they were Mary’s."
+  ],
+  [
+   "2MA",
+   12,
+   42,
+   46,
+   "Prayer for the dead",
+   [
+    [
+     "Catholic",
+     "Supports praying and offering the Mass for the dead and the doctrine of purgatory."
+    ],
+    [
+     "Orthodox",
+     "Supports prayer for the departed, practised in every memorial service, without the Western doctrine of purgatory."
+    ],
+    [
+     "Protestant",
+     "The book is not canonical; most Protestants reject prayer for the dead, although some Anglicans and Lutherans keep forms of it."
+    ]
+   ],
+   ""
+  ],
+  [
+   "1CO",
+   3,
+   13,
+   15,
+   "Saved, but as through fire",
+   [
+    [
+     "Catholic",
+     "Often cited, with other texts, for purgatory: a purification after death for those who die in grace."
+    ],
+    [
+     "Orthodox",
+     "Read as the testing of a teacher’s work; the departed are helped by prayer, but purgatory as a place of satisfaction is rejected."
+    ],
+    [
+     "Protestant",
+     "The Day of judgment tests the quality of each minister’s work; not a doctrine of purgatory."
+    ]
+   ],
+   ""
+  ],
+  [
+   "JOH",
+   15,
+   26,
+   26,
+   "The Spirit who proceeds from the Father",
+   [
+    [
+     "Catholic",
+     "The Spirit proceeds eternally from the Father and the Son (Filioque) as from one principle; the Father is the source within the Trinity."
+    ],
+    [
+     "Orthodox",
+     "The Spirit proceeds from the Father alone; the Son sends the Spirit in time. The Latin addition of “and the Son” to the creed is a key cause of the schism."
+    ],
+    [
+     "Protestant",
+     "Western Protestants generally kept the Filioque; several Anglican and Lutheran bodies now allow the creed without it."
+    ]
+   ],
+   ""
+  ],
+  [
+   "2TH",
+   2,
+   15,
+   15,
+   "Hold to the traditions",
+   [
+    [
+     "Catholic",
+     "Scripture and apostolic Tradition together form one deposit of faith, interpreted by the Magisterium (Dei Verbum)."
+    ],
+    [
+     "Orthodox",
+     "Holy Tradition is the life of the Spirit in the Church, of which Scripture is the heart."
+    ],
+    [
+     "Protestant",
+     "The apostles’ teaching, oral or written, is now preserved in Scripture, the sole infallible rule; later traditions are tested by it."
+    ]
+   ],
+   ""
+  ],
+  [
+   "2TI",
+   3,
+   16,
+   17,
+   "All Scripture is inspired by God",
+   [
+    [
+     "Catholic",
+     "Affirms inspiration and inerrancy of Scripture, which is read within Tradition."
+    ],
+    [
+     "Orthodox",
+     "Scripture is God-breathed and read within the Church’s worship and the Fathers."
+    ],
+    [
+     "Protestant",
+     "The central text for the sufficiency and supreme authority of Scripture."
+    ]
+   ],
+   ""
+  ],
+  [
+   "JAM",
+   5,
+   14,
+   15,
+   "Anointing the sick",
+   [
+    [
+     "Catholic",
+     "The sacrament of the anointing of the sick (formerly extreme unction)."
+    ],
+    [
+     "Orthodox",
+     "The mystery of holy unction, served for healing of soul and body."
+    ],
+    [
+     "Protestant",
+     "Some practise anointing with prayer; not a sacrament for most."
+    ]
+   ],
+   ""
+  ],
+  [
+   "ROM",
+   9,
+   15,
+   16,
+   "Mercy on whom I will have mercy",
+   [
+    [
+     "Catholic",
+     "God’s grace is entirely prior and free; predestination does not cancel human freedom (Thomist and Molinist views both allowed)."
+    ],
+    [
+     "Orthodox",
+     "God foreknows but does not override freedom; salvation is synergy of grace and free response."
+    ],
+    [
+     "Protestant",
+     "Calvinists: unconditional election (Dort). Arminians and Wesleyans: election based on foreseen faith, with prevenient grace for all. Lutherans: election to salvation without double predestination."
+    ]
+   ],
+   ""
+  ],
+  [
+   "MAT",
+   19,
+   9,
+   9,
+   "Divorce “except for unchastity”",
+   [
+    [
+     "Catholic",
+     "A valid sacramental marriage cannot be dissolved; the exception is read as unlawful unions. Annulment declares there was no valid marriage."
+    ],
+    [
+     "Orthodox",
+     "Marriage is indissoluble in principle, but the Church may permit a second (and third) marriage by economy, with a penitential rite."
+    ],
+    [
+     "Protestant",
+     "Most allow divorce for adultery and often desertion (Westminster Confession 24), and remarriage."
+    ]
+   ],
+   ""
+  ],
+  [
+   "1TI",
+   2,
+   5,
+   5,
+   "One mediator between God and men",
+   [
+    [
+     "Catholic",
+     "Christ is the sole mediator; the prayers of the saints share in his mediation, as believers on earth pray for one another."
+    ],
+    [
+     "Orthodox",
+     "The same: the saints’ intercession flows from Christ’s, and they are asked to pray for us."
+    ],
+    [
+     "Protestant",
+     "Christ alone mediates; invoking saints is generally rejected, though asking fellow believers to pray is encouraged."
+    ]
+   ],
+   ""
+  ],
+  [
+   "EXO",
+   20,
+   4,
+   5,
+   "No graven image",
+   [
+    [
+     "Catholic",
+     "Forbids idolatry; images of Christ and the saints are permitted since the Incarnation, and veneration passes to the one depicted (Nicaea II)."
+    ],
+    [
+     "Orthodox",
+     "The Incarnation makes the icon possible; icons are venerated, not worshipped (the Triumph of Orthodoxy, 843)."
+    ],
+    [
+     "Protestant",
+     "Lutherans keep images; Reformed churches counted this as a separate (second) commandment and removed images from worship."
+    ]
+   ],
+   "Catholics and Lutherans follow Augustine’s numbering, joining this to the first commandment; Orthodox and Reformed count it separately."
+  ],
+  [
+   "ISA",
+   7,
+   14,
+   14,
+   "The virgin shall conceive",
+   [
+    [
+     "Catholic",
+     "Prophecy of the virgin birth, as Matthew 1:23 reads it."
+    ],
+    [
+     "Orthodox",
+     "The same; the Septuagint parthenos (“virgin”) is the Church’s text."
+    ],
+    [
+     "Protestant",
+     "Traditional Protestants read it as messianic prophecy; many modern scholars note the Hebrew ‘almah means “young woman” and see a first fulfilment in Isaiah’s day."
+    ]
+   ],
+   "The debate is old: Justin Martyr argued it with Trypho the Jew around 155."
+  ],
+  [
+   "GEN",
+   3,
+   15,
+   15,
+   "The woman’s offspring will crush the serpent",
+   [
+    [
+     "Catholic",
+     "The “Protoevangelium”: the first promise of the Redeemer. The Vulgate’s “she shall crush” (ipsa) shaped Marian art."
+    ],
+    [
+     "Orthodox",
+     "The first gospel promise, fulfilled in Christ born of the Virgin."
+    ],
+    [
+     "Protestant",
+     "The first gospel promise of Christ’s victory; the Hebrew pronoun is masculine (“he” or “it”)."
+    ]
+   ],
+   ""
+  ]
+ ],
+ "maps": [
+  {
+   "id": "abraham",
+   "t": "Abraham",
+   "s": "Genesis 11–25",
+   "note": "Ur is usually identified with Tell el-Muqayyar in southern Iraq; some scholars prefer a northern Ur near Harran.",
+   "route": true,
+   "vb": "559.3 388.5 259.4 160.8",
+   "fs": 3.37,
+   "sw": 0.78,
+   "r": 1.82,
+   "p": [
+    [
+     "Ur of the Chaldeans",
+     785.14,
+     520.93,
+     "GEN 11 31"
+    ],
+    [
+     "Haran",
+     689.59,
+     416.88,
+     "GEN 12 4"
+    ],
+    [
+     "Shechem",
+     638.92,
+     498.88,
+     "GEN 12 6"
+    ],
+    [
+     "Bethel",
+     638.11,
+     503.82,
+     "GEN 12 8"
+    ],
+    [
+     "Egypt",
+     592.97,
+     520.57,
+     "GEN 12 10"
+    ],
+    [
+     "Hebron (Mamre)",
+     636.49,
+     510.87,
+     "GEN 13 18"
+    ],
+    [
+     "Beersheba",
+     632.3,
+     515.99,
+     "GEN 21 31"
+    ],
+    [
+     "Moriah",
+     638.24,
+     506.47,
+     "GEN 22 2"
+    ]
+   ]
+  },
+  {
+   "id": "exodus",
+   "t": "The Exodus",
+   "s": "Exodus 12 – Joshua 6",
+   "note": "The route shown is the traditional one, with Sinai at Jebel Musa; the crossing point and the location of Sinai are debated.",
+   "route": true,
+   "vb": "569.1 496.1 99.1 76.3",
+   "fs": 1.29,
+   "sw": 0.3,
+   "r": 0.69,
+   "p": [
+    [
+     "Rameses",
+     592.3,
+     523.75,
+     "EXO 12 37"
+    ],
+    [
+     "Succoth",
+     595.95,
+     528.16,
+     "EXO 12 37"
+    ],
+    [
+     "Crossing of the sea",
+     602.03,
+     536.97,
+     "EXO 14 21"
+    ],
+    [
+     "Marah",
+     605.14,
+     544.91,
+     "EXO 15 23"
+    ],
+    [
+     "Elim",
+     607.84,
+     550.2,
+     "EXO 15 27"
+    ],
+    [
+     "Mount Sinai",
+     621.22,
+     563.6,
+     "EXO 19 20"
+    ],
+    [
+     "Kadesh-barnea",
+     627.3,
+     526.39,
+     "NUM 13 26"
+    ],
+    [
+     "Mount Nebo",
+     645.0,
+     506.64,
+     "DEU 34 1"
+    ],
+    [
+     "Jericho",
+     641.08,
+     504.88,
+     "JOS 6 20"
+    ]
+   ]
+  },
+  {
+   "id": "tribes",
+   "t": "The twelve tribes",
+   "s": "Joshua 13–19",
+   "note": "Approximate tribal territories; the Levites received cities rather than a territory. Dan later moved north.",
+   "route": false,
+   "vb": "612.5 479.2 55.1 42.4",
+   "fs": 0.72,
+   "sw": 0.17,
+   "r": 0.39,
+   "p": [
+    [
+     "Asher",
+     637.43,
+     484.95,
+     "JOS 19 24"
+    ],
+    [
+     "Naphtali",
+     642.16,
+     484.07,
+     "JOS 19 32"
+    ],
+    [
+     "Zebulun",
+     638.78,
+     489.01,
+     "JOS 19 10"
+    ],
+    [
+     "Issachar",
+     641.22,
+     492.36,
+     "JOS 19 17"
+    ],
+    [
+     "Manasseh (west)",
+     637.57,
+     496.41,
+     "JOS 17 1"
+    ],
+    [
+     "Manasseh (east)",
+     647.97,
+     492.01,
+     "JOS 13 29"
+    ],
+    [
+     "Ephraim",
+     637.84,
+     501.18,
+     "JOS 16 5"
+    ],
+    [
+     "Dan",
+     634.05,
+     505.23,
+     "JOS 19 40"
+    ],
+    [
+     "Benjamin",
+     639.59,
+     505.58,
+     "JOS 18 11"
+    ],
+    [
+     "Judah",
+     635.81,
+     512.29,
+     "JOS 15 1"
+    ],
+    [
+     "Simeon",
+     632.16,
+     516.69,
+     "JOS 19 1"
+    ],
+    [
+     "Gad",
+     645.27,
+     502.94,
+     "JOS 13 24"
+    ],
+    [
+     "Reuben",
+     645.68,
+     509.64,
+     "JOS 13 15"
+    ]
+   ]
+  },
+  {
+   "id": "jesus",
+   "t": "The ministry of Jesus",
+   "s": "The Gospels",
+   "note": "Sites as identified by long tradition; Tabor for the Transfiguration and Bethany beyond the Jordan are traditional identifications.",
+   "route": true,
+   "vb": "616.7 476.4 46.1 35.5",
+   "fs": 0.6,
+   "sw": 0.14,
+   "r": 0.32,
+   "p": [
+    [
+     "Bethlehem",
+     637.84,
+     507.88,
+     "LUK 2 4"
+    ],
+    [
+     "Nazareth",
+     639.19,
+     490.24,
+     "LUK 2 39"
+    ],
+    [
+     "Baptism in the Jordan",
+     642.57,
+     505.41,
+     "MAR 1 9"
+    ],
+    [
+     "Cana",
+     639.73,
+     489.36,
+     "JOH 2 1"
+    ],
+    [
+     "Capernaum",
+     642.84,
+     487.07,
+     "MAR 1 21"
+    ],
+    [
+     "Mount of Beatitudes",
+     642.57,
+     487.07,
+     "MAT 5 1"
+    ],
+    [
+     "Caesarea Philippi",
+     644.46,
+     480.54,
+     "MAT 16 13"
+    ],
+    [
+     "Mount Tabor",
+     640.41,
+     490.42,
+     "MAT 17 1"
+    ],
+    [
+     "Jericho",
+     641.08,
+     504.88,
+     "LUK 19 1"
+    ],
+    [
+     "Bethany",
+     638.65,
+     506.64,
+     "JOH 11 1"
+    ],
+    [
+     "Jerusalem",
+     638.24,
+     506.47,
+     "MAR 11 11"
+    ],
+    [
+     "Emmaus",
+     635.0,
+     505.41,
+     "LUK 24 13"
+    ]
+   ]
+  },
+  {
+   "id": "paul1",
+   "t": "Paul’s first journey",
+   "s": "Acts 13–14",
+   "note": "With Barnabas, c. 46–48.",
+   "route": true,
+   "vb": "561.1 381.9 105.6 81.4",
+   "fs": 1.37,
+   "sw": 0.32,
+   "r": 0.74,
+   "p": [
+    [
+     "Antioch",
+     650.81,
+     428.52,
+     "ACT 13 1"
+    ],
+    [
+     "Seleucia",
+     647.7,
+     429.93,
+     "ACT 13 4"
+    ],
+    [
+     "Salamis",
+     620.27,
+     446.51,
+     "ACT 13 5"
+    ],
+    [
+     "Paphos",
+     600.27,
+     453.92,
+     "ACT 13 6"
+    ],
+    [
+     "Perga",
+     579.05,
+     415.12,
+     "ACT 13 13"
+    ],
+    [
+     "Pisidian Antioch",
+     583.65,
+     391.31,
+     "ACT 13 14"
+    ],
+    [
+     "Iconium",
+     601.22,
+     399.07,
+     "ACT 14 1"
+    ],
+    [
+     "Lystra",
+     600.68,
+     404.19,
+     "ACT 14 8"
+    ],
+    [
+     "Derbe",
+     613.11,
+     408.24,
+     "ACT 14 20"
+    ],
+    [
+     "Attalia",
+     577.03,
+     416.35,
+     "ACT 14 25"
+    ],
+    [
+     "Antioch",
+     650.81,
+     428.52,
+     "ACT 14 26"
+    ]
+   ]
+  },
+  {
+   "id": "paul2",
+   "t": "Paul’s second journey",
+   "s": "Acts 15:36 – 18:22",
+   "note": "With Silas, then Timothy and Luke, c. 49–52.",
+   "route": true,
+   "vb": "419.2 319.3 274.7 211.6",
+   "fs": 3.57,
+   "sw": 0.82,
+   "r": 1.92,
+   "p": [
+    [
+     "Antioch",
+     650.81,
+     428.52,
+     "ACT 15 36"
+    ],
+    [
+     "Derbe",
+     613.11,
+     408.24,
+     "ACT 16 1"
+    ],
+    [
+     "Lystra",
+     600.68,
+     404.19,
+     "ACT 16 1"
+    ],
+    [
+     "Troas",
+     515.68,
+     365.92,
+     "ACT 16 8"
+    ],
+    [
+     "Neapolis",
+     492.03,
+     344.93,
+     "ACT 16 11"
+    ],
+    [
+     "Philippi",
+     490.41,
+     343.7,
+     "ACT 16 12"
+    ],
+    [
+     "Thessalonica",
+     472.16,
+     350.22,
+     "ACT 17 1"
+    ],
+    [
+     "Berea",
+     462.16,
+     352.34,
+     "ACT 17 10"
+    ],
+    [
+     "Athens",
+     482.7,
+     397.31,
+     "ACT 17 16"
+    ],
+    [
+     "Corinth",
+     471.35,
+     398.37,
+     "ACT 18 1"
+    ],
+    [
+     "Ephesus",
+     531.62,
+     397.84,
+     "ACT 18 19"
+    ],
+    [
+     "Caesarea",
+     633.65,
+     493.77,
+     "ACT 18 22"
+    ],
+    [
+     "Jerusalem",
+     638.24,
+     506.47,
+     "ACT 18 22"
+    ],
+    [
+     "Antioch",
+     650.81,
+     428.52,
+     "ACT 18 22"
+    ]
+   ]
+  },
+  {
+   "id": "paul3",
+   "t": "Paul’s third journey",
+   "s": "Acts 18:23 – 21:17",
+   "note": "c. 53–57, including over two years in Ephesus.",
+   "route": true,
+   "vb": "423.7 319.3 274.7 211.6",
+   "fs": 3.57,
+   "sw": 0.82,
+   "r": 1.92,
+   "p": [
+    [
+     "Antioch",
+     650.81,
+     428.52,
+     "ACT 18 23"
+    ],
+    [
+     "Galatia and Phrygia",
+     587.84,
+     382.67,
+     "ACT 18 23"
+    ],
+    [
+     "Ephesus",
+     531.62,
+     397.84,
+     "ACT 19 1"
+    ],
+    [
+     "Macedonia",
+     490.41,
+     343.7,
+     "ACT 20 1"
+    ],
+    [
+     "Corinth",
+     471.35,
+     398.37,
+     "ACT 20 2"
+    ],
+    [
+     "Philippi",
+     490.41,
+     343.7,
+     "ACT 20 6"
+    ],
+    [
+     "Troas",
+     515.68,
+     365.92,
+     "ACT 20 6"
+    ],
+    [
+     "Assos",
+     518.11,
+     370.5,
+     "ACT 20 13"
+    ],
+    [
+     "Mitylene",
+     520.95,
+     377.2,
+     "ACT 20 14"
+    ],
+    [
+     "Miletus",
+     530.81,
+     405.07,
+     "ACT 20 15"
+    ],
+    [
+     "Cos",
+     530.95,
+     416.35,
+     "ACT 21 1"
+    ],
+    [
+     "Rhodes",
+     543.51,
+     424.47,
+     "ACT 21 1"
+    ],
+    [
+     "Patara",
+     558.38,
+     427.46,
+     "ACT 21 1"
+    ],
+    [
+     "Tyre",
+     637.84,
+     480.19,
+     "ACT 21 3"
+    ],
+    [
+     "Ptolemais",
+     636.08,
+     486.36,
+     "ACT 21 7"
+    ],
+    [
+     "Caesarea",
+     633.65,
+     493.77,
+     "ACT 21 8"
+    ],
+    [
+     "Jerusalem",
+     638.24,
+     506.47,
+     "ACT 21 17"
+    ]
+   ]
+  },
+  {
+   "id": "rome",
+   "t": "Paul’s voyage to Rome",
+   "s": "Acts 27–28",
+   "note": "As a prisoner, c. 59–60, with shipwreck on Malta.",
+   "route": true,
+   "vb": "276.8 281.6 417.4 258.8",
+   "fs": 5.43,
+   "sw": 1.25,
+   "r": 2.92,
+   "p": [
+    [
+     "Caesarea",
+     633.65,
+     493.77,
+     "ACT 27 1"
+    ],
+    [
+     "Sidon",
+     640.14,
+     475.08,
+     "ACT 27 3"
+    ],
+    [
+     "Myra",
+     567.3,
+     427.46,
+     "ACT 27 5"
+    ],
+    [
+     "Fair Havens, Crete",
+     497.3,
+     450.92,
+     "ACT 27 8"
+    ],
+    [
+     "Malta",
+     356.76,
+     432.93,
+     "ACT 28 1"
+    ],
+    [
+     "Syracuse",
+     368.78,
+     413.18,
+     "ACT 28 12"
+    ],
+    [
+     "Rhegium",
+     373.65,
+     394.84,
+     "ACT 28 13"
+    ],
+    [
+     "Puteoli",
+     352.97,
+     347.05,
+     "ACT 28 13"
+    ],
+    [
+     "Rome",
+     330.95,
+     328.18,
+     "ACT 28 16"
+    ]
+   ]
+  }
+ ]
+}

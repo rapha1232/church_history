@@ -17,20 +17,22 @@ an Android app and an installable iPhone/iPad web app, and works fully offline.
 
 | Folder | Contents |
 |---|---|
-| `site/` | The built app: `index.html`, all images (`img/`, 344 pictures) and the Bible library (`bible/`: nine editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers’ commentary, topics, people and places, lectionaries). This is exactly what ships in the APK and the web app. |
+| `src/` | **The web app's source.** Pages (one file per `<article>`), stylesheets, scripts, JSON data and partials, put together into `site/index.html` by `scripts/build_site.py`. See [src/README.md](src/README.md) for how to edit a page or add a feature. |
+| `site/` | The built app. `index.html` is generated from `src/` and not committed. Also here: all images (`img/`, 344 pictures) and the Bible library (`bible/`: nine editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers' commentary, topics, people and places, lectionaries, early Christian texts). This is exactly what ships in the APK and the web app. |
 | `android/` | The Android project (Gradle, Kotlin and Java): WebView shell, bridge, widgets, notifications, study packs, backup, updater, resources in five languages, bundled fonts, unit tests in `android/test/`. |
-| `DESIGN.md` | The design contract: audit of the app, design direction and research, tokens, components, banned patterns and a checklist. Read it before changing the look. Implemented by `tools/v20.*` (design layer) and `tools/v21.*` (navigation and Studies), with `tools/v22.py` (the default Bible edition in Settings) `tools/v23.*` (the early Christian texts reader) and `tools/v24.*` (authenticity labels, each with its sources), `tools/v25.*` (quote cards with full attribution), `tools/v26.*` (how many Fathers comment on each verse), `tools/v27.*` (the deuterocanon in the New Testament; data from `tools/dc_allusions.py`) and `tools/v28.*` (how doctrines developed; data from `tools/doctrines.py`, which checks every quotation against its source). The ready-made studies offered in Studies are built the same way by `tools/studies.py`, applied in order: `for s in 20 21 22 23 24 25 26 27 28; do python3 tools/v$s.py; done`. The texts in `site/bible/texts/` are built by `tools/fathers_texts.py` from public-domain CCEL editions (see the script for the sources and how they were checked). The Greek and Latin originals beside them (`*.orig.js`) are built afterwards by `tools/originals.py` from Open Greek and Latin editions (CC BY-SA 4.0). |
+| `DESIGN.md` | The design contract: audit of the app, design direction and research, tokens, components, banned patterns and a checklist. Read it before changing the look. The design layer itself is `src/css/design.css` and `src/js/design.js`. |
 | `docs/` | `DISTRIBUTION.md`: signing key, releases, self-updates and free ways to distribute the app. |
-| `tools/` | The generators used to build `site/`: content layers (`extras*.py`), design and behaviour layers (`v1*.css`, `v1*.js`), Bible data builders (`bible.py`, `orig.py`, `fathers.py`, `tipnr.py`, …) and the browser test suites (`shot*.js`). |
-| `content/` | Inputs the generators read: the base page, document texts, map geometry and image metadata. |
-| `scripts/` | `build_apk.sh` (Android build, APK and AAB), `prepare_assets.py` (copies the site into the app, leaving out the study packs) and `build_pwa.py` (iPhone/iPad web app). |
-| `.github/workflows/` | Automatic releases and the web app (below). |
+| `tools/` | Generators for the data in `site/bible/`: Bible texts (`bible.py`, `orig.py`, `bib2.py`, `tipnr.py`, `topics.py`, `wj.py`, `lect2.py`), the Fathers' commentary (`fathers.py`), the early Christian texts (`fathers_texts.py`, from public-domain CCEL editions, and `originals.py`, the Greek and Latin originals from Open Greek and Latin, CC BY-SA 4.0), the deuterocanon parallels (`dc_allusions.py`), the doctrine timeline (`doctrines.py`, which checks every quotation against its source) and the ready-made studies (`studies.py`). Also the Android resources (`widget_res.py`, `strings_res.py`, `icon.py`), fonts (`fonts.js`) and the widget data (`quotes.json`, `verses.json`, `onthisday.json`). |
+| `content/` | `docs.json`: the creeds and confessions library that `tools/doctrines.py` checks quotations against. |
+| `scripts/` | `build_site.py` (builds `site/index.html` from `src/`), `build_apk.sh` (Android build, APK and AAB), `prepare_assets.py` (copies the site into the app, leaving out the study packs) and `build_pwa.py` (iPhone/iPad web app). Both packaging scripts build the page themselves. |
+| `tests/` | `build_check.sh` (the page builds; generated data is current) and `smoke.js` (the app runs in Chromium). |
+| `.github/workflows/` | Checks on every pull request, automatic releases and the web app (below). |
 
 The generators in `tools/` were written for a working tree that also holds the downloaded source
 data (Bible texts from eBible.org, STEPBible data, OpenBible.info cross-references and topics,
-the HistoricalChristianFaith commentaries, original image files). Those downloads are large and
-are not stored here; everything they produce is already in `site/`. To change the app, edit
-`site/` (or rebuild it with the tools) and push.
+the HistoricalChristianFaith commentaries, CCEL texts). Those downloads are large and are not
+stored here; everything they produce is already in `site/bible/`. To change the app, edit `src/`
+and push.
 
 ## Releases: a downloadable APK for every release (and self-updates)
 
@@ -46,7 +48,7 @@ or publish a release from the GitHub website with a tag such as `v18.1`, or run 
 (Actions → Release APK → Run workflow). The tag sets the version: `v18` → version 18 (code 1800),
 `v18.1` → version 18.1 (code 1801).
 
-**Automatic releases.** Merging a change to `site/` or `android/` into `main` makes the **Release on merge**
+**Automatic releases.** Merging a change to `src/`, `site/` or `android/` into `main` makes the **Release on merge**
 workflow tag that commit with the next version (the highest `vN` tag plus one, e.g. `v24` → `v25`, computed by
 `scripts/next_version.sh`) and start the Release APK build for it. Put `[skip release]` in the merge commit
 message to skip it. Tags pushed by hand still work as before.
@@ -65,12 +67,13 @@ with a warning; it installs on a new phone but cannot update an existing install
 ## The web app on GitHub Pages (no file limits)
 
 The **Web app** workflow publishes the iPhone/iPad web app on every push to `main` that touches
-`site/`. Enable it once under **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+`src/` or `site/`. Enable it once under **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 It is then served at `https://<owner>.github.io/church_history/`.
 
 ## Build locally
 
 ```bash
+python3 scripts/build_site.py                      # the page: site/index.html (open it in a browser)
 python3 scripts/build_pwa.py pwa                     # web app into pwa/
 KEYSTORE=release.jks KEYSTORE_PASS=... bash scripts/build_apk.sh 1900 19.0   # APK and AAB into dist/
 (cd android && ./gradlew testReleaseUnitTest)                                   # unit tests

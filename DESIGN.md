@@ -1,14 +1,14 @@
 # DESIGN.md: History of the Christian Church
 
-This file is the design contract for the app. Read it before changing anything in `site/index.html`
-or adding a new CSS/JS layer in `tools/`. It has three parts:
+This file is the design contract for the app. Read it before changing the look of anything in `src/`
+(the source of `site/index.html`, see `src/README.md`) or adding a stylesheet or script there. It has three parts:
 
 1. **What the app is**: an audit of the pages, elements and layout as they stand (Edition 19).
 2. **What we believe**: the design direction, the research behind it and the patterns we ban.
 3. **What we use**: tokens, type, colour, components, motion and a checklist for every change.
 
-The rules here are implemented by the **Edition 20 design layer** (`tools/v20.css`, `tools/v20.js`,
-applied to the built page by `tools/v20.py`).
+The rules here are implemented by the **design layer**, `src/css/design.css` and `src/js/design.js`
+(it was introduced as Edition 20).
 
 ---
 
@@ -48,6 +48,9 @@ Content is long-form history: 15 **seasons** (`vol-i` … `vol-xv`), about 120 *
 - **Themes:** Night (default), Light, Sepia; six accent colours; reader text size and leading.
 
 ### 1.4 How it is built
+
+*(As audited in Edition 19. The stylesheets now live in `src/css/`, one file per former edition or feature, listed
+in cascade order in `src/index.html`; declarations that a later rule always overrode have been removed.)*
 
 Twenty "editions" of CSS stacked in one `<style>` block (177 KB) plus JS layers that inject more.
 Each edition overrides the last. Tokens were redefined three times (Editions 1, 5, 14), so the cascade

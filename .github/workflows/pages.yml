@@ -4,7 +4,7 @@ name: Web app (GitHub Pages)
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/build_pwa.py', 'android/assets/fonts/**', 'android/assets/fonts.css', 'android/icon512.png', 'android/icon-full512.png', 'android/icon-maskable512.png', '.github/workflows/pages.yml']
+    paths: ['site/**', 'src/**', 'scripts/build_site.py', 'scripts/build_pwa.py', 'android/assets/fonts/**', 'android/assets/fonts.css', 'android/icon512.png', 'android/icon-full512.png', 'android/icon-maskable512.png', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
