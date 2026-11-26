@@ -16,7 +16,7 @@ const ROUTES = [
   ['bible-greek', PHONE, '#bible~lxxg~GEN~1~1'],
   ['series', PHONE, '#series'], ['library', PHONE, '#library'], ['studies', PHONE, '#studies'],
   ['people', PHONE, '#ref-people'], ['glossary', PHONE, '#ref-glossary'], ['texts', PHONE, '#ref-texts'],
-  ['settings', PHONE, '#ref-settings'], ['timeline', PHONE, '#ref-zoom'],
+  ['settings', PHONE, '#ref-settings'], ['timeline', PHONE, '#ref-zoom'], ['prayers', PHONE, '#prayers'],
   ['home-desktop', DESK, '#home'], ['episode-desktop', DESK, '#iv-6'], ['bible-desktop', DESK, '#bible~web~ROM~8~28'],
 ];
 
@@ -222,6 +222,42 @@ async function finish(browser) {
     const r = await p.evaluate(() => ({ hash: location.hash, st: window.HCCBible && HCCBible.state(), hl: (document.querySelector('#bible .bv.hl') || {}).dataset }));
     if (r.hash !== '#bible' || !r.st || r.st.b !== 'JOH' || r.st.c !== 3 || !r.hl || r.hl.v !== '36') fail('search-bible-ref', 'expected John 3:36, got ' + JSON.stringify(r));
     else console.log('  ok   search-bible-ref');
+    await p.close();
+  }
+
+  // the Prayers page: themes filter the list, Bible prayers load their text
+  {
+    const p = await page(browser, 'prayers', PHONE);
+    await p.goto(URL + '#prayers');
+    await p.waitForTimeout(1500);
+    const themes = await p.$$eval('#prayers .pr-th', b => b.length);
+    await p.click('#prayers .pr-th[data-prth="night"]');
+    await p.waitForTimeout(400);
+    const night = await p.$$eval('#prResults .pr-card', d => d.length);
+    await p.click('#prResults [data-pid="ps-4-8"] summary');
+    await p.waitForTimeout(1500);
+    const verse = await p.$eval('#prResults [data-pid="ps-4-8"] .pr-text', e => e.textContent);
+    if (themes < 20 || night < 10 || !/peace/i.test(verse)) fail('prayers', 'themes ' + themes + ', night prayers ' + night + ', Psalm 4:8 "' + verse.slice(0, 60) + '"');
+    else console.log('  ok   prayers');
+    await p.close();
+  }
+
+  // Bible tools: lexicon, the Fathers on a passage, parallel passages
+  {
+    const p = await page(browser, 'bible-tools', DESK);
+    await p.goto(URL + '#bible~web~JOH~1~1');
+    await p.waitForTimeout(2000);
+    await p.evaluate(() => HCCBible.lexicon('shalom'));
+    await p.waitForTimeout(3000);
+    const lex = await p.$$eval('#bibView .lx-res li', l => l.length);
+    await p.evaluate(() => { HCCBibleX.st.fq = 'John 1'; HCCBibleX.tool('fathers'); });
+    await p.waitForTimeout(2500);
+    const fa = await p.$$eval('#bibView .fp-sec .fa', l => l.length);
+    await p.evaluate(() => { HCCBibleX.st.pi = 0; HCCBibleX.tool('parallels'); });
+    await p.waitForTimeout(2000);
+    const cols = await p.$$eval('#plCols .hg-col p sup', l => l.length);
+    if (lex < 1 || fa < 20 || cols < 10) fail('bible-tools', 'lexicon ' + lex + ', Fathers ' + fa + ', parallel verses ' + cols);
+    else console.log('  ok   bible-tools');
     await p.close();
   }
 

@@ -1,0 +1,61 @@
+/* More Bible study tools (js/bible-extras.js): lexicon, the Fathers on a passage, parallel passages,
+   parallel accounts and "In the history" under a chapter, Scripture in an episode, tags on verses. */
+
+/* lexicon */
+.lx-res{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--rule)}
+.lx-res li{border-bottom:1px solid var(--rule)}
+.lx-res button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;width:100%;padding:10px 4px;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:var(--r-sm);transition:background-color var(--t-fast)}
+.lx-res button:hover{background:var(--wash)}
+.lx-w b{font:600 1.2rem/1.3 var(--font-body)}
+.lx-w i{font:italic 15px var(--font-body);color:var(--muted)}
+.lx-gl{grid-column:1;font:14.5px/1.45 var(--font-ui)}
+.lx-res small{grid-column:2;grid-row:1/3;align-self:center;font:12.5px var(--font-ui);color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* the Fathers on a passage */
+.fp-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 10px;font:14px var(--font-ui)}
+.fp-tools select{min-height:42px;max-width:100%;padding:0 10px;border:1px solid var(--rule-strong);border-radius:var(--r-sm);background:var(--elev);color:var(--ink);font:14px var(--font-ui)}
+.fp-cents{margin:0 0 14px}
+.fp-sec{margin:0 0 22px;scroll-margin-top:80px}
+.fp-sec .fa{padding:12px 0;border-top:1px solid var(--rule)}
+.fp-v{margin:2px 0 6px}
+.fa-allp{margin:14px 0 4px}
+
+/* parallel passages */
+.pl-list button{flex-direction:column;align-items:flex-start;gap:2px}
+.pl-list small{font:13px/1.4 var(--font-ui);color:var(--muted)}
+
+/* under a chapter */
+.bx-more{max-width:42rem;margin:28px auto 0;padding-top:4px}
+.bx-more .shelf-h{margin-top:18px}
+.bx-pars{display:grid;gap:8px;margin:8px 0 6px}
+.bx-par{display:grid;gap:2px;width:100%;padding:10px 14px;border:1px solid var(--rule);border-radius:var(--r-md);background:var(--panel);color:var(--ink);text-align:left;cursor:pointer;transition:border-color var(--t-fast)}
+.bx-par:hover{border-color:var(--rule-strong)}
+.bx-par b{font:600 1rem/1.3 var(--font-display)}
+.bx-par small{font:13px/1.4 var(--font-ui);color:var(--muted)}
+.bx-hist{margin-top:6px}
+.bx-mored summary{cursor:pointer;padding:10px 4px;font:600 14px var(--font-ui);color:var(--lapis)}
+
+/* Scripture in this episode */
+.bx-scrip{max-width:var(--measure);margin:2.2em 0 1.4em;padding-top:12px;border-top:1px solid var(--rule)}
+.bx-sl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.bx-sl .sref{margin:0}
+
+/* tags on a verse */
+.vs-tags{display:flex;flex-wrap:wrap;align-items:center;gap:6px;width:100%;margin-top:6px}
+.vs-tgl{display:contents}
+.vs-tgc{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border:1px solid var(--rule-strong);border-radius:999px;background:var(--panel);color:var(--ink);font:600 13px var(--font-ui);cursor:pointer}
+.vs-tgc span{color:var(--muted);font-size:11px}
+#vsTag{flex:1 1 160px;min-width:0;min-height:36px;padding:0 10px;border:1px solid var(--rule-strong);border-radius:var(--r-sm);background:var(--elev);color:var(--ink);font:14px var(--font-ui)}
+
+/* the notes page */
+.bn-tags{margin-top:6px}
+.bn-cc i.hcb{display:inline-block;width:12px;height:12px;margin-right:6px;border:0;vertical-align:-1px;cursor:inherit}
+.bn-bar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 8px}
+.bn-bar input{flex:1 1 200px;min-width:0;min-height:42px;padding:0 12px;border:1px solid var(--rule-strong);border-radius:var(--r-sm);background:var(--elev);color:var(--ink);font:15px var(--font-ui)}
+.bn-bar select{min-height:42px;padding:0 10px;border:1px solid var(--rule-strong);border-radius:var(--r-sm);background:var(--elev);color:var(--ink);font:14px var(--font-ui)}
+.bn-exp{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.bn-list .bn-g{margin-top:6px}
+.bn-list .bn-g .lc-ref{padding:2px 9px;font-size:12.5px}
+.vs-mark .vs-tags{display:none}
+.vs-mark.tg-on{flex-wrap:wrap}
+.vs-mark.tg-on .vs-tags{display:flex;flex:1 1 100%}

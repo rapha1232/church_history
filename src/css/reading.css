@@ -1,0 +1,17 @@
+/* Reading settings (Aa panel): text width and font. Set by js/tree-otd-plans.js as data-width and data-font on <html>. */
+.rs-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 12px}
+.rs-seg button{min-height:40px;padding:6px 4px;border:1px solid var(--rule);border-radius:var(--r-md);background:var(--panel);color:var(--ink);font:600 12.5px var(--font-ui);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.rs-seg button small{font:400 11px var(--font-ui);color:var(--muted)}
+.rs-seg button[aria-pressed="true"]{border-color:var(--rubric);box-shadow:0 0 0 1px var(--rubric) inset}
+.rs-fonts .rsf-serif b{font:600 14px var(--font-display)}
+.rs-fonts .rsf-sans b,.rs-fonts .rsf-easy b{font:600 13.5px var(--font-ui)}
+.rs-fonts .rsf-easy b{letter-spacing:.04em}
+
+:root[data-width="narrow"]{--measure:56ch;--bmeasure:29em}
+:root[data-width="wide"]{--measure:82ch;--bmeasure:44em}
+.bib-text{max-width:var(--bmeasure,34em)}
+
+:root[data-font="sans"],:root[data-font="easy"]{--font-body:var(--font-ui)}
+:root[data-font="easy"] main article p,:root[data-font="easy"] main article li,:root[data-font="easy"] .bib-text,:root[data-font="easy"] .pr-text{letter-spacing:.035em;word-spacing:.14em;font-variant-numeric:lining-nums}
+:root[data-font="easy"] main article p,:root[data-font="easy"] main article li{line-height:max(var(--rl,1.78),1.85)}
+:root[data-font="easy"] main article p i,:root[data-font="easy"] main article p em{font-style:normal;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}

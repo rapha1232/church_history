@@ -90,7 +90,7 @@ function snippet(raw, terms){
 }
 function render(){
   var str = q.value.trim(); if(!str){ return; }
-  var r = run(str); if(!r) return;
+  var r = run(str) || {hits: [], did: null, terms: []};
   JUMP = [];
   var by = {}; r.hits.forEach(function(h){ (by[h.e.g] = by[h.e.g] || []).push(h); });
   var bref = bibleRef(str), html = bref ? '<div class="sx-g"><p class="sx-h">Bible</p><a href="#bible" data-sxbib="1"><span class="rt">Open '+esc(bref.label)+'</span><span class="rs" data-sxbt>'+(bref.v ? "Go to the verse in the Bible" : "Go to the chapter in the Bible")+'</span></a></div>' : "";
@@ -104,8 +104,24 @@ function render(){
       return '<a href="'+href+'" data-sx="'+k+'"><span class="rt">'+esc(h.e.t)+(h.e.sub?' <small>'+esc(h.e.sub)+'</small>':'')+'</span><span class="rs">'+snippet(h.e.raw, r.terms)+'</span></a>';
     }).join("") + '</div>';
   });
+  /* prayers (the Prayers page draws them only when opened, so they are searched here) */
+  var PR = window.HCCPrayers, toks = norm(str).split(/[^a-z0-9]+/).filter(function(x){ return x.length > 1; });
+  if(PR && toks.length && !bref){
+    var TH = {}; PR.themes.forEach(function(t){ TH[t[0]] = t[1]; });
+    var ph = PR.list.map(function(p){ var hay = norm([p.t, p.src, p.x || "", p.th.map(function(t){ return TH[t]; }).join(" ")].join(" ")), tt = norm(p.t), sc = 0;
+      for(var i = 0; i < toks.length; i++){ if(hay.indexOf(toks[i]) < 0) return null; sc += tt.indexOf(toks[i]) >= 0 ? 10 : 1; } return [sc, p]; }).filter(Boolean).sort(function(a, b){ return b[0] - a[0]; });
+    if(ph.length){ any = true; html += '<div class="sx-g"><p class="sx-h">Prayers <span>'+ph.length+'</span></p>' + ph.slice(0, 5).map(function(x){ var p = x[1]; return '<a href="#prayers" data-sxpr="'+esc(p.id)+'"><span class="rt">'+esc(p.t)+'</span><span class="rs">'+esc(p.src)+'</span></a>'; }).join("") + '</div>'; }
+  }
+  /* the Bible: its text, and the Greek and Hebrew lexicon */
+  var B = window.HCCBible || {}, sid = !bref && B.strong ? B.strong(str) : null, script = /[\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]/.test(str);
+  var word = !bref && !sid && /^[\p{L}’'-]{3,30}$/u.test(str), bx = "";
+  if(sid && B.word) bx += '<a href="#bible" data-sxlex="'+esc(sid)+'"><span class="rt">Look up '+esc(sid.replace(/^([GH])0+/, "$1"))+' in the lexicon</span><span class="rs" data-sxlt>'+(sid[0] === "G" ? "Greek" : "Hebrew")+' word: how it is translated and every place it is used</span></a>';
+  if(word && B.lexicon) bx += '<a href="#bible" data-sxlx="1"><span class="rt">Find “'+esc(str)+'” in the Greek and Hebrew lexicon</span><span class="rs">Words that mean, or are spelled, '+esc(str)+'</span></a>';
+  if(!bref && !sid && !script && str.length >= 3 && B.search) bx += '<a href="#bible" data-sxbs="1"><span class="rt">Search the Bible for “'+esc(str)+'”</span><span class="rs">Every verse with these words, in the edition you are reading</span></a>';
+  if(bx){ bx = '<div class="sx-g"><p class="sx-h">Bible</p>' + bx + '</div>'; if(sid || script) html = bx + html; else html += bx; any = true; }
   if(!any && !bref) html += '<div style="padding:12px;color:var(--muted)">No matches. Try fewer words, or another spelling.</div>';
   res.innerHTML = html; res.hidden = false; res.classList.add("sx");
+  if(sid && B.lexLookup) B.lexLookup(sid, function(e){ var el = $("[data-sxlt]", res); if(e && el && B.strong(q.value.trim()) === sid) el.textContent = e[0] + " · " + e[1] + " · “" + e[3] + "”"; });
   if(bref && bref.v && HCCBible.text) HCCBible.text(bref, function(t){ var el = $("[data-sxbt]", res); if(t && el && bibleRef(q.value.trim()) && bibleRef(q.value.trim()).label === bref.label){ var tx = t.text.replace(/\[([^\]]{1,80})\]/g, "$1"); el.textContent = tx.length > 220 ? tx.slice(0, 220) + "…" : tx; } });
 }
 /* a Bible reference ("John 3:36") goes straight to the verse; render at once so Enter opens it */
@@ -122,6 +138,10 @@ function flash(el){
 }
 res.addEventListener("click", function(e){
   if(e.target.closest("[data-sxbib]")){ e.preventDefault(); bibleOpen(); return; }
+  var pr = e.target.closest("[data-sxpr]"); if(pr){ e.preventDefault(); res.hidden = true; q.blur(); if(window.HCCPrayers) HCCPrayers.open(pr.dataset.sxpr); return; }
+  var bb = e.target.closest("[data-sxlex],[data-sxlx],[data-sxbs]");
+  if(bb){ e.preventDefault(); var v = q.value.trim(); res.hidden = true; q.blur();
+    if(bb.dataset.sxlex) HCCBible.word(bb.dataset.sxlex); else if(bb.dataset.sxlx) HCCBible.lexicon(v); else HCCBible.search(v); return; }
   var a = e.target.closest("[data-sx]"); if(!a) return;
   var it = JUMP[+a.dataset.sx]; if(!it) return; var act = it.act;
   if(act.el){

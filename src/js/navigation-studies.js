@@ -47,7 +47,7 @@ function sectionOf(id){
   if(id === "studies") return "studies";
   if(SERIES[id]) return "series";
   if(id === "ref-settings") return "settings";
-  if(id === "library" || id.indexOf("ref-") === 0) return "library";
+  if(id === "library" || id === "prayers" || id.indexOf("ref-") === 0) return "library";
   return "";
 }
 var NAV = [["home","Home"],["series","Series"],["bible","Bible"],["studies","Studies"],["library","Library"]];
@@ -152,6 +152,7 @@ function lede(id){ var a = art(id), p = a ? (a.querySelector(".lede") || a.query
 
 /* ====================================================================== Library page */
 var LIB = [
+  ["Prayer", ["prayers"]],
   ["Time", ["ref-zoom", "ref-timeline", "ref-otd", "ref-tree"]],
   ["People and places", ["ref-people", "ref-atlas", "ref-councilmap", "ref-churches"]],
   ["Councils and doctrine", ["ref-doctrines", "ref-councils", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
