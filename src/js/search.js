@@ -104,6 +104,14 @@ function render(){
       return '<a href="'+href+'" data-sx="'+k+'"><span class="rt">'+esc(h.e.t)+(h.e.sub?' <small>'+esc(h.e.sub)+'</small>':'')+'</span><span class="rs">'+snippet(h.e.raw, r.terms)+'</span></a>';
     }).join("") + '</div>';
   });
+  /* prayers (the Prayers page draws them only when opened, so they are searched here) */
+  var PR = window.HCCPrayers, toks = norm(str).split(/[^a-z0-9]+/).filter(function(x){ return x.length > 1; });
+  if(PR && toks.length && !bref){
+    var TH = {}; PR.themes.forEach(function(t){ TH[t[0]] = t[1]; });
+    var ph = PR.list.map(function(p){ var hay = norm([p.t, p.src, p.x || "", p.th.map(function(t){ return TH[t]; }).join(" ")].join(" ")), tt = norm(p.t), sc = 0;
+      for(var i = 0; i < toks.length; i++){ if(hay.indexOf(toks[i]) < 0) return null; sc += tt.indexOf(toks[i]) >= 0 ? 10 : 1; } return [sc, p]; }).filter(Boolean).sort(function(a, b){ return b[0] - a[0]; });
+    if(ph.length){ any = true; html += '<div class="sx-g"><p class="sx-h">Prayers <span>'+ph.length+'</span></p>' + ph.slice(0, 5).map(function(x){ var p = x[1]; return '<a href="#prayers" data-sxpr="'+esc(p.id)+'"><span class="rt">'+esc(p.t)+'</span><span class="rs">'+esc(p.src)+'</span></a>'; }).join("") + '</div>'; }
+  }
   /* the Bible: its text, and the Greek and Hebrew lexicon */
   var B = window.HCCBible || {}, sid = !bref && B.strong ? B.strong(str) : null, script = /[\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]/.test(str);
   var word = !bref && !sid && /^[\p{L}’'-]{3,30}$/u.test(str), bx = "";
@@ -130,6 +138,7 @@ function flash(el){
 }
 res.addEventListener("click", function(e){
   if(e.target.closest("[data-sxbib]")){ e.preventDefault(); bibleOpen(); return; }
+  var pr = e.target.closest("[data-sxpr]"); if(pr){ e.preventDefault(); res.hidden = true; q.blur(); if(window.HCCPrayers) HCCPrayers.open(pr.dataset.sxpr); return; }
   var bb = e.target.closest("[data-sxlex],[data-sxlx],[data-sxbs]");
   if(bb){ e.preventDefault(); var v = q.value.trim(); res.hidden = true; q.blur();
     if(bb.dataset.sxlex) HCCBible.word(bb.dataset.sxlex); else if(bb.dataset.sxlx) HCCBible.lexicon(v); else HCCBible.search(v); return; }

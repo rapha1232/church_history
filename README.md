@@ -2,7 +2,8 @@
 
 A story-driven history of the Church in fifteen seasons, with the whole Bible in nine editions,
 the original Greek and Hebrew with a lexicon, the Church Fathers on every verse, maps, a zoomable
-timeline and daily readings for Catholic, Orthodox and Anglican traditions. It runs as a web page,
+timeline, daily readings for Catholic, Orthodox and Anglican traditions, and a book of prayers
+from across the Church, sorted by theme. It runs as a web page,
 an Android app and an installable iPhone/iPad web app, and works fully offline.
 
 ## Get the app

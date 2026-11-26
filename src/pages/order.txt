@@ -3,6 +3,7 @@
 hubs/series.html
 hubs/library.html
 hubs/studies.html
+hubs/prayers.html
 intro/home.html
 intro/method.html
 seasons/01-i/vol-i.html
