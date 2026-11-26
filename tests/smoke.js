@@ -210,5 +210,20 @@ async function finish(browser) {
     await p.close();
   }
 
+  // a Bible reference typed in the search bar opens that verse
+  {
+    const p = await page(browser, 'search-bible-ref', DESK);
+    await p.goto(URL + '#home');
+    await p.waitForTimeout(1500);
+    await p.focus('#q');
+    await p.type('#q', 'John 3:36');
+    await p.keyboard.press('Enter');
+    await p.waitForTimeout(1500);
+    const r = await p.evaluate(() => ({ hash: location.hash, st: window.HCCBible && HCCBible.state(), hl: (document.querySelector('#bible .bv.hl') || {}).dataset }));
+    if (r.hash !== '#bible' || !r.st || r.st.b !== 'JOH' || r.st.c !== 3 || !r.hl || r.hl.v !== '36') fail('search-bible-ref', 'expected John 3:36, got ' + JSON.stringify(r));
+    else console.log('  ok   search-bible-ref');
+    await p.close();
+  }
+
   await finish(browser);
 })().catch(e => { console.error(e); process.exit(1); });

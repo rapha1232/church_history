@@ -93,7 +93,8 @@ function render(){
   var r = run(str); if(!r) return;
   JUMP = [];
   var by = {}; r.hits.forEach(function(h){ (by[h.e.g] = by[h.e.g] || []).push(h); });
-  var html = r.did ? '<div class="sx-did">Showing results for <b>'+esc(r.did)+'</b></div>' : "";
+  var bref = bibleRef(str), html = bref ? '<div class="sx-g"><p class="sx-h">Bible</p><a href="#bible" data-sxbib="1"><span class="rt">Open '+esc(bref.label)+'</span><span class="rs" data-sxbt>'+(bref.v ? "Go to the verse in the Bible" : "Go to the chapter in the Bible")+'</span></a></div>' : "";
+  html += r.did ? '<div class="sx-did">Showing results for <b>'+esc(r.did)+'</b></div>' : "";
   var any = false;
   GROUPS.forEach(function(g){
     var list = by[g[0]]; if(!list) return; any = true;
@@ -103,11 +104,15 @@ function render(){
       return '<a href="'+href+'" data-sx="'+k+'"><span class="rt">'+esc(h.e.t)+(h.e.sub?' <small>'+esc(h.e.sub)+'</small>':'')+'</span><span class="rs">'+snippet(h.e.raw, r.terms)+'</span></a>';
     }).join("") + '</div>';
   });
-  if(!any) html += '<div style="padding:12px;color:var(--muted)">No matches. Try fewer words, or another spelling.</div>';
+  if(!any && !bref) html += '<div style="padding:12px;color:var(--muted)">No matches. Try fewer words, or another spelling.</div>';
   res.innerHTML = html; res.hidden = false; res.classList.add("sx");
+  if(bref && bref.v && HCCBible.text) HCCBible.text(bref, function(t){ var el = $("[data-sxbt]", res); if(t && el && bibleRef(q.value.trim()) && bibleRef(q.value.trim()).label === bref.label){ var tx = t.text.replace(/\[([^\]]{1,80})\]/g, "$1"); el.textContent = tx.length > 220 ? tx.slice(0, 220) + "…" : tx; } });
 }
+/* a Bible reference ("John 3:36") goes straight to the verse; render at once so Enter opens it */
+function bibleRef(str){ try{ return window.HCCBible && HCCBible.ref ? HCCBible.ref(str) : null; }catch(e){ return null; } }
+function bibleOpen(){ var r = bibleRef(q.value.trim()); if(!r || !HCCBible.go(null, r.b, r.c, r.v)) return false; res.hidden = true; q.blur(); return true; }
 var tmr = null;
-q.addEventListener("input", function(){ clearTimeout(tmr); tmr = setTimeout(render, 120); });
+q.addEventListener("input", function(){ clearTimeout(tmr); if(bibleRef(q.value.trim())) render(); else tmr = setTimeout(render, 120); });
 q.addEventListener("focus", function(){ if(!IDX) setTimeout(build, 30); });
 
 /* ---------- open a result at its paragraph ---------- */
@@ -116,6 +121,7 @@ function flash(el){
   scrollTo({top: top, behavior: "smooth"}); el.classList.remove("sx-flash"); void el.offsetWidth; el.classList.add("sx-flash");
 }
 res.addEventListener("click", function(e){
+  if(e.target.closest("[data-sxbib]")){ e.preventDefault(); bibleOpen(); return; }
   var a = e.target.closest("[data-sx]"); if(!a) return;
   var it = JUMP[+a.dataset.sx]; if(!it) return; var act = it.act;
   if(act.el){
