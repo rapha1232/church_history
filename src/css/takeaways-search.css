@@ -1,0 +1,31 @@
+/* ===== Edition 12 ===== */
+#results.sx{max-height:min(70vh,640px);overflow:auto}
+.sx-g{padding:4px 0}
+.sx-h{margin:0;padding:8px 12px 4px;font:600 10.5px var(--font-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--rubric);position:sticky;top:0;background:var(--panel);z-index:1}
+.sx-h span{color:var(--muted);font-weight:500;letter-spacing:0}
+#results.sx a{display:block}
+#results.sx .rt small{font:12px var(--font-ui);color:var(--muted)}
+.sx-did{padding:10px 12px;font:13px var(--font-ui);color:var(--muted);border-bottom:1px solid var(--rule)}
+.sx-flash{animation:sxf 2.2s var(--ease)}
+@keyframes sxf{0%,40%{background:color-mix(in srgb,var(--gold,#e2b85b) 32%,transparent);box-shadow:0 0 0 6px color-mix(in srgb,var(--gold,#e2b85b) 32%,transparent)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
+.takeaways{margin:2.6em 0 1.4em;padding:16px 18px;background:color-mix(in srgb,var(--sc,var(--rubric)) 7%,var(--panel));}
+.takeaways ol{margin:6px 0 0;padding-left:20px;font:1rem/1.6 var(--font-body)}
+.takeaways li{margin:0 0 8px}
+.takeaways li::marker{color:var(--rubric);font-weight:700}
+.takeaways b{font-family:var(--font-ui);font-size:.92em}
+.sstrip{margin:1.6em 0;padding:14px 16px;border:1px solid var(--rule);border-radius:14px;background:var(--panel)}
+.sstrip .shelf-h{display:block;margin:0 0 10px!important}
+.ss-track{position:relative;border-bottom:1px solid var(--rule)}
+.ss-b{position:absolute;height:14px;border-radius:7px;background:color-mix(in srgb,var(--sc,var(--rubric)) 45%,transparent);text-decoration:none;transition:background .2s,transform .2s}
+.ss-b span{position:absolute;left:4px;top:-1px;font:600 9.5px/14px var(--font-ui);color:var(--ink);white-space:nowrap;pointer-events:none}
+.ss-b:hover{background:var(--sc,var(--rubric))}
+.ss-b.cur{background:var(--sc,var(--rubric));box-shadow:0 0 0 2px var(--panel),0 0 0 3.5px var(--sc,var(--rubric))}
+.ss-b.cur span{color:#fff}
+.ss-ax{display:flex;justify-content:space-between;font:11px var(--font-ui);color:var(--muted);margin-top:4px}
+.docmore{margin:10px 0;padding:10px 12px;border-left:3px solid var(--rubric);background:color-mix(in srgb,var(--rubric) 5%,transparent);border-radius:0 8px 8px 0}
+.docmore h5{margin:8px 0 2px;font:600 10.5px var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--rubric)}
+.docmore h5:first-child{margin-top:0}
+.docmore p{margin:0 0 4px;font:14px/1.55 var(--font-ui)}
+.docrel{display:flex;flex-wrap:wrap;gap:6px}
+.txtbtn.sm{font-size:12.5px;padding:4px 10px}
+

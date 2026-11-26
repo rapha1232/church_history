@@ -14,3 +14,5 @@ __pycache__/
 .gradle/
 local.properties
 .kotlin/
+# the page is built from src/ by scripts/build_site.py
+site/index.html

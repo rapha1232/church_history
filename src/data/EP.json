@@ -1,0 +1,978 @@
+{
+ "i-1": {
+  "s": "vol-i",
+  "t": "Ancient Israel and the First Temple",
+  "g": "S1 · E1",
+  "m": 3,
+  "i": "i097fb155c",
+  "y": "The biblical narrative runs from the patriarchs (Abraham, Isaac, Jacob), through the exodus from Egypt and the conquest of Canaan, to the united monarchy of Saul, David and Solomon."
+ },
+ "i-2": {
+  "s": "vol-i",
+  "t": "Exile, the Persian period and the Second Temple",
+  "g": "S1 · E2",
+  "m": 3,
+  "i": "ie5df02a68",
+  "y": "The Babylonian exile (587/6–539 BC) was the formative crisis of ancient Judaism."
+ },
+ "i-3": {
+  "s": "vol-i",
+  "t": "Hellenism, the Maccabees and Roman conquest",
+  "g": "S1 · E3",
+  "m": 3,
+  "i": "if55b3a84e",
+  "y": "Alexander the Great conquered the Persian Empire (334–323 BC). Judea passed first to the Ptolemies of Egypt (to c. 200 BC) and then to the Seleucids of Syria."
+ },
+ "i-4": {
+  "s": "vol-i",
+  "t": "Second Temple Judaism: groups, scriptures, hopes",
+  "g": "S1 · E4",
+  "m": 3,
+  "i": "m85d173641",
+  "y": "Judaism in the late Second Temple period (c. 200 BC – AD 70) was diverse. Historians sometimes speak of \"Judaisms\"."
+ },
+ "i-5": {
+  "s": "vol-i",
+  "t": "The Greco-Roman world",
+  "g": "S1 · E5",
+  "m": 3,
+  "i": "i6a3817a27",
+  "y": "Augustus' victory at Actium (31 BC) brought the whole Mediterranean under one ruler."
+ },
+ "i-6": {
+  "s": "vol-i",
+  "t": "Judea and Galilee in the time of Jesus",
+  "g": "S1 · E6",
+  "m": 3,
+  "i": "if71ee9af8",
+  "y": "On Herod's death (4 BC), Augustus divided his kingdom among three sons."
+ },
+ "ii-1": {
+  "s": "vol-ii",
+  "t": "The sources for Jesus",
+  "g": "S2 · E1",
+  "m": 3,
+  "i": "i24dca7907",
+  "y": "Mark having become the interpreter of Peter, wrote down accurately, though not in order, whatsoever he remembered of the things said or done by Christ."
+ },
+ "ii-2": {
+  "s": "vol-ii",
+  "t": "Jesus of Nazareth: what historians can say",
+  "g": "S2 · E2",
+  "m": 4,
+  "i": "i4a3aaf7ef",
+  "y": "Historical reconstruction of Jesus uses criteria to weigh the Gospel material."
+ },
+ "ii-3": {
+  "s": "vol-ii",
+  "t": "Crucifixion and resurrection belief",
+  "g": "S2 · E3",
+  "m": 3,
+  "i": "i6d785a07d",
+  "y": "Crucifixion was a Roman punishment for slaves, rebels and provincials, intended as public humiliation."
+ },
+ "ii-4": {
+  "s": "vol-ii",
+  "t": "Jerusalem, Antioch and the Gentile question",
+  "g": "S2 · E4",
+  "m": 3,
+  "i": "i96953bd93",
+  "y": "Our main narrative source is Acts, written by the author of Luke, probably c. 80–90, though some scholars date it into the early second century."
+ },
+ "ii-5": {
+  "s": "vol-ii",
+  "t": "Paul: mission and letters",
+  "g": "S2 · E5",
+  "m": 3,
+  "i": "i4a042345a",
+  "y": "Paul's letters are the earliest Christian documents, and an inscription allows his career to be partly dated."
+ },
+ "ii-6": {
+  "s": "vol-ii",
+  "t": "The deaths of James, Peter and Paul",
+  "g": "S2 · E6",
+  "m": 3,
+  "i": "i75a29e50f",
+  "y": "…[he] brought before them the brother of Jesus, who was called Christ, whose name was James, and some others; and when he had formed an accusation against them as breakers of the law, he delivered them to be stoned…"
+ },
+ "ii-7": {
+  "s": "vol-ii",
+  "t": "War, the Temple and the parting of the ways",
+  "g": "S2 · E7",
+  "m": 3,
+  "i": "ib9160e494",
+  "y": "The Jewish revolt against Rome (66–73/74) ended with the destruction of Jerusalem and the Temple by Titus in AD 70. Josephus, who changed sides during the war, is the principal source."
+ },
+ "ii-8": {
+  "s": "vol-ii",
+  "t": "Worship and ministry in the earliest communities",
+  "g": "S2 · E8",
+  "m": 3,
+  "i": "id7dc056c4",
+  "y": "Early Christians met in households (Rom. 16:5; 1 Cor. 16:19). Their worship included:"
+ },
+ "ii-9": {
+  "s": "vol-ii",
+  "t": "The New Testament: writing, transmission and canon",
+  "g": "S2 · E9",
+  "m": 4,
+  "i": "i4ad462670",
+  "y": "The 27 books of the New Testament were written between about 50 (1 Thessalonians) and the early second century. 2 Peter is often dated c. 100–130 and is the most widely judged pseudonymous."
+ },
+ "iii-1": {
+  "s": "vol-iii",
+  "t": "The Apostolic Fathers",
+  "g": "S3 · E1",
+  "m": 3,
+  "i": "ibff48a0c2",
+  "y": "\"Apostolic Fathers\" is a seventeenth-century label for the earliest Christian writings outside the New Testament, whose authors were thought to have known the apostles."
+ },
+ "iii-2": {
+  "s": "vol-iii",
+  "t": "Persecution and martyrdom (c. 100–311)",
+  "g": "S3 · E2",
+  "m": 3,
+  "i": "i8be89e60e",
+  "y": "Popular imagination pictures the early Christians in hiding, under constant persecution."
+ },
+ "iii-3": {
+  "s": "vol-iii",
+  "t": "The Apologists",
+  "g": "S3 · E3",
+  "m": 3,
+  "i": "ia763a0dec",
+  "y": "From the reign of Hadrian, educated Christians addressed \"apologies\" (defences) to emperors and the public. Major writers include:"
+ },
+ "iii-4": {
+  "s": "vol-iii",
+  "t": "Marcion, “Gnosticism” and Montanism",
+  "g": "S3 · E4",
+  "m": 3,
+  "i": "i42416baef",
+  "y": "Second-century Christianity was diverse. Several movements offered interpretations that the majority of churches eventually rejected. Their rejection helped define what became \"orthodoxy\"."
+ },
+ "iii-5": {
+  "s": "vol-iii",
+  "t": "Irenaeus: rule of faith, Scripture and succession",
+  "g": "S3 · E5",
+  "m": 2,
+  "i": "i38c4c4fba",
+  "y": "Irenaeus came from Asia Minor and in his youth heard Polycarp. He became bishop of Lyons after the persecution of 177."
+ },
+ "iii-6": {
+  "s": "vol-iii",
+  "t": "Tertullian, Clement and Origen",
+  "g": "S3 · E6",
+  "m": 3,
+  "i": "i7396abdec",
+  "y": "Tertullian of Carthage (c. 160–c. 225) was the first major Christian author in Latin. He coined or popularised much of the West's theological vocabulary: trinitas, persona, substantia, sacramentum."
+ },
+ "iii-7": {
+  "s": "vol-iii",
+  "t": "Monarchianism and the Logos",
+  "g": "S3 · E7",
+  "m": 3,
+  "i": "i3df89e3a5",
+  "y": "How can there be one God, the \"monarchy\" (single rule), if the Son is also God? Two \"monarchian\" answers, later rejected, prepared the ground for the fourth-century debates."
+ },
+ "iii-8": {
+  "s": "vol-iii",
+  "t": "Ministry and worship: from Ignatius to Cyprian",
+  "g": "S3 · E8",
+  "m": 3,
+  "i": "iae6c41de9",
+  "y": "By the late second century, almost every church known to us had a single bishop, with presbyters and deacons. How this happened is debated. Three explanations have been offered:"
+ },
+ "iii-9": {
+  "s": "vol-iii",
+  "t": "The beginnings of asceticism",
+  "g": "S3 · E9",
+  "m": 2,
+  "i": "mc55288ae2",
+  "y": "Celibacy \"for the kingdom\" and voluntary poverty were present from the beginning (Matt. 19:12; 1 Cor. 7). By the second and third centuries the following forms are attested:"
+ },
+ "iii-10": {
+  "s": "vol-iii",
+  "t": "Beyond the Greco-Roman centres",
+  "g": "S3 · E10",
+  "m": 3,
+  "i": "ib520271d0",
+  "y": "Edessa (Urhay) became the centre of Syriac-speaking Christianity. The legend of King Abgar's correspondence with Jesus (Eusebius, HE 1.13; the Doctrine of Addai ) is legendary."
+ },
+ "iii-11": {
+  "s": "vol-iii",
+  "t": "How the Church was organised before 313",
+  "g": "S3 · E11",
+  "m": 3,
+  "i": "i7ed21576b",
+  "y": "By Constantine's time the Church already had a recognisable institutional structure, developed without state support."
+ },
+ "iv-1": {
+  "s": "vol-iv",
+  "t": "The Great Persecution and its end (303–311)",
+  "g": "S4 · E1",
+  "m": 4,
+  "i": "ib55df67f1",
+  "y": "By 300, Christians were a substantial minority in the Roman Empire, more numerous in the Greek-speaking East and North Africa than in the Latin West. Precise figures are impossible."
+ },
+ "iv-2": {
+  "s": "vol-iv",
+  "t": "Constantine’s conversion",
+  "g": "S4 · E2",
+  "m": 4,
+  "i": "i3a2bbf5ad",
+  "y": "Constantine was acclaimed emperor by his father's army at York in 306. In 312 he invaded Italy against Maxentius, who held Rome, and defeated him at the Milvian Bridge on 28 October."
+ },
+ "iv-3": {
+  "s": "vol-iv",
+  "t": "The so-called Edict of Milan (313)",
+  "g": "S4 · E3",
+  "m": 3,
+  "i": "i76ed6be22",
+  "y": "In February 313 Constantine and Licinius, who ruled the Balkans and would soon take the East, met at Milan. Licinius married Constantine's half-sister, and the two agreed a common religious policy."
+ },
+ "iv-4": {
+  "s": "vol-iv",
+  "t": "The Donatist controversy",
+  "g": "S4 · E4",
+  "m": 3,
+  "i": "i26a572be8",
+  "y": "The first church dispute that Constantine was asked to settle was not about the Trinity but about holiness and authority. In 311 or 312, Caecilian was consecrated bishop of Carthage."
+ },
+ "iv-5": {
+  "s": "vol-iv",
+  "t": "Arius and the outbreak of the controversy",
+  "g": "S4 · E5",
+  "m": 3,
+  "i": "idda1271dc",
+  "y": "Arius was a respected presbyter in charge of the Baucalis church in Alexandria."
+ },
+ "iv-6": {
+  "s": "vol-iv",
+  "t": "The road to Nicaea and the Creed of 325",
+  "g": "S4 · E6",
+  "m": 4,
+  "i": "i1db3819e1",
+  "y": "The council met at Nicaea in Bithynia (modern İznik), near the imperial residence at Nicomedia. It opened in early summer 325, traditionally 20 May, with Constantine presiding over at least the opening sessions."
+ },
+ "iv-7": {
+  "s": "vol-iv",
+  "t": "After Nicaea: Athanasius and the parties (325–361)",
+  "g": "S4 · E7",
+  "m": 3,
+  "i": "i1acc8a938",
+  "y": "Nicaea did not end the controversy. For a generation afterwards, its creed was rarely invoked. The struggle that followed was as much about people, councils and imperial favour as about doctrine."
+ },
+ "iv-8": {
+  "s": "vol-iv",
+  "t": "The Cappadocians and the language of the Trinity",
+  "g": "S4 · E8",
+  "m": 4,
+  "i": "i0495a02df",
+  "y": "The resolution of the fourth-century debates owed most to three theologians from Cappadocia in central Anatolia: Basil of Caesarea (d. 378 or 379), his brother Gregory of Nyssa (d. c. 395), and their friend Gregory of Nazianzus (d. c. 390)."
+ },
+ "iv-9": {
+  "s": "vol-iv",
+  "t": "Theodosius, 380–381, and the Nicene settlement",
+  "g": "S4 · E9",
+  "m": 3,
+  "i": "if777108ae",
+  "y": "The Homoian emperor Valens died at the battle of Adrianople against the Goths (9 August 378). Gratian appointed Theodosius, a Nicene Christian from Spain, to rule the East."
+ },
+ "iv-10": {
+  "s": "vol-iv",
+  "t": "The rise of monasticism",
+  "g": "S4 · E10",
+  "m": 3,
+  "i": "ifb612bdc0",
+  "y": "As Christianity became the religion of the powerful, a movement of ascetic withdrawal grew up at its edges. It became one of its defining institutions."
+ },
+ "iv-11": {
+  "s": "vol-iv",
+  "t": "Nestorius, Cyril, and Ephesus (428–433)",
+  "g": "S4 · E11",
+  "m": 4,
+  "i": "i464635bf4",
+  "y": "Once the full divinity of the Son was settled, the question became how God and a full human being are united in the one Christ. Two broad traditions had developed."
+ },
+ "iv-12": {
+  "s": "vol-iv",
+  "t": "From Eutyches to Chalcedon (448–451)",
+  "g": "S4 · E12",
+  "m": 5,
+  "i": "i3c6274e96",
+  "y": "Eutyches was an elderly archimandrite in Constantinople, a passionate Cyrillian with influence at court. In November 448 he was accused before the \"home synod\" of Bishop Flavian of Constantinople."
+ },
+ "iv-terms": {
+  "s": "vol-iv",
+  "t": "Key Greek terms: ousia, hypostasis, physis, prosopon, homoousios, Theotokos",
+  "g": "S4 · Bonus",
+  "m": 2,
+  "i": "ib3901e700",
+  "y": "Much of the history in Volumes IV–VI turns on a handful of Greek words whose meanings were still being fixed during the controversies themselves."
+ },
+ "v-1": {
+  "s": "vol-v",
+  "t": "The Church of the East",
+  "g": "S5 · E1",
+  "m": 5,
+  "i": "i06f7c0c1b",
+  "y": "The Church of the East is the historic Church of Syriac-speaking Christians in Mesopotamia and Persia, outside the Roman Empire. It is often called \"the Nestorian Church\"."
+ },
+ "v-2": {
+  "s": "vol-v",
+  "t": "Chalcedon’s aftermath and the Oriental Orthodox Churches",
+  "g": "S5 · E2",
+  "m": 5,
+  "i": "ie92e77e2e",
+  "y": "Chalcedon did not produce an immediate, clean split. It produced more than a century of contested reception. In Egypt and much of Syria, large parts of the Church regarded the council as having betrayed Cyril."
+ },
+ "v-3": {
+  "s": "vol-v",
+  "t": "Miaphysite, Eutychian, Dyophysite: why the terminology matters",
+  "g": "S5 · E3",
+  "m": 4,
+  "i": "i7d92b50ac",
+  "y": "For centuries Western and Byzantine writers called the anti-Chalcedonian Churches \"Monophysite\", meaning \"those who hold one nature\", and treated them as followers of Eutyches."
+ },
+ "v-4": {
+  "s": "vol-v",
+  "t": "How the families of Churches formed",
+  "g": "S5 · Bonus",
+  "m": 2,
+  "i": "i34db5b890",
+  "y": "Popular charts draw Christian history as a tree that splits cleanly at 431, 451 and 1054. The evidence supports a different picture."
+ },
+ "v-5": {
+  "s": "vol-v",
+  "t": "Modern Christological dialogues",
+  "g": "S5 · E4",
+  "m": 4,
+  "i": "i622a0ef22",
+  "y": "From the 1960s, theologians of the separated Eastern Churches and of the Catholic Church re-examined the fifth-century disputes. They found substantial agreement in faith behind the opposed formulas."
+ },
+ "vi-1": {
+  "s": "vol-vi",
+  "t": "Nicaea I (325)",
+  "g": "S6 · E1",
+  "m": 3,
+  "i": "i1db3819e1",
+  "y": "Let the ancient customs in Egypt, Libya and Pentapolis prevail, that the Bishop of Alexandria have jurisdiction in all these, since the like is customary for the Bishop of Rome also."
+ },
+ "vi-2": {
+  "s": "vol-vi",
+  "t": "Constantinople I (381)",
+  "g": "S6 · E2",
+  "m": 4,
+  "i": "id3cddb64c",
+  "y": "The council that met in Constantinople from May to July 381 was summoned by Theodosius I and consisted of around 150 Eastern bishops. No Western bishops and no papal legates attended."
+ },
+ "vi-3": {
+  "s": "vol-vi",
+  "t": "Ephesus (431)",
+  "g": "S6 · E3",
+  "m": 4,
+  "i": "i68a0532e7",
+  "y": "…the holy Synod decreed that it is unlawful for any man to bring forward, or to write, or to compose a different ( ἑτέραν ) Faith as a rival to that established by the holy Fathers assembled with the Holy Ghost in Nicæa."
+ },
+ "vi-4": {
+  "s": "vol-vi",
+  "t": "Chalcedon (451)",
+  "g": "S6 · E4",
+  "m": 3,
+  "i": "i3c6274e96",
+  "y": "For the Fathers rightly granted privileges to the throne of old Rome, because it was the royal city."
+ },
+ "vi-5": {
+  "s": "vol-vi",
+  "t": "Constantinople II (553)",
+  "g": "S6 · E5",
+  "m": 4,
+  "i": "ib89b8689e",
+  "y": "If anyone defends the impious Theodore of Mopsuestia, who has said that the Word of God is one person, but that another person is Christ…"
+ },
+ "vi-6": {
+  "s": "vol-vi",
+  "t": "Constantinople III (680–681)",
+  "g": "S6 · E6",
+  "m": 3,
+  "i": "i581a128fc",
+  "y": "…we likewise declare that in him are two natural wills and two natural operations indivisibly, inconvertibly, inseparably, inconfusedly, according to the teaching of the holy Fathers."
+ },
+ "vi-7": {
+  "s": "vol-vi",
+  "t": "Nicaea II (787)",
+  "g": "S6 · E7",
+  "m": 3,
+  "i": "i4f6802f2a",
+  "y": "For the honour which is paid to the image passes on to that which the image represents, and he who reveres the image reveres in it the subject represented."
+ },
+ "vi-other": {
+  "s": "vol-vi",
+  "t": "Other councils and synods of the period",
+  "g": "S6 · Bonus",
+  "m": 4,
+  "i": "i6089fde12",
+  "y": "These councils are not counted as ecumenical by the Eastern Orthodox. Several of them are central to the history of authority and division."
+ },
+ "vii-1": {
+  "s": "vol-vii",
+  "t": "The early Church of Rome (c. 50–260)",
+  "g": "S7 · E1",
+  "m": 5,
+  "i": "i75a29e50f",
+  "y": "Paul's letter to the Romans (c. 57) shows a Christian community already established in the capital, which he had not founded. Acts ends with Paul under house arrest in Rome."
+ },
+ "vii-2": {
+  "s": "vol-vii",
+  "t": "Metropolitans, Nicaea and Serdica",
+  "g": "S7 · E2",
+  "m": 3,
+  "i": "i4ae9f3bf0",
+  "y": "By the fourth century, bishops were organised in provinces matching Roman civil provinces. Each was headed by the bishop of the provincial capital, the. Nicaea's canons 4–5 confirm this system."
+ },
+ "vii-3": {
+  "s": "vol-vii",
+  "t": "The rise of Constantinople",
+  "g": "S7 · E3",
+  "m": 3,
+  "i": "ibb4f35dc9",
+  "y": "Byzantium was a modest suffragan see of Heraclea in Thrace when Constantine refounded it as his capital (324–330). Within a century its bishop was the most powerful in the East. The steps can be traced:"
+ },
+ "vii-4": {
+  "s": "vol-vii",
+  "t": "Papal theory from Damasus to Gregory the Great",
+  "g": "S7 · E4",
+  "m": 4,
+  "i": "i357e0035d",
+  "y": "Leo the Great gave the most developed early statement of Roman primacy. In his sermons on the anniversary of his consecration, Peter speaks and acts in his successor."
+ },
+ "vii-5": {
+  "s": "vol-vii",
+  "t": "The Pentarchy",
+  "g": "S7 · E5",
+  "m": 3,
+  "i": "ibc80f417e",
+  "y": "From the mid-sixth century, Byzantine law and theology described the Church's government as resting on five patriarchates: Rome, Constantinople, Alexandria, Antioch and Jerusalem, in that order."
+ },
+ "vii-6": {
+  "s": "vol-vii",
+  "t": "Primacy, supremacy and the modern dialogue",
+  "g": "S7 · E6",
+  "m": 3,
+  "i": "ia32623ea7",
+  "y": "Christ gave Peter a unique role (Matt. 16:18–19; Luke 22:32; John 21:15–17) that continues in the bishops of Rome."
+ },
+ "viii-1": {
+  "s": "vol-viii",
+  "t": "Two worlds: language and politics (c. 400–750)",
+  "g": "S8 · E1",
+  "m": 3,
+  "i": "i93e1c6ab7",
+  "y": "The Roman Church used Greek until the third century. By the late fourth century, Latin was its liturgical and theological language."
+ },
+ "viii-2": {
+  "s": "vol-viii",
+  "t": "The Franks, the papacy, and the coronation of 800",
+  "g": "S8 · E2",
+  "m": 3,
+  "i": "ifbc2dc972",
+  "y": "In the mid-eighth century the papacy turned from Constantinople to the Franks. The reasons were mainly practical:"
+ },
+ "viii-3": {
+  "s": "vol-viii",
+  "t": "Iconoclasm and the Western reaction",
+  "g": "S8 · E3",
+  "m": 3,
+  "i": "i6be106c5a",
+  "y": "Byzantine iconoclasm, the official hostility to religious images, lasted with an interval from the 720s or 730s to 843. Its causes have been sought in several places:"
+ },
+ "viii-4": {
+  "s": "vol-viii",
+  "t": "Customs, discipline and liturgy",
+  "g": "S8 · E4",
+  "m": 3,
+  "i": "i9d45d9ea7",
+  "y": "Much of the medieval polemic between Greeks and Latins concerned practice rather than doctrine. Lists of Latin \"errors\" circulated in Byzantium from the ninth century, and Latin counter-lists answered them."
+ },
+ "viii-5": {
+  "s": "vol-viii",
+  "t": "The Filioque",
+  "g": "S8 · E5",
+  "m": 4,
+  "i": "i9ec5f13e6",
+  "y": "The Creed of 381 says the Holy Spirit \"proceeds from the Father\" (John 15:26). The Latin Church came to add Filioque, \"and [from] the Son\"."
+ },
+ "viii-6": {
+  "s": "vol-viii",
+  "t": "Photius, Bulgaria and the ninth-century crisis",
+  "g": "S8 · E6",
+  "m": 3,
+  "i": "i992925eae",
+  "y": "The \"Photian schism\" was the first East–West crisis in which papal claims, the Filioque and missionary rivalry all came together. Its story was later retold by both sides in polemical forms."
+ },
+ "viii-7": {
+  "s": "vol-viii",
+  "t": "How the factors accumulated",
+  "g": "S8 · E7",
+  "m": 2,
+  "i": "i902b5ece7",
+  "y": "By the mid-eleventh century every factor discussed in this volume was in place. None was new."
+ },
+ "ix-1": {
+  "s": "vol-ix",
+  "t": "Before 1054: Normans, reformers and a patriarch",
+  "g": "S9 · E1",
+  "m": 3,
+  "i": "i8cf449f69",
+  "y": "A church showed it was in communion with another by commemorating that church's bishop in the, the lists of names read at the Eucharist."
+ },
+ "ix-2": {
+  "s": "vol-ix",
+  "t": "The events of July 1054",
+  "g": "S9 · E2",
+  "m": 3,
+  "i": "i902b5ece7",
+  "y": "The legates were Cardinal Humbert, Frederick of Lorraine (chancellor of the Roman Church, later Pope Stephen IX), and Archbishop Peter of Amalfi. They reached Constantinople in April 1054."
+ },
+ "ix-3": {
+  "s": "vol-ix",
+  "t": "After 1054: Crusades and the sack of Constantinople",
+  "g": "S9 · E3",
+  "m": 3,
+  "i": "i3f705b7b4",
+  "y": "Relations continued after 1054. Gregory VII contemplated sending aid to Byzantium after Manzikert (1071). In 1089 Emperor Alexios I convened a synod at Pope Urban II's request."
+ },
+ "ix-4": {
+  "s": "vol-ix",
+  "t": "Lyon (1274), Florence (1439) and the fall of Constantinople",
+  "g": "S9 · E4",
+  "m": 4,
+  "i": "i052ce7b95",
+  "y": "Michael VIII was threatened by Charles of Anjou's plans to restore the Latin Empire. He sought papal protection through church union."
+ },
+ "ix-5": {
+  "s": "vol-ix",
+  "t": "Toward reconciliation (1964–2026)",
+  "g": "S9 · E5",
+  "m": 3,
+  "i": "ie33e9e3eb",
+  "y": "Formal full communion has not been restored. Both Churches officially describe each other as \"sister Churches\", a term whose precise implications are themselves debated."
+ },
+ "ix-6": {
+  "s": "vol-ix",
+  "t": "Catholic and Orthodox doctrine compared",
+  "g": "S9 · E6",
+  "m": 6,
+  "i": "i4a948ea00",
+  "y": "This chapter sets the Catholic and Eastern Orthodox positions side by side on ten issues."
+ },
+ "ix-7": {
+  "s": "vol-ix",
+  "t": "When did the schism happen? Historians’ views",
+  "g": "S9 · E7",
+  "m": 2,
+  "i": "i902b5ece7",
+  "y": "Historians do not agree on a single date. Their answers depend on what they take \"schism\" to mean."
+ },
+ "x-1": {
+  "s": "vol-x",
+  "t": "The reform papacy and the investiture conflict",
+  "g": "S10 · E1",
+  "m": 3,
+  "i": "i305eb067d",
+  "y": "From 1046 the German emperor Henry III installed reforming popes."
+ },
+ "x-2": {
+  "s": "vol-x",
+  "t": "Monks, canons and friars",
+  "g": "S10 · E2",
+  "m": 3,
+  "i": "i68d599f5c",
+  "y": "The friars, or mendicants, transformed the medieval Church. They preached in the growing cities, staffed universities, and took missions as far as the Mongol court."
+ },
+ "x-3": {
+  "s": "vol-x",
+  "t": "Scholasticism and the universities",
+  "g": "S10 · E3",
+  "m": 4,
+  "i": "i0a73d55eb",
+  "y": "\"Scholasticism\" is the method of the medieval schools. Authorities were collected and contradictions identified. Questions were posed, arguments for and against set out, and the questions resolved by reasoning."
+ },
+ "x-4": {
+  "s": "vol-x",
+  "t": "Crusades, military orders, Muslims and Jews",
+  "g": "S10 · E4",
+  "m": 3,
+  "i": "i0e1b82d52",
+  "y": "Urban II's appeal at Clermont (1095) launched the First Crusade. Crusaders took Jerusalem in July 1099 with a massacre of its Muslim and Jewish inhabitants that the Latin sources themselves describe."
+ },
+ "x-5": {
+  "s": "vol-x",
+  "t": "Canon law, heresy and the inquisitions",
+  "g": "S10 · E5",
+  "m": 4,
+  "i": "ia53119c65",
+  "y": "Canon law. Gratian's Decretum (c. 1140) organised a millennium of conciliar and papal texts."
+ },
+ "x-6": {
+  "s": "vol-x",
+  "t": "Papal monarchy, Avignon, the Western Schism and conciliarism",
+  "g": "S10 · E6",
+  "m": 4,
+  "i": "i255796f58",
+  "y": "Innocent III (1198–1216) took papal power to its height. He intervened in imperial elections, made England a papal fief (1213) and convened Lateran IV."
+ },
+ "x-7": {
+  "s": "vol-x",
+  "t": "The Black Death, Wycliffe, Hus and late medieval piety",
+  "g": "S10 · E7",
+  "m": 3,
+  "i": "i4ef7e9053",
+  "y": "The Black Death of 1347–1351 killed perhaps a third to a half of Europe's population. Estimates vary by region."
+ },
+ "x-8": {
+  "s": "vol-x",
+  "t": "Cathedrals, art and the Byzantine Church under pressure",
+  "g": "S10 · E8",
+  "m": 2,
+  "i": "i285894b52",
+  "y": "Romanesque churches with thick walls and round arches (11th–12th c.) gave way to Gothic. Abbot Suger's rebuilt choir at Saint-Denis (dedicated 1144) is usually taken as the beginning."
+ },
+ "xi-1": {
+  "s": "vol-xi",
+  "t": "Background: indulgences, humanism, printing and politics",
+  "g": "S11 · E1",
+  "m": 3,
+  "i": "i2c0e97750",
+  "y": "An indulgence was a remission of the temporal punishment still due for sins whose guilt had been forgiven in confession. It did not forgive sins as such, though popular preaching often blurred the distinction."
+ },
+ "xi-2": {
+  "s": "vol-xi",
+  "t": "Martin Luther and the Lutheran Reformation",
+  "g": "S11 · E2",
+  "m": 3,
+  "i": "i907ec73d6",
+  "y": "Martin Luther (1483–1546), an Augustinian friar and professor of Bible at Wittenberg, came to understand the \"righteousness of God\" (Romans 1:17) as a gift received by faith, not a standard to be achieved."
+ },
+ "xi-3": {
+  "s": "vol-xi",
+  "t": "Zwingli, Calvin and the Reformed tradition",
+  "g": "S11 · E3",
+  "m": 3,
+  "i": "i58dccda68",
+  "y": "Huldrych Zwingli (1484–1531) began preaching through Matthew's Gospel at Zurich in 1519. After public disputations in 1523, the city council abolished the Mass (1525), removed images and dissolved monasteries."
+ },
+ "xi-4": {
+  "s": "vol-xi",
+  "t": "The Radical Reformation",
+  "g": "S11 · E4",
+  "m": 3,
+  "i": "i45ab851e2",
+  "y": "George H. Williams' term \"Radical Reformation\" (1962) groups very different movements that rejected both Catholic and magisterial Protestant church–state arrangements."
+ },
+ "xi-5": {
+  "s": "vol-xi",
+  "t": "The English Reformation",
+  "g": "S11 · E5",
+  "m": 3,
+  "i": "if93a72817",
+  "y": "The English Reformation began as an act of state. Henry VIII sought the annulment of his marriage to Catherine of Aragon, and Clement VII, under pressure from Catherine's nephew Charles V, would not grant it."
+ },
+ "xi-6": {
+  "s": "vol-xi",
+  "t": "The theological disputes",
+  "g": "S11 · E6",
+  "m": 3,
+  "i": "m0e7882491",
+  "y": "The Reformation disputes are often summarised in the later formula of the \"solas\": sola scriptura, sola fide, sola gratia (and in 20th-century usage, solus Christus and soli Deo gloria )."
+ },
+ "xii-1": {
+  "s": "vol-xii",
+  "t": "The Council of Trent (1545–1563)",
+  "g": "S12 · E1",
+  "m": 3,
+  "i": "i7eaec11b0",
+  "y": "The Council of Trent met in three periods (1545–47, 1551–52, 1562–63) under Paul III, Julius III and Pius IV."
+ },
+ "xii-2": {
+  "s": "vol-xii",
+  "t": "Jesuits, mystics and the new orders",
+  "g": "S12 · E2",
+  "m": 3,
+  "i": "if95c3f58a",
+  "y": "Ignatius of Loyola (1491–1556), a Basque soldier converted while convalescing (1521), wrote the Spiritual Exercises and gathered companions in Paris. Paul III approved the Society in 1540."
+ },
+ "xii-3": {
+  "s": "vol-xii",
+  "t": "Inquisition, Index, wars and Westphalia",
+  "g": "S12 · E3",
+  "m": 3,
+  "i": "i406a47a04",
+  "y": "Paul III reorganised the Roman Inquisition in 1542 as a congregation of cardinals; Paul IV issued the first Roman Index of Prohibited Books in 1559."
+ },
+ "xii-4": {
+  "s": "vol-xii",
+  "t": "Global Catholic missions",
+  "g": "S12 · E4",
+  "m": 3,
+  "i": "i16b21c147",
+  "y": "Iberian expansion carried Catholicism worldwide under the padroado (Portuguese) and patronato (Spanish) systems of royal patronage over the Church. The missions spanned several regions:"
+ },
+ "xii-5": {
+  "s": "vol-xii",
+  "t": "Trent and the Protestant confessions compared",
+  "g": "S12 · E5",
+  "m": 3,
+  "i": "i7eaec11b0",
+  "y": "A summary comparison of the official positions. For brevity it simplifies. Full wording should be consulted in the documents named."
+ },
+ "xiii-1": {
+  "s": "vol-xiii",
+  "t": "Byzantine missions among the Slavs",
+  "g": "S13 · E1",
+  "m": 2,
+  "i": "i75b2711e7",
+  "y": "The mission of Cyril and Methodius to Moravia (863) and its Slavonic liturgy are described in VIII.6. Expelled from Moravia, their disciples Clement and Naum took the tradition to Bulgaria."
+ },
+ "xiii-2": {
+  "s": "vol-xiii",
+  "t": "Rus’, Moscow and the Russian Church",
+  "g": "S13 · E2",
+  "m": 3,
+  "i": "i118072b06",
+  "y": "The Rus' Primary Chronicle tells how Prince Vladimir of Kiev sent envoys to examine Islam, Judaism, Latin Christianity and Byzantine worship, and how the envoys reported of Hagia Sophia that 'we knew not whether we were in heaven or on earth'."
+ },
+ "xiii-3": {
+  "s": "vol-xiii",
+  "t": "Under Islamic and Ottoman rule",
+  "g": "S13 · E3",
+  "m": 3,
+  "i": "i17913b6af",
+  "y": "After the Arab conquests (630s–710s), Christians and Jews became dhimmī, protected but subordinate communities."
+ },
+ "xiii-4": {
+  "s": "vol-xiii",
+  "t": "Georgia, Armenia, Egypt and Ethiopia",
+  "g": "S13 · E4",
+  "m": 3,
+  "i": "iaa1b178dc",
+  "y": "Royal conversion in Kartli in the 330s (St Nino). The Church followed the Armenians in hesitating over Chalcedon, then definitively accepted it c. 600–608, separating from the Armenian Church."
+ },
+ "xiii-5": {
+  "s": "vol-xiii",
+  "t": "The Churches of Antioch and the Maronite tradition",
+  "g": "S13 · E5",
+  "m": 4,
+  "i": "ie22489eb5",
+  "y": "The apostolic see of Antioch ( VII.3 ) today has five patriarchs who each claim its succession:"
+ },
+ "xiii-6": {
+  "s": "vol-xiii",
+  "t": "Eastern Catholic Churches and their relations",
+  "g": "S13 · E6",
+  "m": 3,
+  "i": "i9f54ef591",
+  "y": "The Catholic Church today includes 23 Eastern Catholic Churches sui iuris. They are governed by the Code of Canons of the Eastern Churches (1990), and several are led by patriarchs or major archbishops."
+ },
+ "xiii-7": {
+  "s": "vol-xiii",
+  "t": "The Saint Thomas Christians of India",
+  "g": "S13 · E7",
+  "m": 3,
+  "i": "i5a69765e1",
+  "y": "The Christians of Kerala trace their origin to the apostle Thomas, traditionally said to have arrived in AD 52. This tradition is ancient, but it cannot be confirmed from contemporary sources."
+ },
+ "xiv-1": {
+  "s": "vol-xiv",
+  "t": "Science and the Galileo affair",
+  "g": "S14 · E1",
+  "m": 3,
+  "i": "mdfe6c3692",
+  "y": "The \"conflict thesis\", the idea that science and religion have always been at war, was popularised by J. W. Draper (1874) and A. D. White (1896)."
+ },
+ "xiv-2": {
+  "s": "vol-xiv",
+  "t": "Enlightenment, toleration and revolution",
+  "g": "S14 · E2",
+  "m": 3,
+  "i": "idbd322845",
+  "y": "Arguments for toleration grew from the experience of religious war."
+ },
+ "xiv-3": {
+  "s": "vol-xiv",
+  "t": "Pietism, Methodism and the Awakenings",
+  "g": "S14 · E3",
+  "m": 3,
+  "i": "icefe3a2e4",
+  "y": "Pietism in Lutheran Germany emphasised heartfelt faith, Bible study groups and practical charity. Its key figures were Philipp Jakob Spener ( Pia desideria, 1675) and August Hermann Francke at Halle."
+ },
+ "xiv-4": {
+  "s": "vol-xiv",
+  "t": "Missions, colonialism, slavery and abolition",
+  "g": "S14 · E4",
+  "m": 3,
+  "i": "ieb2608dc6",
+  "y": "Christian societies built and sustained the Atlantic slave trade, which forcibly transported about 12.5 million Africans between the 16th and 19th centuries (Trans-Atlantic Slave Trade Database estimates)."
+ },
+ "xiv-5": {
+  "s": "vol-xiv",
+  "t": "New movements of the nineteenth century",
+  "g": "S14 · E5",
+  "m": 3,
+  "i": "i8626310fc",
+  "y": "The nineteenth century, especially in the United States, produced several movements that drew on Christianity but redefined it."
+ },
+ "xiv-6": {
+  "s": "vol-xiv",
+  "t": "Biblical criticism, liberal and conservative theology",
+  "g": "S14 · E6",
+  "m": 2,
+  "i": "i147c074e5",
+  "y": "Historical-critical study of the Bible developed from Spinoza, Richard Simon (a French Catholic priest, 1678) and Enlightenment scholars, and flourished in nineteenth-century German universities."
+ },
+ "xiv-7": {
+  "s": "vol-xiv",
+  "t": "The First Vatican Council and the end of the Papal States",
+  "g": "S14 · E7",
+  "m": 3,
+  "i": "m2f5290a2a",
+  "y": "Pius IX's pontificate (1846–1878) was the longest verifiable in papal history."
+ },
+ "xv-1": {
+  "s": "vol-xv",
+  "t": "World wars, fascism, Nazism and the Holocaust",
+  "g": "S15 · E1",
+  "m": 3,
+  "i": "ic3a55be12",
+  "y": "In 1914 Churches on both sides blessed the war. Benedict XV's peace proposals (1917) were ignored. The war's carnage shook liberal theology's optimism."
+ },
+ "xv-2": {
+  "s": "vol-xv",
+  "t": "Christianity under communism",
+  "g": "S15 · E2",
+  "m": 3,
+  "i": "id6157e9a2",
+  "y": "Soviet policy toward religion aimed at its eventual elimination."
+ },
+ "xv-3": {
+  "s": "vol-xv",
+  "t": "Pentecostal, charismatic, evangelical and independent Christianity",
+  "g": "S15 · E3",
+  "m": 3,
+  "i": "id5309046f",
+  "y": "Pentecostalism traces its origins to several centres. At Charles Parham's Bible school in Topeka, Kansas, students spoke in tongues in January 1901."
+ },
+ "xv-4": {
+  "s": "vol-xv",
+  "t": "The ecumenical movement",
+  "g": "S15 · E4",
+  "m": 3,
+  "i": "m2cb93d28a",
+  "y": "Assessments differ. Some speak of an \"ecumenical winter\" since the 1990s, caused by divergence over ethics and ordination."
+ },
+ "xv-5": {
+  "s": "vol-xv",
+  "t": "Vatican II, Catholic social teaching and liberation theology",
+  "g": "S15 · E5",
+  "m": 3,
+  "i": "i55b789030",
+  "y": "John XXIII announced a council in January 1959. The Second Vatican Council met in four sessions from 11 October 1962 to 8 December 1965, with about 2,400 bishops and Protestant and Orthodox observers."
+ },
+ "xv-6": {
+  "s": "vol-xv",
+  "t": "Orthodoxy in the modern world",
+  "g": "S15 · E6",
+  "m": 2,
+  "i": "i009dce3b8",
+  "y": "Twentieth-century emigration created Orthodox communities in Western Europe, North America and Australia that do not fit the traditional rule of one bishop per city."
+ },
+ "xv-7": {
+  "s": "vol-xv",
+  "t": "Christians in the Middle East",
+  "g": "S15 · E7",
+  "m": 2,
+  "i": "i800806432",
+  "y": "The twentieth century began with catastrophe."
+ },
+ "xv-8": {
+  "s": "vol-xv",
+  "t": "Contemporary controversies and the world Christian population",
+  "g": "S15 · E8",
+  "m": 4,
+  "i": "i9f3530756",
+  "y": "According to the Pew Research Center's June 2025 report, based on more than 2,700 censuses and surveys:"
+ },
+ "p3-profiles": {
+  "s": "vol-p3",
+  "t": "Profiles of the traditions",
+  "g": "Profiles",
+  "m": 4,
+  "i": "",
+  "y": "Origins: claims continuity with the apostolic Church through the see of Rome; history in Vols II–XV. Leadership: the pope with the college of bishops; Code of Canon Law (1983)."
+ },
+ "p3-matrix": {
+  "s": "vol-p3",
+  "t": "Comparison matrix (24 topics)",
+  "g": "Matrix",
+  "m": 6,
+  "i": "",
+  "y": "Select the traditions to compare, and optionally one topic. Cells summarise the official or majority position in a few words. Notes give the most important internal variation."
+ },
+ "p4-e": {
+  "s": "vol-p4",
+  "t": "Study E — The history of Christian worship",
+  "g": "Study E",
+  "m": 3,
+  "i": "ieb3fe8e66",
+  "y": "The earliest Christian worship joined a common meal with the Lord's Supper, prayer and teaching."
+ },
+ "p4-f": {
+  "s": "vol-p4",
+  "t": "Study F — Marian doctrines",
+  "g": "Study F",
+  "m": 3,
+  "i": "i37ce4c8f8",
+  "y": "Ecumenical texts include the Anglican–Roman Catholic Mary: Grace and Hope in Christ (2005) and the Lutheran–Catholic (US) The One Mediator, the Saints, and Mary (1990/1992)."
+ },
+ "p4-g": {
+  "s": "vol-p4",
+  "t": "Study G — Christianity and Islam",
+  "g": "Study G",
+  "m": 2,
+  "i": "i1b979cafb",
+  "y": "Islam emerged in the seventh century in an Arabian environment that included Christians and Jews."
+ },
+ "p4-h": {
+  "s": "vol-p4",
+  "t": "Study H — Christianity and Judaism",
+  "g": "Study H",
+  "m": 3,
+  "i": "i13b251823",
+  "y": "Christianity began as a movement within Judaism, and its Scriptures include the Jewish Bible."
+ },
+ "p4-i": {
+  "s": "vol-p4",
+  "t": "Study I — Persecution and religious violence",
+  "g": "Study I",
+  "m": 2,
+  "i": "i406a47a04",
+  "y": "This study distinguishes kinds of evidence and kinds of violence."
+ },
+ "p4-j": {
+  "s": "vol-p4",
+  "t": "Study J — Church and state",
+  "g": "Study J",
+  "m": 2,
+  "i": "i130eee2c2",
+  "y": "Christianity has lived under almost every possible relation to political power. Before Constantine it was an illegal minority that nonetheless prayed for the emperor (Romans 13; 1 Timothy 2)."
+ },
+ "p4-k": {
+  "s": "vol-p4",
+  "t": "Study K — Transmission and preservation",
+  "g": "Study K",
+  "m": 3,
+  "i": "i4ad462670",
+  "y": "Early Christians adopted the codex, the ancestor of the book, while most literature was still copied on scrolls."
+ }
+}

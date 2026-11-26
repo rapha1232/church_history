@@ -1,0 +1,1 @@
+(function(){var n=0;function r(){if(n++)return;try{window.HCCApp&&HCCApp.splashReady&&HCCApp.splashReady()}catch(e){}}if(window.requestAnimationFrame)requestAnimationFrame(function(){setTimeout(r,0)});setTimeout(r,60)})();

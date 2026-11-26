@@ -1,7 +1,7 @@
 name: Checks
 
 # Runs on every pull request and every push to main:
-#  - build: the committed page equals the output of tools/v2*.py, and each step is idempotent
+#  - build: the page builds from src/ (scripts/build_site.py), deterministically; generated data is up to date
 #  - smoke: the app loads in Chromium with no JavaScript errors and its core features work
 on:
   pull_request:
@@ -31,4 +31,5 @@ jobs:
           node-version: '22'
       - run: npm install --no-save --no-package-lock playwright@1.63.0
       - run: npx playwright install --with-deps chromium
+      - run: python3 scripts/build_site.py
       - run: node tests/smoke.js

@@ -1,13 +1,15 @@
 """Copy the web app into android/assets for the APK.
 The study packs listed in PACKS are not bundled: the app downloads them from the web app the first time
 they are needed (or all at once from Settings) and keeps them. assets/packs.json lists their files."""
-import json, os, re, shutil
+import json, os, re, shutil, sys
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) + '/'
 A = R + 'android/assets/'
 # word-by-word Greek and Hebrew, lexicons, concordance, the Greek Bible and the Latin Vulgate
 PACKS = {'study': ['bible/orig', 'bible/lex', 'bible/conc'], 'greek': ['bible/lxxg'], 'latin': ['bible/vul']}
 
-s = open(R + 'site/index.html', encoding='utf-8').read()
+sys.path.insert(0, R + 'scripts')
+from build_site import build
+s = build()  # the page, built from src/
 s = re.sub(r'<link rel="preconnect"[^>]*>', '', s)
 s = re.sub(r'<link href="https://fonts\.googleapis\.com/css2[^"]*" rel="stylesheet">', '<link href="fonts.css" rel="stylesheet">', s)
 s = s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', '')

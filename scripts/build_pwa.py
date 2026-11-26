@@ -5,7 +5,9 @@ import sys
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) + '/'
 OUT = (sys.argv[1].rstrip('/') + '/') if len(sys.argv) > 1 else R + 'pwa/'
 shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
-s = open(R + 'site/index.html', encoding='utf-8').read()
+sys.path.insert(0, R + 'scripts')
+from build_site import build
+s = build()  # the page, built from src/
 s = re.sub(r'<link rel="preconnect"[^>]*>', '', s)
 s = re.sub(r'<link href="https://fonts\.googleapis\.com/css2[^"]*" rel="stylesheet">', '<link href="fonts.css" rel="stylesheet">', s)
 s = s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', '')

@@ -1,6 +1,6 @@
 name: Release on merge
 
-# When a change to the app (site/ or android/) lands on main, tag it with the next version (v24 -> v25) and
+# When a change to the app (src/, site/ or android/) lands on main, tag it with the next version (v24 -> v25) and
 # build that release with the Release APK workflow. Put [skip release] in the merge commit message to skip it.
 #
 # The tag is pushed with the workflow's own token, and GitHub does not start other workflows for pushes made
@@ -8,7 +8,7 @@ name: Release on merge
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'android/**']
+    paths: ['src/**', 'site/**', 'android/**', 'scripts/build_site.py']
 
 permissions:
   contents: write

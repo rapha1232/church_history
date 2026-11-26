@@ -1,0 +1,260 @@
+[
+ {
+  "id": "vol-i",
+  "l": "Season 1",
+  "sh": "S1",
+  "t": "The World before Christianity",
+  "e": [
+   "i-1",
+   "i-2",
+   "i-3",
+   "i-4",
+   "i-5",
+   "i-6"
+  ]
+ },
+ {
+  "id": "vol-ii",
+  "l": "Season 2",
+  "sh": "S2",
+  "t": "Jesus, the Apostles and the Apostolic Age",
+  "e": [
+   "ii-1",
+   "ii-2",
+   "ii-3",
+   "ii-4",
+   "ii-5",
+   "ii-6",
+   "ii-7",
+   "ii-8",
+   "ii-9"
+  ]
+ },
+ {
+  "id": "vol-iii",
+  "l": "Season 3",
+  "sh": "S3",
+  "t": "Early Christianity and the Church Fathers",
+  "e": [
+   "iii-1",
+   "iii-2",
+   "iii-3",
+   "iii-4",
+   "iii-5",
+   "iii-6",
+   "iii-7",
+   "iii-8",
+   "iii-9",
+   "iii-10",
+   "iii-11"
+  ]
+ },
+ {
+  "id": "vol-iv",
+  "l": "Season 4",
+  "sh": "S4",
+  "t": "Constantine and the Imperial Church",
+  "e": [
+   "iv-1",
+   "iv-2",
+   "iv-3",
+   "iv-4",
+   "iv-5",
+   "iv-6",
+   "iv-7",
+   "iv-8",
+   "iv-9",
+   "iv-10",
+   "iv-11",
+   "iv-12",
+   "iv-terms"
+  ]
+ },
+ {
+  "id": "vol-v",
+  "l": "Season 5",
+  "sh": "S5",
+  "t": "The First Major Divisions of Christianity",
+  "e": [
+   "v-1",
+   "v-2",
+   "v-3",
+   "v-4",
+   "v-5"
+  ]
+ },
+ {
+  "id": "vol-vi",
+  "l": "Season 6",
+  "sh": "S6",
+  "t": "The Ecumenical Councils",
+  "e": [
+   "vi-1",
+   "vi-2",
+   "vi-3",
+   "vi-4",
+   "vi-5",
+   "vi-6",
+   "vi-7",
+   "vi-other"
+  ]
+ },
+ {
+  "id": "vol-vii",
+  "l": "Season 7",
+  "sh": "S7",
+  "t": "The Rise of Rome and Constantinople",
+  "e": [
+   "vii-1",
+   "vii-2",
+   "vii-3",
+   "vii-4",
+   "vii-5",
+   "vii-6"
+  ]
+ },
+ {
+  "id": "vol-viii",
+  "l": "Season 8",
+  "sh": "S8",
+  "t": "East and West before the Great Schism",
+  "e": [
+   "viii-1",
+   "viii-2",
+   "viii-3",
+   "viii-4",
+   "viii-5",
+   "viii-6",
+   "viii-7"
+  ]
+ },
+ {
+  "id": "vol-ix",
+  "l": "Season 9",
+  "sh": "S9",
+  "t": "The East–West Schism",
+  "e": [
+   "ix-1",
+   "ix-2",
+   "ix-3",
+   "ix-4",
+   "ix-5",
+   "ix-6",
+   "ix-7"
+  ]
+ },
+ {
+  "id": "vol-x",
+  "l": "Season 10",
+  "sh": "S10",
+  "t": "Medieval Christianity",
+  "e": [
+   "x-1",
+   "x-2",
+   "x-3",
+   "x-4",
+   "x-5",
+   "x-6",
+   "x-7",
+   "x-8"
+  ]
+ },
+ {
+  "id": "vol-xi",
+  "l": "Season 11",
+  "sh": "S11",
+  "t": "The Protestant Reformation",
+  "e": [
+   "xi-1",
+   "xi-2",
+   "xi-3",
+   "xi-4",
+   "xi-5",
+   "xi-6"
+  ]
+ },
+ {
+  "id": "vol-xii",
+  "l": "Season 12",
+  "sh": "S12",
+  "t": "The Catholic Reformation and Counter-Reformation",
+  "e": [
+   "xii-1",
+   "xii-2",
+   "xii-3",
+   "xii-4",
+   "xii-5"
+  ]
+ },
+ {
+  "id": "vol-xiii",
+  "l": "Season 13",
+  "sh": "S13",
+  "t": "Eastern Christianity beyond Constantinople",
+  "e": [
+   "xiii-1",
+   "xiii-2",
+   "xiii-3",
+   "xiii-4",
+   "xiii-5",
+   "xiii-6",
+   "xiii-7"
+  ]
+ },
+ {
+  "id": "vol-xiv",
+  "l": "Season 14",
+  "sh": "S14",
+  "t": "Christianity and the Modern World (1600–1900)",
+  "e": [
+   "xiv-1",
+   "xiv-2",
+   "xiv-3",
+   "xiv-4",
+   "xiv-5",
+   "xiv-6",
+   "xiv-7"
+  ]
+ },
+ {
+  "id": "vol-xv",
+  "l": "Season 15",
+  "sh": "S15",
+  "t": "Christianity in the Twentieth and Twenty-First Centuries",
+  "e": [
+   "xv-1",
+   "xv-2",
+   "xv-3",
+   "xv-4",
+   "xv-5",
+   "xv-6",
+   "xv-7",
+   "xv-8"
+  ]
+ },
+ {
+  "id": "vol-p3",
+  "l": "Part III",
+  "sh": "Part III",
+  "t": "Comparative Theology and Ecclesiology",
+  "e": [
+   "p3-profiles",
+   "p3-matrix"
+  ]
+ },
+ {
+  "id": "vol-p4",
+  "l": "Part IV",
+  "sh": "Part IV",
+  "t": "Specialised Historical Investigations",
+  "e": [
+   "p4-e",
+   "p4-f",
+   "p4-g",
+   "p4-h",
+   "p4-i",
+   "p4-j",
+   "p4-k"
+  ]
+ }
+]

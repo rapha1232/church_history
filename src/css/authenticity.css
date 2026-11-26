@@ -1,0 +1,15 @@
+
+/* Edition 24: authenticity labels */
+.au-chip{display:inline-block;margin:4px 6px 0 0;padding:2px 8px;border:1px solid currentColor;border-radius:var(--r-sm);font:600 12px/1.5 var(--font-ui);vertical-align:middle}
+.au-genuine{color:var(--lapis)}
+.au-debated{color:var(--gold)}
+.au-disputed,.au-spurious{color:var(--porphyry)}
+.au-box{max-width:var(--measure);margin:12px 0;padding:0 14px;border:1px solid var(--rule-strong);border-left:3px solid currentColor;border-radius:var(--r-md);background:var(--panel)}
+.au-box summary{min-height:44px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;cursor:pointer;font:600 14.5px/1.4 var(--font-ui);color:var(--ink)}
+.au-box .au-k{color:inherit;font:600 11px var(--font-ui);letter-spacing:.1em;text-transform:uppercase}
+.au-box.au-genuine .au-k{color:var(--lapis)}.au-box.au-debated .au-k{color:var(--gold)}.au-box.au-spurious .au-k,.au-box.au-disputed .au-k{color:var(--porphyry)}
+.au-box p{margin:0 0 10px;font:15px/1.6 var(--font-ui);color:var(--ink)}
+.au-box p.au-src{margin:0 0 4px;font-size:13px;color:var(--muted)}
+.au-box ul.au-src{margin:0 0 12px;padding-left:18px;font:13.5px/1.5 var(--font-ui);color:var(--muted)}
+.au-box ul.au-src a{color:var(--lapis)}
+.st-it .au-box{margin:10px 0 0}
