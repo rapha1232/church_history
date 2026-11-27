@@ -33,7 +33,7 @@ function after(){
 }
 addEventListener("beforeprint", before); addEventListener("afterprint", after);
 
-var STRIP = "button, nav, script, .ed21-ptools, .co-act, .upnext, .pager, .trail, .shelves, .cast, .smap, .emap, .strip, .mosaic, .rail, svg, input, select, img, .sx-tabs, .hx-bar, .bm, .quick";
+var STRIP = "button, nav, script, .ed21-ptools, .co-act, .upnext, .pager, .trail, .shelves, .cast, .smap, .emap, .strip, .mosaic, .rail, svg, input, select, img, .sc-tabs, .hx-bar, .bm, .quick";
 function standalone(a){
   var h = heading(a), c = a.cloneNode(true);
   $$(STRIP, c).forEach(function(x){ if(x.parentNode) x.parentNode.removeChild(x); });

@@ -16,7 +16,7 @@ function sub(){
   if(el.tagName === "DETAILS") el.open = true;
   setTimeout(function(){ el.scrollIntoView({block: "start"}); }, 120);
 }
-addEventListener("hashchange", function(){ setTimeout(sub, 60); }); setTimeout(sub, 300);
+addEventListener("hashchange", function(){ setTimeout(sub, 60); setTimeout(sub, 500); }); setTimeout(sub, 300); setTimeout(sub, 1000);
 
 /* ---------- heresies: filters ---------- */
 var hx = $("#ref-heresies");
@@ -41,8 +41,8 @@ if(hx){
 
 /* ---------- in-page tabs (succession, buildings, icons): jump without leaving the page ---------- */
 document.addEventListener("click", function(e){
-  var a = e.target.closest("[data-sx],[data-gd]"), art = a && a.closest("article[data-sub]"); if(!art) return; e.preventDefault();
-  history.replaceState(null, "", "#" + art.id + "~" + (a.dataset.sx || a.dataset.gd)); sub();
+  var a = e.target.closest("[data-sc],[data-gd]"), art = a && a.closest("article[data-sub]"); if(!art) return; e.preventDefault();
+  history.replaceState(null, "", "#" + art.id + "~" + (a.dataset.sc || a.dataset.gd)); sub();
 });
 
 /* ---------- meanwhile in the world ---------- */

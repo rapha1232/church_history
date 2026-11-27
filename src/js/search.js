@@ -8,7 +8,7 @@ function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){retur
 function norm(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g,""); }
 window.__SX__ = true;
 var GROUPS = [["ep","Episodes"],["season","Seasons"],["people","People"],["council","Councils"],["doc","Documents"],["quote","Quotes"],["gloss","Glossary"],["ref","Reference"]];
-var IDX = null, VOCAB = null, JUMP = [];
+var IDX = null, VOCAB = null, JUMP = [], FILT = "";
 
 /* ---------- index (built on first use) ---------- */
 function build(){
@@ -95,11 +95,12 @@ function render(){
   var by = {}; r.hits.forEach(function(h){ (by[h.e.g] = by[h.e.g] || []).push(h); });
   var bref = bibleRef(str), html = bref ? '<div class="sx-g"><p class="sx-h">Bible</p><a href="#bible" data-sxbib="1"><span class="rt">Open '+esc(bref.label)+'</span><span class="rs" data-sxbt>'+(bref.v ? "Go to the verse in the Bible" : "Go to the chapter in the Bible")+'</span></a></div>' : "";
   html += r.did ? '<div class="sx-did">Showing results for <b>'+esc(r.did)+'</b></div>' : "";
-  var any = false;
+  var any = false, counts = [];
   GROUPS.forEach(function(g){
     var list = by[g[0]]; if(!list) return; any = true;
-    var seen = {}, shown = list.filter(function(h){ var key = h.e.t + "|" + (h.e.act.art || "") ; if(g[0] === "ep" || g[0] === "ref" || g[0] === "doc"){ if(seen[key] >= 2) return false; seen[key] = (seen[key]||0) + 1; } return true; }).slice(0, g[0] === "ep" ? 8 : 5);
-    html += '<div class="sx-g"><p class="sx-h">'+g[1]+' <span>'+list.length+'</span></p>' + shown.map(function(h){
+    var seen = {}, shown = list.filter(function(h){ var key = h.e.t + "|" + (h.e.act.art || "") ; if(g[0] === "ep" || g[0] === "ref" || g[0] === "doc"){ if(seen[key] >= 2) return false; seen[key] = (seen[key]||0) + 1; } return true; }).slice(0, FILT === g[0] ? 40 : g[0] === "ep" ? 8 : 5);
+    counts.push([g[0], g[1], list.length]);
+    html += '<div class="sx-g" data-sxg="'+g[0]+'"><p class="sx-h">'+g[1]+' <span>'+list.length+'</span></p>' + shown.map(function(h){
       var k = JUMP.push(h.e) - 1, href = h.e.act.art ? "#" + h.e.act.art : "#";
       return '<a href="'+href+'" data-sx="'+k+'"><span class="rt">'+esc(h.e.t)+(h.e.sub?' <small>'+esc(h.e.sub)+'</small>':'')+'</span><span class="rs">'+snippet(h.e.raw, r.terms)+'</span></a>';
     }).join("") + '</div>';
@@ -110,7 +111,7 @@ function render(){
     var TH = {}; PR.themes.forEach(function(t){ TH[t[0]] = t[1]; });
     var ph = PR.list.map(function(p){ var hay = norm([p.t, p.src, p.x || "", p.th.map(function(t){ return TH[t]; }).join(" ")].join(" ")), tt = norm(p.t), sc = 0;
       for(var i = 0; i < toks.length; i++){ if(hay.indexOf(toks[i]) < 0) return null; sc += tt.indexOf(toks[i]) >= 0 ? 10 : 1; } return [sc, p]; }).filter(Boolean).sort(function(a, b){ return b[0] - a[0]; });
-    if(ph.length){ any = true; html += '<div class="sx-g"><p class="sx-h">Prayers <span>'+ph.length+'</span></p>' + ph.slice(0, 5).map(function(x){ var p = x[1]; return '<a href="#prayers" data-sxpr="'+esc(p.id)+'"><span class="rt">'+esc(p.t)+'</span><span class="rs">'+esc(p.src)+'</span></a>'; }).join("") + '</div>'; }
+    if(ph.length){ any = true; counts.push(["prayers", "Prayers", ph.length]); html += '<div class="sx-g" data-sxg="prayers"><p class="sx-h">Prayers <span>'+ph.length+'</span></p>' + ph.slice(0, FILT === "prayers" ? 40 : 5).map(function(x){ var p = x[1]; return '<a href="#prayers" data-sxpr="'+esc(p.id)+'"><span class="rt">'+esc(p.t)+'</span><span class="rs">'+esc(p.src)+'</span></a>'; }).join("") + '</div>'; }
   }
   /* the Bible: its text, and the Greek and Hebrew lexicon */
   var B = window.HCCBible || {}, sid = !bref && B.strong ? B.strong(str) : null, script = /[\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]/.test(str);
@@ -118,8 +119,12 @@ function render(){
   if(sid && B.word) bx += '<a href="#bible" data-sxlex="'+esc(sid)+'"><span class="rt">Look up '+esc(sid.replace(/^([GH])0+/, "$1"))+' in the lexicon</span><span class="rs" data-sxlt>'+(sid[0] === "G" ? "Greek" : "Hebrew")+' word: how it is translated and every place it is used</span></a>';
   if(word && B.lexicon) bx += '<a href="#bible" data-sxlx="1"><span class="rt">Find “'+esc(str)+'” in the Greek and Hebrew lexicon</span><span class="rs">Words that mean, or are spelled, '+esc(str)+'</span></a>';
   if(!bref && !sid && !script && str.length >= 3 && B.search) bx += '<a href="#bible" data-sxbs="1"><span class="rt">Search the Bible for “'+esc(str)+'”</span><span class="rs">Every verse with these words, in the edition you are reading</span></a>';
-  if(bx){ bx = '<div class="sx-g"><p class="sx-h">Bible</p>' + bx + '</div>'; if(sid || script) html = bx + html; else html += bx; any = true; }
+  if(bx){ counts.push(["bible", "Bible", 0]); bx = '<div class="sx-g" data-sxg="bible"><p class="sx-h">Bible</p>' + bx + '</div>'; if(sid || script) html = bx + html; else html += bx; any = true; }
   if(!any && !bref) html += '<div style="padding:12px;color:var(--muted)">No matches. Try fewer words, or another spelling.</div>';
+  if(FILT && !counts.some(function(c){ return c[0] === FILT; })) FILT = "";
+  if(counts.length > 1) html = '<div class="sx-f" role="group" aria-label="Show results from"><button type="button" class="chip" data-sxf="" aria-pressed="'+(!FILT)+'">All</button>' +
+    counts.map(function(c){ return '<button type="button" class="chip" data-sxf="'+c[0]+'" aria-pressed="'+(FILT === c[0])+'">'+esc(c[1])+(c[2] ? ' <span>'+c[2]+'</span>' : "")+'</button>'; }).join("") + '</div>' + html;
+  res.dataset.f = counts.length > 1 ? FILT : "";
   res.innerHTML = html; res.hidden = false; res.classList.add("sx");
   if(sid && B.lexLookup) B.lexLookup(sid, function(e){ var el = $("[data-sxlt]", res); if(e && el && B.strong(q.value.trim()) === sid) el.textContent = e[0] + " · " + e[1] + " · “" + e[3] + "”"; });
   if(bref && bref.v && HCCBible.text) HCCBible.text(bref, function(t){ var el = $("[data-sxbt]", res); if(t && el && bibleRef(q.value.trim()) && bibleRef(q.value.trim()).label === bref.label){ var tx = t.text.replace(/\[([^\]]{1,80})\]/g, "$1"); el.textContent = tx.length > 220 ? tx.slice(0, 220) + "…" : tx; } });
@@ -136,7 +141,9 @@ function flash(el){
   if(!el) return; var top = el.getBoundingClientRect().top + scrollY - 110;
   scrollTo({top: top, behavior: "smooth"}); el.classList.remove("sx-flash"); void el.offsetWidth; el.classList.add("sx-flash");
 }
+res.addEventListener("mousedown", function(e){ if(e.target.closest("[data-sxf]")) e.preventDefault(); });
 res.addEventListener("click", function(e){
+  var fb = e.target.closest("[data-sxf]"); if(fb){ e.preventDefault(); e.stopPropagation(); FILT = fb.dataset.sxf; render(); var on = $('[data-sxf="'+FILT+'"]', res); if(on) on.focus(); res.scrollTop = 0; return; }
   if(e.target.closest("[data-sxbib]")){ e.preventDefault(); bibleOpen(); return; }
   var pr = e.target.closest("[data-sxpr]"); if(pr){ e.preventDefault(); res.hidden = true; q.blur(); if(window.HCCPrayers) HCCPrayers.open(pr.dataset.sxpr); return; }
   var bb = e.target.closest("[data-sxlex],[data-sxlx],[data-sxbs]");
