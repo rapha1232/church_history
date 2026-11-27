@@ -877,7 +877,7 @@ function findRefs(text){
 }
 function linkRefs(a){
   if(!a || a.dataset.srefs || a.id === "bible") return; a.dataset.srefs = "1";
-  var tw = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, {acceptNode: function(n){ return n.parentNode.closest("a,button,script,style,textarea,.sref,svg,figcaption,h1,h2,.shelf-h") ? NodeFilter.FILTER_REJECT : /\d:\d/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }});
+  var tw = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, {acceptNode: function(n){ return n.parentNode.closest("a,button,summary,script,style,textarea,.sref,svg,figcaption,h1,h2,.shelf-h") ? NodeFilter.FILTER_REJECT : /\d:\d/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }});
   var nodes = []; while(tw.nextNode()) nodes.push(tw.currentNode);
   nodes.forEach(function(n){
     var refs = findRefs(n.nodeValue); if(!refs.length) return;

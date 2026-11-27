@@ -150,3 +150,14 @@
   a{text-decoration:none}
   h2,h3{break-after:avoid}
 }
+
+/* ---------- accessibility fixes found by tests/a11y.js (axe-core, WCAG 2.1 AA) ---------- */
+/* evidence badges: full strength, so the small uppercase label keeps 4.5:1 on its tinted background */
+.ev{opacity:1!important}
+:root:is([data-theme="light"],[data-theme="sepia"]) .ev.doc{color:#205e3f} :root:is([data-theme="light"],[data-theme="sepia"]) .ev.con{color:#2c5a90} :root:is([data-theme="light"],[data-theme="sepia"]) .ev.dis{color:#7f4b00} :root:is([data-theme="light"],[data-theme="sepia"]) .ev.unc{color:#555b64}
+/* verse numbers: no extra fading, and full ink on a highlighted verse */
+.bv sup,.bv2 sup{opacity:1}
+.bv.hl sup{color:var(--ink)}
+/* the arrow links after a summary: underlined, so they do not depend on colour alone */
+a.go{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.gd-tw:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

@@ -47,6 +47,7 @@ generator instead and run it again.
 ```bash
 bash tests/build_check.sh                                        # builds, and checks generated data
 python3 scripts/build_site.py && node tests/smoke.js             # opens every main route in Chromium
+python3 scripts/build_site.py && node tests/a11y.js              # axe-core accessibility check (npm install axe-core)
 ```
 
 The **Checks** workflow runs both on every pull request.
