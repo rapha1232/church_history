@@ -160,6 +160,9 @@ reference/ref-compare.html
 reference/ref-notebook.html
 reference/ref-tree.html
 reference/ref-otd.html
+reference/ref-calendar.html
+reference/ref-succession.html
+reference/ref-heresies.html
 reference/ref-plans.html
 reference/ref-originals.html
 reference/ref-councilmap.html
