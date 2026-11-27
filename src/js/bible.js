@@ -59,6 +59,7 @@ function verses(list, b, hl){
   });
   return out + (open ? "</p>" : "");
 }
+function ltag(ed){ var e = ED[ed]; return e && e.rtl ? ' dir="rtl" lang="'+(e.lang||"ar")+'"' : ""; }
 function bname(ed, b){ var i = ED[ed].idx[b]; return i == null ? b : ED[ed].books[i][2]; }
 function shortName(ed, b){ return bname(ed, b).replace(/\s*\(.*\)$/, ""); }
 
@@ -147,7 +148,7 @@ function render(opts){
     var nav = '<nav class="bib-pn" aria-label="Chapters">'+(pv ? '<button type="button" data-step="-1"><small>Previous</small><b>'+lab(pv)+'</b></button>' : '<span></span>')+(nx ? '<button type="button" class="nx" data-step="1"><small>Next</small><b>'+lab(nx)+'</b></button>' : '<span></span>')+'</nav>';
     fabs(pv, nx);
     function done(right){
-      view.innerHTML = head + (cmp ? right : '<div class="bib-text'+(POETRY[st.b] ? " poetry" : "")+'">'+verses(list, st.b, hl)+'</div>') + nav + '<section class="bib-conn" id="bibConn" aria-label="Connected chapters"></section>' +
+      view.innerHTML = head + (cmp ? right : '<div class="bib-text'+(POETRY[st.b] ? " poetry" : "")+'"'+ltag(st.ed)+'>'+verses(list, st.b, hl)+'</div>') + nav + '<section class="bib-conn" id="bibConn" aria-label="Connected chapters"></section>' +
         ext() + '<p class="bib-src">'+esc(M.src[bk[1]] || "")+'</p>';
       if(!opts.keep) window.scrollTo({top: art.getBoundingClientRect().top + scrollY - 70, behavior: "instant" in window ? "instant" : "auto"});
       if(hl){ var el = $('.bv[data-v="'+hl+'"]', view); if(el) setTimeout(function(){ el.scrollIntoView({block:"center"}); }, 60); }
@@ -155,7 +156,7 @@ function render(opts){
     }
     if(!cmp) return done();
     var b2 = equiv(cmp, st.b);
-    if(!b2){ return done('<p class="bib-note">'+esc(bname(st.ed, st.b))+' is not part of the '+esc(ED[cmp].name)+'.</p><div class="bib-text">'+verses(list, st.b, hl)+'</div>'); }
+    if(!b2){ return done('<p class="bib-note">'+esc(bname(st.ed, st.b))+' is not part of the '+esc(ED[cmp].name)+'.</p><div class="bib-text"'+ltag(st.ed)+'>'+verses(list, st.b, hl)+'</div>'); }
     var bk2 = ED[cmp].books[ED[cmp].idx[b2]], c2 = mapCh(st.ed, cmp, st.b, st.c);
     load(bk2[1], b2, function(d2){
       if(myB !== st.b || myC !== st.c || myEd !== st.ed) return;
@@ -167,7 +168,7 @@ function render(opts){
                  (b2 !== st.b ? '<p class="bib-note">Shown from '+esc(bname(cmp, b2))+' in the '+esc(ED[cmp].short)+'; chapter and verse numbers of the Greek additions differ between editions.</p>' : "");
       done(note + '<div class="bib-par"><div class="bib-ph"><b>'+esc(ED[st.ed].short)+'</b><b>'+esc(ED[cmp].short)+(c2 !== st.c ? " · Ps "+c2 : "")+'</b></div>' + keys.map(function(k){
         var a = by[k][0], z = by[k][1];
-        return '<div class="bib-row"><p>'+(a ? '<span class="bv'+(hl===k?" hl":"")+'" data-v="'+k+'"><sup>'+k+'</sup>'+fmt(a[1])+'</span>' : '<span class="bib-gap">—</span>')+'</p><p>'+(z ? '<span class="bv2"><sup>'+k+'</sup>'+fmt(z[1])+'</span>' : '<span class="bib-gap">—</span>')+'</p></div>';
+        return '<div class="bib-row"><p'+ltag(st.ed)+'>'+(a ? '<span class="bv'+(hl===k?" hl":"")+'" data-v="'+k+'"><sup>'+k+'</sup>'+fmt(a[1])+'</span>' : '<span class="bib-gap">—</span>')+'</p><p'+ltag(cmp)+'>'+(z ? '<span class="bv2"><sup>'+k+'</sup>'+fmt(z[1])+'</span>' : '<span class="bib-gap">—</span>')+'</p></div>';
       }).join("") + '</div>');
     });
   });
@@ -503,7 +504,7 @@ function edsView(c, cb){
     load(bk[1], b2, function(d){
       var vv = pick(chapter(d, c2) || [], c.v);
       var t = vv ? vv : null; t = (chapter(d, c2)||[]).filter(function(x){ return x[0] === c.v; })[0];
-      out[i] = '<div class="vs-ed'+(e.id === c.ed ? " me" : "")+'" data-ed="'+e.id+'"><p><b>'+esc(e.short)+'</b> '+esc(e.trad)+(c2 !== c.c ? ' · Psalm '+c2 : "")+'</p><blockquote>'+(t ? fmt(t[1]) : '<span class="bib-gap">Not numbered the same way in this edition.</span>')+'</blockquote></div>';
+      out[i] = '<div class="vs-ed'+(e.id === c.ed ? " me" : "")+'" data-ed="'+e.id+'"><p><b>'+esc(e.short)+'</b> '+esc(e.trad)+(c2 !== c.c ? ' · Psalm '+c2 : "")+'</p><blockquote'+ltag(e.id)+'>'+(t ? fmt(t[1]) : '<span class="bib-gap">Not numbered the same way in this edition.</span>')+'</blockquote></div>';
       if(--left === 0) cb(out.join("") + ext2(c));
     });
   });
@@ -876,7 +877,7 @@ function findRefs(text){
 }
 function linkRefs(a){
   if(!a || a.dataset.srefs || a.id === "bible") return; a.dataset.srefs = "1";
-  var tw = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, {acceptNode: function(n){ return n.parentNode.closest("a,button,script,style,textarea,.sref,svg,figcaption,h1,h2,.shelf-h") ? NodeFilter.FILTER_REJECT : /\d:\d/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }});
+  var tw = document.createTreeWalker(a, NodeFilter.SHOW_TEXT, {acceptNode: function(n){ return n.parentNode.closest("a,button,summary,script,style,textarea,.sref,svg,figcaption,h1,h2,.shelf-h") ? NodeFilter.FILTER_REJECT : /\d:\d/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }});
   var nodes = []; while(tw.nextNode()) nodes.push(tw.currentNode);
   nodes.forEach(function(n){
     var refs = findRefs(n.nodeValue); if(!refs.length) return;

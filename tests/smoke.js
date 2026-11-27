@@ -18,6 +18,8 @@ const ROUTES = [
   ['people', PHONE, '#ref-people'], ['glossary', PHONE, '#ref-glossary'], ['texts', PHONE, '#ref-texts'],
   ['settings', PHONE, '#ref-settings'], ['timeline', PHONE, '#ref-zoom'], ['prayers', PHONE, '#prayers'],
   ['home-desktop', DESK, '#home'], ['episode-desktop', DESK, '#iv-6'], ['bible-desktop', DESK, '#bible~web~ROM~8~28'],
+  ['bible-arabic', PHONE, '#bible~arb~JOH~3~16'], ['calendar', PHONE, '#ref-calendar'], ['succession', PHONE, '#ref-succession'],
+  ['heresies', PHONE, '#ref-heresies'], ['buildings', PHONE, '#ref-buildings'], ['icons', PHONE, '#ref-icons'], ['spread', PHONE, '#ref-spread'],
 ];
 
 const failures = [];
@@ -66,6 +68,47 @@ async function finish(browser) {
     const txt = await p.evaluate(() => document.querySelector('#bible').innerText);
     if (!/God so loved the world/.test(txt)) fail('bible-text', 'John 3:16 (WEB) did not render');
     else console.log('  ok   bible-text');
+    await p.close();
+  }
+
+  // Arabic Bible: right to left, and the text loads
+  {
+    const p = await page(browser, 'bible-arabic-text', PHONE);
+    await p.goto(URL + '#bible~arb~JOH~3~16');
+    await p.waitForTimeout(2000);
+    const r = await p.evaluate(() => { const t = document.querySelector('#bible .bib-text'); return t ? [t.dir, t.lang, t.textContent] : null; });
+    if (!r || r[0] !== 'rtl' || r[1] !== 'ar' || !/هكذا أحب ٱلله ٱلعالم/.test(r[2].replace(/[\u064B-\u0652\u0670]/g, ''))) fail('bible-arabic-text', 'John 3:16 (Van Dyck) did not render right to left');
+    else console.log('  ok   bible-arabic-text');
+    await p.close();
+  }
+
+  // Edition 25 reference pages: the calendar's Easter dates, heresy filters, the spread map, search filters, print
+  {
+    const p = await page(browser, 'edition25', PHONE);
+    await p.goto(URL + '#ref-calendar');
+    await p.waitForTimeout(1500);
+    const e = await p.evaluate(() => [2025, 2026, 2027].map(y => { const w = HCCCalendar.easter(y), o = HCCCalendar.pascha(y); return (w.getMonth() + 1) + '/' + w.getDate() + ' ' + (o.getMonth() + 1) + '/' + o.getDate(); }).join(', '));
+    if (e !== '4/20 4/20, 4/5 4/12, 3/28 5/2') fail('edition25', 'Easter / Pascha dates wrong: ' + e);
+    await p.evaluate(() => { location.hash = 'ref-heresies'; });
+    await p.waitForTimeout(800);
+    await p.click('#ref-heresies [data-hth="christ"]');
+    const vis = await p.$$eval('#ref-heresies .hx', x => x.filter(c => !c.hidden).length);
+    if (vis < 5 || vis > 12) fail('edition25', 'heresy filter "Christ" shows ' + vis + ' entries');
+    await p.evaluate(() => { location.hash = 'ref-spread'; });
+    await p.waitForTimeout(800);
+    await p.evaluate(() => { const r = document.querySelector('#spR'); r.value = 1000; r.dispatchEvent(new Event('input', { bubbles: true })); });
+    const sp = await p.$$eval('#spDots .sp-pt.on', x => x.length);
+    if (sp < 30 || sp > 45) fail('edition25', 'spread map shows ' + sp + ' places in AD 1000');
+    await p.evaluate(() => { location.hash = 'iv-6'; });
+    await p.waitForTimeout(1500);
+    if (!(await p.$('#iv-6 .ed21-print'))) fail('edition25', 'no Print button on an episode');
+    if (!(await p.$('#iv-6 .mw li'))) fail('edition25', 'no "Meanwhile in the world" strip on an episode');
+    await p.fill('#q', 'Athanasius');
+    await p.waitForTimeout(800);
+    await p.click('#results [data-sxf="people"]');
+    const groups = await p.$$eval('#results .sx-g', x => x.filter(g => getComputedStyle(g).display !== 'none').map(g => g.dataset.sxg).join(','));
+    if (groups !== 'people') fail('edition25', 'search filter "People" shows ' + groups);
+    if (!failures.some(f => f.startsWith('edition25'))) console.log('  ok   edition25');
     await p.close();
   }
 

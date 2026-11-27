@@ -59,3 +59,10 @@
 .vs-mark .vs-tags{display:none}
 .vs-mark.tg-on{flex-wrap:wrap}
 .vs-mark.tg-on .vs-tags{display:flex;flex:1 1 100%}
+
+/* Arabic editions: right to left, in a naskh face from the system (Noto Naskh on Android, Geeza or Al Nile on Apple) */
+[lang="ar"]{font-family:"Noto Naskh Arabic","Amiri","Scheherazade New","Geeza Pro","Al Nile","Traditional Arabic","Times New Roman",serif;font-variant-numeric:normal}
+.bib-text[lang="ar"]{font-size:calc(1.32rem * var(--rs,1));line-height:2.05}
+.bib-text.poetry[lang="ar"] p{padding-left:0;padding-right:1.6em}
+.bib-row p[lang="ar"]{font-size:1.12rem;line-height:1.95}
+blockquote[lang="ar"]{font-size:1.15rem;line-height:1.9}

@@ -4842,6 +4842,480 @@
     ]
    ],
    "note": "The Latin Bible of the Western Church for over a thousand years. Jerome translated most of it around 382–405; the Clementine edition of 1592 was the official Catholic text until 1979. The Douay–Rheims is its English translation, so the two can be compared verse by verse. Psalm numbering is Greek and Latin."
+  },
+  {
+   "id": "arb",
+   "name": "Arabic Bible (Smith–Van Dyck)",
+   "short": "عربي",
+   "trad": "Arabic",
+   "year": "1865",
+   "lang": "ar",
+   "rtl": 1,
+   "books": [
+    [
+     "GEN",
+     "arb",
+     "Genesis (التكوين)",
+     50,
+     "ot"
+    ],
+    [
+     "EXO",
+     "arb",
+     "Exodus (الخروج)",
+     40,
+     "ot"
+    ],
+    [
+     "LEV",
+     "arb",
+     "Leviticus (اللاويين)",
+     27,
+     "ot"
+    ],
+    [
+     "NUM",
+     "arb",
+     "Numbers (العدد)",
+     36,
+     "ot"
+    ],
+    [
+     "DEU",
+     "arb",
+     "Deuteronomy (التثنية)",
+     34,
+     "ot"
+    ],
+    [
+     "JOS",
+     "arb",
+     "Joshua (يشوع)",
+     24,
+     "ot"
+    ],
+    [
+     "JDG",
+     "arb",
+     "Judges (القضاة)",
+     21,
+     "ot"
+    ],
+    [
+     "RUT",
+     "arb",
+     "Ruth (راعوث)",
+     4,
+     "ot"
+    ],
+    [
+     "1SA",
+     "arb",
+     "1 Samuel (صموئيل الأول)",
+     31,
+     "ot"
+    ],
+    [
+     "2SA",
+     "arb",
+     "2 Samuel (صموئيل الثاني)",
+     24,
+     "ot"
+    ],
+    [
+     "1KI",
+     "arb",
+     "1 Kings (الملوك الأول)",
+     22,
+     "ot"
+    ],
+    [
+     "2KI",
+     "arb",
+     "2 Kings (الملوك الثاني)",
+     25,
+     "ot"
+    ],
+    [
+     "1CH",
+     "arb",
+     "1 Chronicles (أخبار الأيام الأول)",
+     29,
+     "ot"
+    ],
+    [
+     "2CH",
+     "arb",
+     "2 Chronicles (أخبار الأيام الثاني)",
+     36,
+     "ot"
+    ],
+    [
+     "EZR",
+     "arb",
+     "Ezra (عزرا)",
+     10,
+     "ot"
+    ],
+    [
+     "NEH",
+     "arb",
+     "Nehemiah (نحميا)",
+     13,
+     "ot"
+    ],
+    [
+     "EST",
+     "arb",
+     "Esther (أستير)",
+     10,
+     "ot"
+    ],
+    [
+     "JOB",
+     "arb",
+     "Job (أيوب)",
+     42,
+     "ot"
+    ],
+    [
+     "PSA",
+     "arb",
+     "Psalms (المزامير)",
+     150,
+     "ot"
+    ],
+    [
+     "PRO",
+     "arb",
+     "Proverbs (الأمثال)",
+     31,
+     "ot"
+    ],
+    [
+     "ECC",
+     "arb",
+     "Ecclesiastes (الجامعة)",
+     12,
+     "ot"
+    ],
+    [
+     "SOL",
+     "arb",
+     "Song of Songs (نشيد الأنشاد)",
+     8,
+     "ot"
+    ],
+    [
+     "ISA",
+     "arb",
+     "Isaiah (إشعياء)",
+     66,
+     "ot"
+    ],
+    [
+     "JER",
+     "arb",
+     "Jeremiah (إرميا)",
+     52,
+     "ot"
+    ],
+    [
+     "LAM",
+     "arb",
+     "Lamentations (مراثي إرميا)",
+     5,
+     "ot"
+    ],
+    [
+     "EZE",
+     "arb",
+     "Ezekiel (حزقيال)",
+     48,
+     "ot"
+    ],
+    [
+     "DAN",
+     "arb",
+     "Daniel (دانيال)",
+     12,
+     "ot"
+    ],
+    [
+     "HOS",
+     "arb",
+     "Hosea (هوشع)",
+     14,
+     "ot"
+    ],
+    [
+     "JOE",
+     "arb",
+     "Joel (يوئيل)",
+     3,
+     "ot"
+    ],
+    [
+     "AMO",
+     "arb",
+     "Amos (عاموس)",
+     9,
+     "ot"
+    ],
+    [
+     "OBA",
+     "arb",
+     "Obadiah (عوبديا)",
+     1,
+     "ot"
+    ],
+    [
+     "JON",
+     "arb",
+     "Jonah (يونان)",
+     4,
+     "ot"
+    ],
+    [
+     "MIC",
+     "arb",
+     "Micah (ميخا)",
+     7,
+     "ot"
+    ],
+    [
+     "NAH",
+     "arb",
+     "Nahum (ناحوم)",
+     3,
+     "ot"
+    ],
+    [
+     "HAB",
+     "arb",
+     "Habakkuk (حبقوق)",
+     3,
+     "ot"
+    ],
+    [
+     "ZEP",
+     "arb",
+     "Zephaniah (صفنيا)",
+     3,
+     "ot"
+    ],
+    [
+     "HAG",
+     "arb",
+     "Haggai (حجي)",
+     2,
+     "ot"
+    ],
+    [
+     "ZEC",
+     "arb",
+     "Zechariah (زكريا)",
+     14,
+     "ot"
+    ],
+    [
+     "MAL",
+     "arb",
+     "Malachi (ملاخي)",
+     4,
+     "ot"
+    ],
+    [
+     "MAT",
+     "arb",
+     "Matthew (متى)",
+     28,
+     "nt"
+    ],
+    [
+     "MAR",
+     "arb",
+     "Mark (مرقس)",
+     16,
+     "nt"
+    ],
+    [
+     "LUK",
+     "arb",
+     "Luke (لوقا)",
+     24,
+     "nt"
+    ],
+    [
+     "JOH",
+     "arb",
+     "John (يوحنا)",
+     21,
+     "nt"
+    ],
+    [
+     "ACT",
+     "arb",
+     "Acts (أعمال الرسل)",
+     28,
+     "nt"
+    ],
+    [
+     "ROM",
+     "arb",
+     "Romans (رومية)",
+     16,
+     "nt"
+    ],
+    [
+     "1CO",
+     "arb",
+     "1 Corinthians (كورنثوس الأولى)",
+     16,
+     "nt"
+    ],
+    [
+     "2CO",
+     "arb",
+     "2 Corinthians (كورنثوس الثانية)",
+     13,
+     "nt"
+    ],
+    [
+     "GAL",
+     "arb",
+     "Galatians (غلاطية)",
+     6,
+     "nt"
+    ],
+    [
+     "EPH",
+     "arb",
+     "Ephesians (أفسس)",
+     6,
+     "nt"
+    ],
+    [
+     "PHI",
+     "arb",
+     "Philippians (فيلبي)",
+     4,
+     "nt"
+    ],
+    [
+     "COL",
+     "arb",
+     "Colossians (كولوسي)",
+     4,
+     "nt"
+    ],
+    [
+     "1TH",
+     "arb",
+     "1 Thessalonians (تسالونيكي الأولى)",
+     5,
+     "nt"
+    ],
+    [
+     "2TH",
+     "arb",
+     "2 Thessalonians (تسالونيكي الثانية)",
+     3,
+     "nt"
+    ],
+    [
+     "1TI",
+     "arb",
+     "1 Timothy (تيموثاوس الأولى)",
+     6,
+     "nt"
+    ],
+    [
+     "2TI",
+     "arb",
+     "2 Timothy (تيموثاوس الثانية)",
+     4,
+     "nt"
+    ],
+    [
+     "TIT",
+     "arb",
+     "Titus (تيطس)",
+     3,
+     "nt"
+    ],
+    [
+     "PHM",
+     "arb",
+     "Philemon (فليمون)",
+     1,
+     "nt"
+    ],
+    [
+     "HEB",
+     "arb",
+     "Hebrews (العبرانيين)",
+     13,
+     "nt"
+    ],
+    [
+     "JAM",
+     "arb",
+     "James (يعقوب)",
+     5,
+     "nt"
+    ],
+    [
+     "1PE",
+     "arb",
+     "1 Peter (بطرس الأولى)",
+     5,
+     "nt"
+    ],
+    [
+     "2PE",
+     "arb",
+     "2 Peter (بطرس الثانية)",
+     3,
+     "nt"
+    ],
+    [
+     "1JO",
+     "arb",
+     "1 John (يوحنا الأولى)",
+     5,
+     "nt"
+    ],
+    [
+     "2JO",
+     "arb",
+     "2 John (يوحنا الثانية)",
+     1,
+     "nt"
+    ],
+    [
+     "3JO",
+     "arb",
+     "3 John (يوحنا الثالثة)",
+     1,
+     "nt"
+    ],
+    [
+     "JUD",
+     "arb",
+     "Jude (يهوذا)",
+     1,
+     "nt"
+    ],
+    [
+     "REV",
+     "arb",
+     "Revelation (رؤيا يوحنا)",
+     22,
+     "nt"
+    ]
+   ],
+   "note": "الكتاب المقدس: the Arabic Bible translated in Beirut by Eli Smith, Cornelius Van Dyck, Butrus al-Bustani and Nasif al-Yaziji, published in 1865, with the 66-book canon. It is the public-domain Arabic text read across the churches of Lebanon and the Middle East. The Maronite liturgy reads the Catholic Jesuit translation (Beirut, 1876–1880; revised 1989), which is still under copyright; for the deuterocanonical books use the Douay–Rheims or the Vulgate, or add your own copy under Settings → Bible editions from a file."
   }
  ],
  "src": {
@@ -4851,6 +5325,7 @@
   "lxx": "Brenton, The Septuagint Version of the Old Testament (1851, public domain)",
   "lxxg": "Septuagint Greek text as printed by Brenton (eBible.org, public domain)",
   "grk": "Greek New Testament (NA28 text) from STEPBible.org TAGNT, CC BY 4.0",
-  "vul": "Vulgata Clementina (eBible.org, public domain)"
+  "vul": "Vulgata Clementina (eBible.org, public domain)",
+  "arb": "Smith–Van Dyck Arabic Bible, 1865 (eBible.org, public domain)"
  }
 }

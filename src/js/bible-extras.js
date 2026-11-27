@@ -204,7 +204,7 @@ function scriptureList(a){
 }
 
 /* links in content that appears after a page was first opened (and on pages opened before the links were made) */
-var BAD = "a,button,script,style,textarea,input,select,option,.sref,svg,figcaption,h1,h2,.shelf-h,[contenteditable],.bib-text,.bib-par,.vsheet,.bx-scrip";
+var BAD = "a,button,summary,script,style,textarea,input,select,option,.sref,svg,figcaption,h1,h2,.shelf-h,[contenteditable],.bib-text,.bib-par,.vsheet,.bx-scrip";
 function linkIn(root){
   if(!root) return;
   var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode: function(n){ return !/\d:\d/.test(n.nodeValue) || (n.parentNode.closest && n.parentNode.closest(BAD)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }});

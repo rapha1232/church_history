@@ -100,6 +100,11 @@ function syncNav(){
 /* ====================================================================== bookmark and "add to study" in the page */
 function marks(){ var m = get("marks", []); return Array.isArray(m) ? m : []; }
 var NOMARK = {home:1, series:1, library:1, studies:1, bible:1, "ref-settings":1};
+function printBtn(cls){
+  var b = document.createElement("button"); b.type = "button"; b.className = cls + " ed21-print";
+  b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3.5h10V9M7 17.5H4.5v-7A1.5 1.5 0 0 1 6 9h12a1.5 1.5 0 0 1 1.5 1.5v7H17"/><path d="M7 14h10v6.5H7z"/></svg><span>'+t("Print or save as PDF")+'</span>';
+  return b;
+}
 function pageTools(){
   var a = $("main > article.active"); if(!a || NOMARK[a.id]) return;
   var on = marks().indexOf(a.id) >= 0;
@@ -109,10 +114,11 @@ function pageTools(){
     mk = document.createElement("button"); mk.type = "button"; mk.className = "ed21-mark";
     if(host){ mk.classList.add("btn-ghost"); host.appendChild(mk);
       if(a.dataset.ep){ var as = document.createElement("button"); as.type = "button"; as.className = "btn-ghost ed21-addep"; as.innerHTML = svg("plus") + '<span>'+t("Add to study")+'</span>'; host.appendChild(as); }
+      host.appendChild(printBtn("btn-ghost"));
     } else {
       var h = a.querySelector(":scope > h2"); if(!h) return;
       var row = document.createElement("div"); row.className = "ed21-ptools"; row.appendChild(mk);
-      h.insertAdjacentElement("afterend", row); mk.classList.add("btn-sm");
+      h.insertAdjacentElement("afterend", row); mk.classList.add("btn-sm"); row.appendChild(printBtn("btn-sm"));
     }
   }
   mk.setAttribute("aria-pressed", String(on));
@@ -153,10 +159,11 @@ function lede(id){ var a = art(id), p = a ? (a.querySelector(".lede") || a.query
 /* ====================================================================== Library page */
 var LIB = [
   ["Prayer", ["prayers"]],
-  ["Time", ["ref-zoom", "ref-timeline", "ref-otd", "ref-tree"]],
-  ["People and places", ["ref-people", "ref-atlas", "ref-councilmap", "ref-churches"]],
-  ["Councils and doctrine", ["ref-doctrines", "ref-councils", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
+  ["Timelines and calendars", ["ref-zoom", "ref-timeline", "ref-otd", "ref-calendar", "ref-tree"]],
+  ["People and places", ["ref-people", "ref-succession", "ref-spread", "ref-atlas", "ref-councilmap", "ref-churches"]],
+  ["Councils and doctrine", ["ref-doctrines", "ref-councils", "ref-heresies", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
   ["Texts and sources", ["ref-fathers", "ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
+  ["Worship and art", ["ref-buildings", "ref-icons"]],
   ["Pictures", ["ref-gallery", "ref-images"]],
   ["Bible companions", ["bible-dcnt", "bible-maps", "bible-canon", "bible-arcs"]]
 ];

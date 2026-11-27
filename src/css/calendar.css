@@ -1,0 +1,36 @@
+/* Saints and feasts (js/calendar.js) and its card on the home page. */
+#calMount{max-width:46rem}
+.cal-bar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.cal-today,.cal-mv{border:1px solid var(--rule);border-radius:var(--r-md);background:var(--panel);padding:14px 18px;margin:0 0 24px}
+.cal-mvh{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+.cal-mvh h3{margin:0}
+.cal-y{font:13px var(--font-ui);color:var(--muted)}
+.cal-y input{width:5.5em;margin-left:6px;padding:5px 8px;border:1px solid var(--rule-strong);border-radius:var(--r-sm);background:var(--paper);color:var(--ink);font:600 14px var(--font-ui)}
+.cal-sum{margin:6px 0 10px;font:14px/1.5 var(--font-ui);color:var(--muted)}
+.cal-list{list-style:none;margin:0;padding:0}
+.cal-row{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--rule)}
+.cal-list .cal-row:first-child{border-top:0}
+.cal-row.today .cal-d{color:var(--rubric)}
+.cal-d{font:600 13px/1.6 var(--font-ui);color:var(--muted);font-variant-numeric:tabular-nums}
+.cal-n{margin:0;font:600 1.02rem/1.4 var(--font-body);text-wrap:balance}
+.cal-n a{color:inherit;text-decoration-color:var(--rule-strong);text-underline-offset:3px}
+.cal-note{margin:3px 0 0;font:14px/1.5 var(--font-ui);color:var(--muted)}
+.cal-tags{margin:5px 0 0;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.cal-tag{font:600 10.5px/1 var(--font-ui);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:var(--r-sm);border:1px solid var(--rule);color:var(--muted)}
+.cal-tag.t-R{color:var(--rubric)}
+.cal-tag.t-B{color:var(--lapis)}
+.cal-tag.t-M{color:var(--verdigris)}
+.cal-tag.t-A{color:var(--porphyry)}
+.cal-old{font:12px var(--font-ui);color:var(--muted);margin-left:4px}
+.cal-empty{margin:4px 0;font:14px/1.5 var(--font-ui);color:var(--muted)}
+.cal-months{position:sticky;top:56px;z-index:2;display:flex;flex-wrap:wrap;gap:2px 10px;padding:8px 0;margin:0 0 8px;background:var(--paper);border-bottom:1px solid var(--rule);font:600 13px var(--font-ui)}
+.cal-months a{color:var(--muted);text-decoration:none;padding:4px 2px}
+.cal-months a:hover{color:var(--ink)}
+.cal-m{scroll-margin-top:110px}
+.cal-m h3{margin:26px 0 4px}
+.cal-cite{max-width:var(--measure);margin:28px 0 0;font:13px/1.55 var(--font-ui);color:var(--muted)}
+.cal-home ul{list-style:none;margin:6px 0 10px;padding:0}
+.cal-home li{margin:0 0 8px;font:15px/1.45 var(--font-body)}
+.cal-home li a{color:inherit}
+.cal-home .cal-tag{margin-left:4px;vertical-align:2px}
+@media print{.cal-months{position:static}}

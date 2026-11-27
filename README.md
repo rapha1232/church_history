@@ -1,9 +1,12 @@
 # History of the Christian Church
 
-A story-driven history of the Church in fifteen seasons, with the whole Bible in nine editions,
+A story-driven history of the Church in fifteen seasons, with the whole Bible in ten editions (Arabic among them),
 the original Greek and Hebrew with a lexicon, the Church Fathers on every verse, maps, a zoomable
-timeline, daily readings for Catholic, Orthodox and Anglican traditions, and a book of prayers
-from across the Church, sorted by theme. It runs as a web page,
+timeline, daily readings for Catholic, Orthodox and Anglican traditions, a book of prayers
+from across the Church, sorted by theme, a calendar of saints and feasts (Roman, Byzantine, Maronite
+and Anglican), the lists of apostolic succession, the heresies and the councils that answered them,
+guides to church buildings, the liturgy and icons, and an animated map of how Christianity spread.
+Every page can be printed or saved as PDF. It runs as a web page,
 an Android app and an installable iPhone/iPad web app, and works fully offline.
 
 ## Get the app
@@ -19,14 +22,14 @@ an Android app and an installable iPhone/iPad web app, and works fully offline.
 | Folder | Contents |
 |---|---|
 | `src/` | **The web app's source.** Pages (one file per `<article>`), stylesheets, scripts, JSON data and partials, put together into `site/index.html` by `scripts/build_site.py`. See [src/README.md](src/README.md) for how to edit a page or add a feature. |
-| `site/` | The built app. `index.html` is generated from `src/` and not committed. Also here: all images (`img/`, 344 pictures) and the Bible library (`bible/`: nine editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers' commentary, topics, people and places, lectionaries, early Christian texts). This is exactly what ships in the APK and the web app. |
+| `site/` | The built app. `index.html` is generated from `src/` and not committed. Also here: all images (`img/`, 344 pictures) and the Bible library (`bible/`: ten editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers' commentary, topics, people and places, lectionaries, early Christian texts). This is exactly what ships in the APK and the web app. |
 | `android/` | The Android project (Gradle, Kotlin and Java): WebView shell, bridge, widgets, notifications, study packs, backup, updater, resources in five languages, bundled fonts, unit tests in `android/test/`. |
 | `DESIGN.md` | The design contract: audit of the app, design direction and research, tokens, components, banned patterns and a checklist. Read it before changing the look. The design layer itself is `src/css/design.css` and `src/js/design.js`. |
 | `docs/` | `DISTRIBUTION.md`: signing key, releases, self-updates and free ways to distribute the app. |
-| `tools/` | Generators for the data in `site/bible/`: Bible texts (`bible.py`, `orig.py`, `bib2.py`, `tipnr.py`, `topics.py`, `wj.py`, `lect2.py`), the Fathers' commentary (`fathers.py`), the early Christian texts (`fathers_texts.py`, from public-domain CCEL editions, and `originals.py`, the Greek and Latin originals from Open Greek and Latin, CC BY-SA 4.0), the deuterocanon parallels (`dc_allusions.py`), the doctrine timeline (`doctrines.py`, which checks every quotation against its source) and the ready-made studies (`studies.py`). Also the Android resources (`widget_res.py`, `strings_res.py`, `icon.py`), fonts (`fonts.js`) and the widget data (`quotes.json`, `verses.json`, `onthisday.json`). |
+| `tools/` | Generators for the data in `site/bible/`: Bible texts (`bible.py`, `orig.py`, `bib2.py`, `tipnr.py`, `topics.py`, `wj.py`, `lect2.py`), the Fathers' commentary (`fathers.py`), the early Christian texts (`fathers_texts.py`, from public-domain CCEL editions, and `originals.py`, the Greek and Latin originals from Open Greek and Latin, CC BY-SA 4.0), the deuterocanon parallels (`dc_allusions.py`), the doctrine timeline (`doctrines.py`, which checks every quotation against its source), the ready-made studies (`studies.py`) and the Arabic Bible (`arabic.py`, from eBible.org's public-domain Van Dyck text). Also the Android resources (`widget_res.py`, `strings_res.py`, `icon.py`), fonts (`fonts.js`) and the widget data (`quotes.json`, `verses.json`, `onthisday.json`). |
 | `content/` | `docs.json`: the creeds and confessions library that `tools/doctrines.py` checks quotations against. |
 | `scripts/` | `build_site.py` (builds `site/index.html` from `src/`), `build_apk.sh` (Android build, APK and AAB), `prepare_assets.py` (copies the site into the app, leaving out the study packs) and `build_pwa.py` (iPhone/iPad web app). Both packaging scripts build the page themselves. |
-| `tests/` | `build_check.sh` (the page builds; generated data is current) and `smoke.js` (the app runs in Chromium). |
+| `tests/` | `build_check.sh` (the page builds; generated data is current), `smoke.js` (the app runs in Chromium) and `a11y.js` (axe-core finds no serious WCAG 2.1 AA problem on the main pages, in every theme). |
 | `.github/workflows/` | Checks on every pull request, automatic releases and the web app (below). |
 
 The generators in `tools/` were written for a working tree that also holds the downloaded source

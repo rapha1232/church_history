@@ -68,6 +68,8 @@ var T = {
 "Remove":["Quitar","Remover","Retirer","إزالة"], "Reading the file…":["Leyendo el archivo…","Lendo o arquivo…","Lecture du fichier…","جارٍ قراءة الملف…"],
 "books":["libros","livros","livres","سفرًا"], "verses":["versículos","versículos","versets","آية"],
 "No books were recognised in this file.":["No se reconoció ningún libro en este archivo.","Nenhum livro foi reconhecido neste arquivo.","Aucun livre n’a été reconnu dans ce fichier.","لم يُتعرّف على أي سفر في هذا الملف."],
+"Arabic Bible":["Biblia en árabe","Bíblia em árabe","Bible en arabe","الكتاب المقدس بالعربية"],
+"Smith–Van Dyck, 1865":["Smith–Van Dyck, 1865","Smith–Van Dyck, 1865","Smith–Van Dyck, 1865","ترجمة سميث وفان دايك، 1865"],
 "Offline study packs":["Paquetes de estudio sin conexión","Pacotes de estudo offline","Packs d’étude hors ligne","حزم الدراسة دون اتصال"],
 "Kept out of the app to make it smaller. Each part downloads the first time you open it; download a whole pack to use it offline.":["Fuera de la app para que pese menos. Cada parte se descarga la primera vez que la abres; descarga el paquete entero para usarlo sin conexión.","Fora do app para deixá-lo menor. Cada parte é baixada na primeira vez que você a abre; baixe o pacote inteiro para usá-lo offline.","Hors de l’app pour l’alléger. Chaque partie se télécharge à la première ouverture ; téléchargez tout le pack pour l’utiliser hors ligne.","خارج التطبيق لتصغير حجمه. يُنزَّل كل جزء أول مرة تفتحه؛ نزّل الحزمة كاملة لاستخدامها دون اتصال."],
 "Greek and Hebrew word study":["Estudio de palabras en griego y hebreo","Estudo de palavras em grego e hebraico","Étude des mots grecs et hébreux","دراسة الكلمات اليونانية والعبرية"],
@@ -90,14 +92,72 @@ var T = {
 "Bookmarked":["Guardado en marcadores","Salvo nos marcadores","Ajouté aux signets","أُضيفت إشارة"], "Bookmark removed":["Marcador quitado","Marcador removido","Signet retiré","أُزيلت الإشارة"],
 "View":["Ver","Ver","Voir","عرض"], "Undo":["Deshacer","Desfazer","Annuler","تراجع"], "Highlight deleted":["Subrayado eliminado","Destaque excluído","Surlignage supprimé","حُذف التظليل"],
 "Continue where you left off":["Sigue donde lo dejaste","Continue de onde parou","Reprenez où vous en étiez","تابع من حيث توقفت"], "Resume":["Seguir","Continuar","Reprendre","متابعة"], "min left":["min restantes","min restantes","min restantes","دقيقة متبقية"],
-"What the Fathers said":["Qué dijeron los Padres","O que disseram os Padres","Ce qu’ont dit les Pères","ماذا قال الآباء"]
+"What the Fathers said":["Qué dijeron los Padres","O que disseram os Padres","Ce qu’ont dit les Pères","ماذا قال الآباء"],
+"Print or save as PDF":["Imprimir o guardar como PDF", "Imprimir ou salvar como PDF", "Imprimer ou enregistrer en PDF", "طباعة أو حفظ بصيغة PDF"],
+"Saved. Open the file to print it or save it as PDF.":["Guardado. Abre el archivo para imprimirlo o guardarlo como PDF.", "Salvo. Abra o arquivo para imprimi-lo ou salvá-lo como PDF.", "Enregistré. Ouvrez le fichier pour l’imprimer ou l’enregistrer en PDF.", "تم الحفظ. افتح الملف لطباعته أو حفظه بصيغة PDF."],
+"Could not save the page":["No se pudo guardar la página", "Não foi possível salvar a página", "Impossible d’enregistrer la page", "تعذّر حفظ الصفحة"],
+"Timelines and calendars":["Cronologías y calendarios", "Cronologias e calendários", "Chronologies et calendriers", "التسلسل الزمني والتقاويم"],
+"Worship and art":["Culto y arte", "Culto e arte", "Culte et art", "العبادة والفن"],
+"All traditions":["Todas las tradiciones", "Todas as tradições", "Toutes les traditions", "كل التقاليد"],
+"Roman":["Romano", "Romano", "Romain", "الروماني"],
+"Byzantine":["Bizantino", "Bizantino", "Byzantin", "البيزنطي"],
+"Maronite":["Maronita", "Maronita", "Maronite", "الماروني"],
+"Anglican":["Anglicano", "Anglicano", "Anglican", "الأنجليكاني"],
+"Movable feasts":["Fiestas móviles", "Festas móveis", "Fêtes mobiles", "الأعياد المتنقلة"],
+"Year":["Año", "Ano", "Année", "السنة"],
+"Today":["Hoy", "Hoje", "Aujourd’hui", "اليوم"],
+"Today in the Church’s year":["Hoy en el año litúrgico", "Hoje no ano litúrgico", "Aujourd’hui dans l’année liturgique", "اليوم في السنة الطقسية"],
+"Meanwhile in the world":["Mientras tanto en el mundo", "Enquanto isso no mundo", "Pendant ce temps dans le monde", "في الوقت نفسه في العالم"],
+"All subjects":["Todos los temas", "Todos os temas", "Tous les sujets", "كل المواضيع"],
+"God and the Trinity":["Dios y la Trinidad", "Deus e a Trindade", "Dieu et la Trinité", "الله والثالوث"],
+"Christ":["Cristo", "Cristo", "Le Christ", "المسيح"],
+"Sin and grace":["Pecado y gracia", "Pecado e graça", "Péché et grâce", "الخطيئة والنعمة"],
+"Church and sacraments":["Iglesia y sacramentos", "Igreja e sacramentos", "Église et sacrements", "الكنيسة والأسرار"],
+"Scripture and revelation":["Escritura y revelación", "Escritura e revelação", "Écriture et révélation", "الكتاب المقدس والوحي"],
+"Matter and dualism":["Materia y dualismo", "Matéria e dualismo", "Matière et dualisme", "المادة والثنائية"],
+"Images":["Imágenes", "Imagens", "Images", "الصور"],
+"All periods":["Todas las épocas", "Todas as épocas", "Toutes les époques", "كل الحقب"],
+"To 300":["Hasta 300", "Até 300", "Jusqu’à 300", "حتى 300"],
+"After 1500":["Después de 1500", "Depois de 1500", "Après 1500", "بعد 1500"],
+"Something like it today":["Algo parecido hoy", "Algo parecido hoje", "Un équivalent aujourd’hui", "ما يشبهها اليوم"],
+"Follow the story":["Seguir la historia", "Seguir a história", "Suivre l’histoire", "تتبّع القصة"],
+"Mediterranean":["Mediterráneo", "Mediterrâneo", "Méditerranée", "المتوسط"],
+"World":["Mundo", "Mundo", "Monde", "العالم"],
+"Play":["Reproducir", "Reproduzir", "Lecture", "تشغيل"],
+"Pause":["Pausa", "Pausar", "Pause", "إيقاف مؤقت"],
+"Most recent":["Lo más reciente", "Mais recentes", "Les plus récents", "الأحدث"],
+"All":["Todo", "Tudo", "Tout", "الكل"],
+"Councils":["Concilios", "Concílios", "Conciles", "المجامع"],
+"Documents":["Documentos", "Documentos", "Documents", "الوثائق"],
+"Quotes":["Citas", "Citações", "Citations", "الأقوال"],
+"Glossary":["Glosario", "Glossário", "Glossaire", "المسرد"],
+"Reference":["Referencia", "Referência", "Référence", "المراجع"],
+"Prayers":["Oraciones", "Orações", "Prières", "الصلوات"],
+"Rome":["Roma", "Roma", "Rome", "روما"],
+"Constantinople":["Constantinopla", "Constantinopla", "Constantinople", "القسطنطينية"],
+"Alexandria":["Alejandría", "Alexandria", "Alexandrie", "الإسكندرية"],
+"Antioch":["Antioquía", "Antioquia", "Antioche", "أنطاكية"],
+"Jerusalem":["Jerusalén", "Jerusalém", "Jérusalem", "القدس"],
+"Canterbury":["Canterbury", "Cantuária", "Cantorbéry", "كانتربري"],
+"Basilica":["Basílica", "Basílica", "Basilique", "البازيليكا"],
+"Cross-in-square":["Cruz inscrita", "Cruz inscrita", "Croix inscrite", "الصليب داخل المربع"],
+"Gothic cathedral":["Catedral gótica", "Catedral gótica", "Cathédrale gothique", "الكاتدرائية القوطية"],
+"The Eucharist compared":["La Eucaristía comparada", "A Eucaristia comparada", "L’Eucharistie comparée", "مقارنة الإفخارستيا"],
+"Why icons":["Por qué los iconos", "Por que ícones", "Pourquoi les icônes", "لماذا الأيقونات"],
+"Reading the image":["Leer la imagen", "Ler a imagem", "Lire l’image", "قراءة الصورة"],
+"The Mother of God":["La Madre de Dios", "A Mãe de Deus", "La Mère de Dieu", "والدة الإله"],
+"The feasts":["Las fiestas", "As festas", "Les fêtes", "الأعياد"],
+"East and West":["Oriente y Occidente", "Oriente e Ocidente", "Orient et Occident", "الشرق والغرب"],
+"Prayer":["Oración", "Oração", "Prière", "الصلاة"],
+"Search the history":["Buscar en la historia", "Pesquisar na história", "Rechercher dans l’histoire", "ابحث في التاريخ"],
+"Search people, councils, terms, or John 3:16…":["Busca personas, concilios, términos o Juan 3:16…", "Pesquise pessoas, concílios, termos ou João 3:16…", "Cherchez des personnes, des conciles, des termes ou Jean 3,16…", "ابحث عن أشخاص أو مجامع أو مصطلحات أو يوحنا 3:16…"]
 };
 var IDX = {en:-1, es:0, pt:1, fr:2, ar:3};
 function deviceLang(){ var l = (navigator.language || "en").slice(0,2).toLowerCase(); return IDX[l] != null ? l : "en"; }
 var LANG = get("hcc.lang", "") || (has("getLanguage") ? (function(){ try{ return APP.getLanguage(); }catch(e){ return ""; } })() : "") || deviceLang();
 if(IDX[LANG] == null) LANG = "en";
 function t(en){ var r = T[en]; return r && IDX[LANG] >= 0 ? r[IDX[LANG]] : en; }
-var SCOPE = ".tabbar, .ed21-nav, .ed21-tabs, .ed21-acts, .ed21-h, .ed21-sh, .ed21-ptools, .ed21-ph, .ed21-fld > label, .ed21-types, .ed21-dact, .st-acts, .st-kind, .st-back, .st-add, .st-lab, .ed21-addv, .ed21-addf, .ed21-addvs, .ed21-adddoc, .co-act, #series > .eyebrow, #series > h2, #library > .eyebrow, #studies > .eyebrow, #studies > h2, .bib-seg, .navtabs, .rset, .today-h, .today-jump, .qotd, .votd, .bib-tools, .vs-tabs, .vs-acts, .shelf-h, .shelves > p, .onb, #ref-settings, .wset, .card-set summary, .takeaways > h4, .why .shelf-h";
+var SCOPE = ".tabbar, .ed21-nav, .ed21-tabs, .ed21-acts, .ed21-h, .ed21-sh, .ed21-ptools, .ed21-ph, .ed21-fld > label, .ed21-types, .ed21-dact, .st-acts, .st-kind, .st-back, .st-add, .st-lab, .ed21-addv, .ed21-addf, .ed21-addvs, .ed21-adddoc, .co-act, #series > .eyebrow, #series > h2, #library > .eyebrow, #studies > .eyebrow, #studies > h2, .bib-seg, .navtabs, .rset, .today-h, .today-jump, .qotd, .votd, .bib-tools, .vs-tabs, .vs-acts, .shelf-h, .shelves > p, .onb, #ref-settings, .wset, .card-set summary, .takeaways > h4, .why .shelf-h, .cal-bar, .cal-mvh, .hx-bar, .sc-tabs, .sp-views, .sp-h, .sx-f, .mw-h";
 var ORIG = typeof WeakMap === "function" ? new WeakMap() : null;
 function translate(){
   if(!ORIG) return;
@@ -120,6 +180,7 @@ function setLang(l){
   LANG = IDX[l] != null ? l : "en"; put("hcc.lang", LANG);
   if(has("setLanguage")) try{ APP.setLanguage(LANG === "en" && deviceLang() === "en" ? "" : LANG); }catch(e){}
   translate(); render();
+  try{ dispatchEvent(new Event("hcc:lang")); }catch(e){}
 }
 
 /* ====================== backup of everything the reader has made ====================== */
@@ -231,7 +292,7 @@ function editionMeta(id, name, short, trad, books){
 }
 
 /* ====================== the Settings page ====================== */
-var PACKS = {study: ["Greek and Hebrew word study", "Word by word, lexicons and concordance"], greek: ["Greek Bible", "Septuagint and New Testament in Greek"], latin: ["Latin Vulgate", "Clementine edition, 1592"]};
+var PACKS = {study: ["Greek and Hebrew word study", "Word by word, lexicons and concordance"], greek: ["Greek Bible", "Septuagint and New Testament in Greek"], latin: ["Latin Vulgate", "Clementine edition, 1592"], arabic: ["Arabic Bible", "Smith–Van Dyck, 1865"]};
 var packProg = {};
 window.HCCPackProgress = function(p){
   if(!p) return; packProg[p.pack] = p;

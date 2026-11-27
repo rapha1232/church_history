@@ -29,3 +29,15 @@
 .docrel{display:flex;flex-wrap:wrap;gap:6px}
 .txtbtn.sm{font-size:12.5px;padding:4px 10px}
 
+
+/* search filters: chips above the results; picking one shows only that group, with more results */
+.sx-f{position:sticky;top:0;z-index:2;display:flex;gap:6px;overflow-x:auto;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--rule);scrollbar-width:none}
+.sx-f::-webkit-scrollbar{display:none}
+.sx-f .chip{flex:none;min-height:32px!important;padding:3px 11px;font-size:12.5px!important}
+.sx-f .chip span{color:var(--muted);font-weight:500;margin-left:2px}
+.sx-f .chip[aria-pressed="true"] span{color:inherit;opacity:.75}
+.sx-f~.sx-g .sx-h{top:49px}
+#results[data-f]:not([data-f=""]) .sx-g:not([data-sxg]),#results[data-f="ep"] .sx-g:not([data-sxg="ep"]),#results[data-f="season"] .sx-g:not([data-sxg="season"]),#results[data-f="people"] .sx-g:not([data-sxg="people"]),
+#results[data-f="council"] .sx-g:not([data-sxg="council"]),#results[data-f="doc"] .sx-g:not([data-sxg="doc"]),#results[data-f="quote"] .sx-g:not([data-sxg="quote"]),#results[data-f="gloss"] .sx-g:not([data-sxg="gloss"]),
+#results[data-f="ref"] .sx-g:not([data-sxg="ref"]),#results[data-f="prayers"] .sx-g:not([data-sxg="prayers"]),#results[data-f="bible"] .sx-g:not([data-sxg="bible"]){display:none}
+#results[data-f]:not([data-f=""]) .sx-did{display:none}
