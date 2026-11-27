@@ -68,6 +68,8 @@ var T = {
 "Remove":["Quitar","Remover","Retirer","إزالة"], "Reading the file…":["Leyendo el archivo…","Lendo o arquivo…","Lecture du fichier…","جارٍ قراءة الملف…"],
 "books":["libros","livros","livres","سفرًا"], "verses":["versículos","versículos","versets","آية"],
 "No books were recognised in this file.":["No se reconoció ningún libro en este archivo.","Nenhum livro foi reconhecido neste arquivo.","Aucun livre n’a été reconnu dans ce fichier.","لم يُتعرّف على أي سفر في هذا الملف."],
+"Arabic Bible":["Biblia en árabe","Bíblia em árabe","Bible en arabe","الكتاب المقدس بالعربية"],
+"Smith–Van Dyck, 1865":["Smith–Van Dyck, 1865","Smith–Van Dyck, 1865","Smith–Van Dyck, 1865","ترجمة سميث وفان دايك، 1865"],
 "Offline study packs":["Paquetes de estudio sin conexión","Pacotes de estudo offline","Packs d’étude hors ligne","حزم الدراسة دون اتصال"],
 "Kept out of the app to make it smaller. Each part downloads the first time you open it; download a whole pack to use it offline.":["Fuera de la app para que pese menos. Cada parte se descarga la primera vez que la abres; descarga el paquete entero para usarlo sin conexión.","Fora do app para deixá-lo menor. Cada parte é baixada na primeira vez que você a abre; baixe o pacote inteiro para usá-lo offline.","Hors de l’app pour l’alléger. Chaque partie se télécharge à la première ouverture ; téléchargez tout le pack pour l’utiliser hors ligne.","خارج التطبيق لتصغير حجمه. يُنزَّل كل جزء أول مرة تفتحه؛ نزّل الحزمة كاملة لاستخدامها دون اتصال."],
 "Greek and Hebrew word study":["Estudio de palabras en griego y hebreo","Estudo de palavras em grego e hebraico","Étude des mots grecs et hébreux","دراسة الكلمات اليونانية والعبرية"],
@@ -231,7 +233,7 @@ function editionMeta(id, name, short, trad, books){
 }
 
 /* ====================== the Settings page ====================== */
-var PACKS = {study: ["Greek and Hebrew word study", "Word by word, lexicons and concordance"], greek: ["Greek Bible", "Septuagint and New Testament in Greek"], latin: ["Latin Vulgate", "Clementine edition, 1592"]};
+var PACKS = {study: ["Greek and Hebrew word study", "Word by word, lexicons and concordance"], greek: ["Greek Bible", "Septuagint and New Testament in Greek"], latin: ["Latin Vulgate", "Clementine edition, 1592"], arabic: ["Arabic Bible", "Smith–Van Dyck, 1865"]};
 var packProg = {};
 window.HCCPackProgress = function(p){
   if(!p) return; packProg[p.pack] = p;

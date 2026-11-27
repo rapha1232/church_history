@@ -1,6 +1,6 @@
 # History of the Christian Church
 
-A story-driven history of the Church in fifteen seasons, with the whole Bible in nine editions,
+A story-driven history of the Church in fifteen seasons, with the whole Bible in ten editions (Arabic among them),
 the original Greek and Hebrew with a lexicon, the Church Fathers on every verse, maps, a zoomable
 timeline, daily readings for Catholic, Orthodox and Anglican traditions, and a book of prayers
 from across the Church, sorted by theme. It runs as a web page,
@@ -19,7 +19,7 @@ an Android app and an installable iPhone/iPad web app, and works fully offline.
 | Folder | Contents |
 |---|---|
 | `src/` | **The web app's source.** Pages (one file per `<article>`), stylesheets, scripts, JSON data and partials, put together into `site/index.html` by `scripts/build_site.py`. See [src/README.md](src/README.md) for how to edit a page or add a feature. |
-| `site/` | The built app. `index.html` is generated from `src/` and not committed. Also here: all images (`img/`, 344 pictures) and the Bible library (`bible/`: nine editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers' commentary, topics, people and places, lectionaries, early Christian texts). This is exactly what ships in the APK and the web app. |
+| `site/` | The built app. `index.html` is generated from `src/` and not committed. Also here: all images (`img/`, 344 pictures) and the Bible library (`bible/`: ten editions, Greek and Hebrew word data, lexicons, cross-references, the Fathers' commentary, topics, people and places, lectionaries, early Christian texts). This is exactly what ships in the APK and the web app. |
 | `android/` | The Android project (Gradle, Kotlin and Java): WebView shell, bridge, widgets, notifications, study packs, backup, updater, resources in five languages, bundled fonts, unit tests in `android/test/`. |
 | `DESIGN.md` | The design contract: audit of the app, design direction and research, tokens, components, banned patterns and a checklist. Read it before changing the look. The design layer itself is `src/css/design.css` and `src/js/design.js`. |
 | `docs/` | `DISTRIBUTION.md`: signing key, releases, self-updates and free ways to distribute the app. |

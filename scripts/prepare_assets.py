@@ -5,7 +5,7 @@ import json, os, re, shutil, sys
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) + '/'
 A = R + 'android/assets/'
 # word-by-word Greek and Hebrew, lexicons, concordance, the Greek Bible and the Latin Vulgate
-PACKS = {'study': ['bible/orig', 'bible/lex', 'bible/conc'], 'greek': ['bible/lxxg'], 'latin': ['bible/vul']}
+PACKS = {'study': ['bible/orig', 'bible/lex', 'bible/conc'], 'greek': ['bible/lxxg'], 'latin': ['bible/vul'], 'arabic': ['bible/arb']}
 
 sys.path.insert(0, R + 'scripts')
 from build_site import build
