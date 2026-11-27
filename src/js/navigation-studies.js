@@ -157,6 +157,7 @@ var LIB = [
   ["People and places", ["ref-people", "ref-succession", "ref-atlas", "ref-councilmap", "ref-churches"]],
   ["Councils and doctrine", ["ref-doctrines", "ref-councils", "ref-heresies", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
   ["Texts and sources", ["ref-fathers", "ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
+  ["Worship and art", ["ref-buildings", "ref-icons"]],
   ["Pictures", ["ref-gallery", "ref-images"]],
   ["Bible companions", ["bible-dcnt", "bible-maps", "bible-canon", "bible-arcs"]]
 ];

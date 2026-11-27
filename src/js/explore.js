@@ -39,11 +39,10 @@ if(hx){
   apply();
 }
 
-/* ---------- succession: the see tabs ---------- */
-var sx = $("#ref-succession");
-if(sx) sx.addEventListener("click", function(e){
-  var a = e.target.closest("[data-sx]"); if(!a) return; e.preventDefault();
-  history.replaceState(null, "", "#ref-succession~" + a.dataset.sx); sub();
+/* ---------- in-page tabs (succession, buildings, icons): jump without leaving the page ---------- */
+document.addEventListener("click", function(e){
+  var a = e.target.closest("[data-sx],[data-gd]"), art = a && a.closest("article[data-sub]"); if(!art) return; e.preventDefault();
+  history.replaceState(null, "", "#" + art.id + "~" + (a.dataset.sx || a.dataset.gd)); sub();
 });
 
 /* ---------- meanwhile in the world ---------- */
