@@ -60,7 +60,7 @@ function render(){
   var now = new Date(), y = st.y || now.getFullYear(), today = on(now).filter(function(r){ return pass(r.t); });
   var h = '<div class="cal-bar" role="group" aria-label="Tradition"><button type="button" class="chip" data-ct="" aria-pressed="'+(!st.t)+'">All traditions</button>' +
     Object.keys(TR).map(function(k){ return '<button type="button" class="chip" data-ct="'+k+'" aria-pressed="'+(st.t === k)+'">'+esc(TR[k][0])+'</button>'; }).join("") + '</div>';
-  h += '<section class="cal-today" aria-label="Today"><p class="shelf-h">Today · '+esc(fmt(now, true))+'</p>' + (today.length ? '<ul class="cal-list">' + today.map(function(r){ r.today = 1; return row(fmt(r.d), r); }).join("") + '</ul>' :
+  h += '<section class="cal-today" aria-label="Today"><p class="shelf-h"><span>Today</span> · '+esc(fmt(now, true))+'</p>' + (today.length ? '<ul class="cal-list">' + today.map(function(r){ r.today = 1; return row(fmt(r.d), r); }).join("") + '</ul>' :
     '<p class="cal-empty">No commemoration from this list today'+(st.t ? ' in the '+esc(TR[st.t][0])+' calendar' : "")+'. ' + nextLabel(now) + '</p>') + '</section>';
   var mv = movable(y).filter(function(r){ return pass(r.t); });
   h += '<section class="cal-mv"><div class="cal-mvh"><h3>Movable feasts</h3><label class="cal-y">Year <input type="number" id="calY" min="1583" max="4099" value="'+y+'" inputmode="numeric"></label></div>' +

@@ -61,8 +61,8 @@ setTimeout(offerResume, 1600);
 var q = $("#q"), res = $("#results");
 if(q && res){
   var phone = matchMedia("(max-width: 760px)");
-  function ph(){ q.placeholder = phone.matches ? "Search the history" : "Search people, councils, terms, or John 3:16…  ( / )"; }
-  ph(); if(phone.addEventListener) phone.addEventListener("change", ph);
+  function ph(){ var tt = window.HCCSettings && HCCSettings.t ? HCCSettings.t : String; q.placeholder = phone.matches ? tt("Search the history") : tt("Search people, councils, terms, or John 3:16…") + "  ( / )"; }
+  ph(); if(phone.addEventListener) phone.addEventListener("change", ph); addEventListener("hcc:lang", ph);
   var SUGGEST = ["Nicaea", "Augustine", "Great Schism", "Reformation", "Chalcedon", "Desert Fathers", "Icons", "Church of the East"];
   function recent(){ var r = get("hcc.recent", []); return Array.isArray(r) ? r : []; }
   function addRecent(v){ v = String(v || "").trim(); if(v.length < 2) return; var r = recent().filter(function(x){ return x.toLowerCase() !== v.toLowerCase(); }); r.unshift(v); put("hcc.recent", r.slice(0, 6)); }

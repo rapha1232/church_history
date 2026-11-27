@@ -57,7 +57,7 @@ function strip(){
   if(!ev.length) return;
   if(ev.length > 5){ var step = (ev.length - 1) / 4, pick = []; for(var i = 0; i < 5; i++) pick.push(ev[Math.round(i * step)]); ev = pick; }
   var box = document.createElement("aside"); box.className = "mw"; box.setAttribute("aria-label", "Meanwhile in the world");
-  box.innerHTML = '<p class="shelf-h">Meanwhile in the world · '+esc(fy(lo))+'–'+esc(fy(hi))+'</p><ol>' + ev.map(function(w){ return '<li><b>'+esc(fy(w[0]))+'</b><span>'+esc(w[1])+'</span><small>'+esc(w[2])+'</small></li>'; }).join("") + '</ol>';
+  box.innerHTML = '<p class="shelf-h mw-h"><span>Meanwhile in the world</span> · '+esc(fy(lo))+'–'+esc(fy(hi))+'</p><ol>' + ev.map(function(w){ return '<li><b>'+esc(fy(w[0]))+'</b><span>'+esc(w[1])+'</span><small>'+esc(w[2])+'</small></li>'; }).join("") + '</ol>';
   var at = $(":scope > .upnext", a) || $(":scope > section.notes", a) || $(":scope > .pager", a);
   if(at) a.insertBefore(box, at); else a.appendChild(box);
 }

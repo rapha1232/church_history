@@ -22,7 +22,7 @@ function build(){
     '<div class="sp-top"><div class="sp-y" aria-live="off"><b id="spYear">30</b><span id="spCount"></span></div>' +
     '<div class="sp-views" role="group" aria-label="Map extent"><button type="button" class="chip" data-spv="auto" aria-pressed="true">Follow the story</button><button type="button" class="chip" data-spv="med" aria-pressed="false">Mediterranean</button><button type="button" class="chip" data-spv="world" aria-pressed="false">World</button></div></div>' +
     '<figure class="sp-map"><svg id="spSvg" role="img" aria-label="Map of the spread of Christianity"><use href="#landR" class="land" id="spLand"/><g id="spDots"></g></svg></figure>' +
-    '<div class="sp-ctl"><button type="button" class="btn-sm pri" id="spPlay" aria-label="Play">▶ Play</button>' +
+    '<div class="sp-ctl"><button type="button" class="btn-sm pri" id="spPlay" aria-label="'+tr("Play")+'">▶ '+tr("Play")+'</button>' +
     '<label class="sp-range"><span class="vh">Year</span><input type="range" id="spR" min="'+MIN+'" max="'+MAX+'" step="1" value="'+year+'" aria-valuetext="AD '+year+'"></label></div>' +
     '<div class="sp-scale" aria-hidden="true"><span>30</span><span>500</span><span>1000</span><span>1500</span><span>2000</span></div>' +
     '<h3 class="sp-h">Most recent</h3><ol class="sp-list" id="spList"></ol>';
@@ -57,8 +57,9 @@ function tick(t){
   draw(); if(year >= MAX) return stop();
   raf = requestAnimationFrame(tick);
 }
-function play(){ if(year >= MAX) year = MIN; playing = true; last = 0; $("#spPlay").textContent = "❚❚ Pause"; $("#spPlay").setAttribute("aria-label", "Pause"); raf = requestAnimationFrame(tick); }
-function stop(){ playing = false; cancelAnimationFrame(raf); var b = $("#spPlay"); if(b){ b.textContent = "▶ Play"; b.setAttribute("aria-label", "Play"); } }
+function tr(x){ return window.HCCSettings && HCCSettings.t ? HCCSettings.t(x) : x; }
+function play(){ if(year >= MAX) year = MIN; playing = true; last = 0; $("#spPlay").textContent = "❚❚ " + tr("Pause"); $("#spPlay").setAttribute("aria-label", tr("Pause")); raf = requestAnimationFrame(tick); }
+function stop(){ playing = false; cancelAnimationFrame(raf); var b = $("#spPlay"); if(b){ b.textContent = "▶ " + tr("Play"); b.setAttribute("aria-label", tr("Play")); } }
 
 mount.addEventListener("input", function(e){ if(e.target.id === "spR"){ stop(); year = +e.target.value; draw(); } });
 mount.addEventListener("click", function(e){
