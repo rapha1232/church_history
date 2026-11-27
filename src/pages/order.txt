@@ -165,6 +165,7 @@ reference/ref-succession.html
 reference/ref-heresies.html
 reference/ref-buildings.html
 reference/ref-icons.html
+reference/ref-spread.html
 reference/ref-plans.html
 reference/ref-originals.html
 reference/ref-councilmap.html

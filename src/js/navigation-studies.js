@@ -154,7 +154,7 @@ function lede(id){ var a = art(id), p = a ? (a.querySelector(".lede") || a.query
 var LIB = [
   ["Prayer", ["prayers"]],
   ["Time", ["ref-zoom", "ref-timeline", "ref-otd", "ref-calendar", "ref-tree"]],
-  ["People and places", ["ref-people", "ref-succession", "ref-atlas", "ref-councilmap", "ref-churches"]],
+  ["People and places", ["ref-people", "ref-succession", "ref-spread", "ref-atlas", "ref-councilmap", "ref-churches"]],
   ["Councils and doctrine", ["ref-doctrines", "ref-councils", "ref-heresies", "ref-debates", "ref-controversies", "ref-compare", "ref-myths", "ref-glossary"]],
   ["Texts and sources", ["ref-fathers", "ref-texts", "ref-docs", "ref-originals", "ref-bib", "ref-register", "ref-report"]],
   ["Worship and art", ["ref-buildings", "ref-icons"]],

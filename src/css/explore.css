@@ -91,3 +91,41 @@
 .gd-note{font:14px/1.55 var(--font-ui);color:var(--muted)}
 @media (max-width:620px){.gd-dl{grid-template-columns:1fr;gap:2px}.gd-dl dd{margin-bottom:10px}}
 .gd-lit tbody th{position:sticky;left:0;z-index:1;background:var(--panel)}
+
+/* ---------- how Christianity spread ---------- */
+#spMount{max-width:56rem}
+.sp-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px;margin:8px 0 10px}
+.sp-y b{display:block;font:600 2.4rem/1 var(--font-display);font-variant-numeric:tabular-nums lining-nums}
+.sp-y span{font:13px var(--font-ui);color:var(--muted)}
+.sp-views{display:flex;flex-wrap:wrap;gap:6px}
+.sp-map{margin:0;border:1px solid var(--rule);border-radius:var(--r-md);background:color-mix(in srgb,var(--lapis) 7%,var(--paper));overflow:hidden}
+.sp-map svg{display:block;width:100%;height:auto;max-height:70vh}
+.sp-map .land{fill:color-mix(in srgb,var(--ink) 11%,var(--panel));stroke:color-mix(in srgb,var(--ink) 25%,transparent);stroke-width:.6;vector-effect:non-scaling-stroke}
+.sp-pt{opacity:0;transition:opacity .4s var(--ease);pointer-events:none}
+.sp-pt.on{opacity:1;pointer-events:auto;cursor:pointer}
+.sp-dot{fill:var(--rubric);stroke:var(--paper);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.sp-pt.trad .sp-dot{fill:var(--paper);stroke:var(--rubric);stroke-width:2;stroke-dasharray:3 2}
+.sp-ring{fill:none;stroke:var(--rubric);stroke-width:1.5;vector-effect:non-scaling-stroke;opacity:0}
+.sp-pt.new .sp-ring{animation:spPulse 1.6s var(--ease) infinite}
+.still .sp-pt.new .sp-ring,.still .sp-pt{animation:none;transition:none}
+@keyframes spPulse{0%{opacity:.8;transform:scale(.45)}100%{opacity:0;transform:scale(1)}}
+.sp-l{fill:var(--ink);font-family:var(--font-ui);font-weight:600;paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round;vector-effect:non-scaling-stroke;opacity:0;transition:opacity .3s}
+.sp-pt.lab .sp-l,.sp-pt.on:hover .sp-l{opacity:1}
+.sp-ctl{display:flex;align-items:center;gap:12px;margin:12px 0 2px}
+.sp-ctl .btn-sm{min-width:6.5em;flex:none}
+.sp-range{flex:1;display:flex}
+.sp-range input{width:100%;accent-color:var(--rubric)}
+.sp-scale{display:flex;justify-content:space-between;margin:0 0 0 calc(6.5em + 30px);font:11px var(--font-ui);color:var(--muted)}
+.sp-h{margin:22px 0 6px}
+.sp-list{list-style:none;margin:0;padding:0}
+.sp-list li{display:grid;grid-template-columns:4.4em minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px solid var(--rule)}
+.sp-list li:first-child{border-top:0}
+.sp-list b{font:600 14px var(--font-ui);color:var(--rubric);font-variant-numeric:tabular-nums}
+.sp-list b small{display:block;font-weight:400;color:var(--muted)}
+.sp-n{margin:0;font:600 1rem/1.35 var(--font-body)}
+.sp-n a{color:inherit}
+.sp-note{margin:2px 0 0;font:14px/1.5 var(--font-ui);color:var(--muted)}
+.sp-empty{display:block!important;font:14px var(--font-ui);color:var(--muted)}
+.sp-cite{max-width:var(--measure);margin:28px 0 0;font:13px/1.55 var(--font-ui);color:var(--muted)}
+@media (max-width:620px){.sp-scale{margin-left:calc(6.5em + 22px)}.sp-y b{font-size:2rem}}
+.sp-map svg.wv .land{stroke:none}
